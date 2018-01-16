@@ -29,16 +29,22 @@
                 <div class="panel-heading" style="background-color: #00264d;">Altara Credit Customer Registration</div>
                 <div class="panel-body">
                     <div class="row" style=" margin:10px;padding:10px;">
-                        <div class="col-sm-6" style="margin:0 auto; margin-bottom:10px;">
+                        <div class="col-sm-4" style="margin:0 auto; margin-bottom:10px;">
                             <div style="margin:0 auto; width:250px;"><img src="reg.png" width="40" height="40" />
                                 <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success btn-small" style="font-size:12px">Register Customer</button>
                             </div>
                         </div>
-                        <div class="col-sm-6" style="margin:0 auto; margin-bottom:10px;">
+                        <div class="col-sm-4" style="margin:0 auto; margin-bottom:10px;">
                             <div style="margin:0 auto;width:250px;">
                                 <img src="update.png" width="40" height="40" />
 
                                 <button type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#myModal2" style="font-size:12px">Update Customer's Info</button>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4" style="margin:0 auto; margin-bottom:10px;">
+                            <div style="margin:0 auto; width:250px;"><img src="reg.png" width="40" height="40" />
+                                <button type="button" data-toggle="modal" data-target="#myModal3" class="btn btn-success btn-small" style="font-size:12px">Customer List</button>
                             </div>
                         </div>
                     </div>
@@ -1245,17 +1251,75 @@
                     </div>
                 </div>
             </div>
+
+            <div id="myModal3" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="panel-heading" style="background-color: #00264d;">
+                            <h4 class="modal-title" style="color:white">Altara Credit Customer Registration</h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="clear"></div>
+
+                            <div class="form-group table-responsive" style="width:600px;margin:0 auto;" >
+                                <table class=" table table-bordered list ">
+                                    <tr>
+                                        <th>S/No.</th>
+                                        <th>Customer ID</th>
+                                        <th>Customer Name</th>
+                                        
+                                    </tr>
+                                    <tr v-for="(list_customer , index) in list_customers">
+                                        <td>{{index + 1}}</td>
+                                        <td>{{list_customer.customer_id}}</td>
+                                        <td>{{list_customer.first_name}} {{list_customer.middle_name}} {{list_customer.last_name}}</td>
+                                        
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
-
+    <script type="text/x-template" id="grid-template">
+        <table>
+          <thead>
+            <tr>
+              <th v-for="key in columns">
+                {{key | capitalize}}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="entry in data">
+              <td v-for="key in columns">
+                {{entry[key]}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </script>
     <script type="text/javascript" src="axios.js">
     </script>
     <script type="text/javascript" src="https://unpkg.com/vue@2.5.2">
     </script>
     <script type="text/javascript" src="app.js">
     </script>
-
+<script>
+    Vue.component('grid', {
+  template: '#grid-template',
+  props: {
+    data: Array,
+    columns: Array
+  }
+});
+  </script> 
 </body>
 
 </html>

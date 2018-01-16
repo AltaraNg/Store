@@ -7,6 +7,13 @@ const ERRORS = {
 var app = new Vue({
     el: '#root',
     data: {
+
+        searchQuery: '',
+        gridColumns: ['name', 'power'],
+        gridData: gridData,
+        startRow: 0,
+        rowsPerPage: 10,
+
         errorMessageChk: '',
         successMessageChk: '',
         CheckCusId: "",
@@ -113,8 +120,7 @@ var app = new Vue({
             guaarea: '',
         },
         showGuaForm: false,
-
-        SelectedGuaData: {
+        list_customers: [],        SelectedGuaData: {
             custId: '',
             workguafname: '',
             workguamname: '',
@@ -210,7 +216,7 @@ var app = new Vue({
 
     mounted: function() {
         console.log('mounted');
-
+        this.ListCustomers();
     },
 
     computed: {
@@ -921,6 +927,17 @@ var app = new Vue({
     },
 
     methods: {
+        ListCustomers: function() {
+            axios.get("https://altara-api.herokuapp.com/api.php?action=list")
+                .then(function(response) {
+                    /*   console.log(response); */
+                    if (response.data.error) {
+                        app.errorMessage = response.data.message;
+                    } else {
+                        app.list_customers = response.data.users;
+                    }
+                });
+        },
 
         checkCust: function() {
             if (app.CheckCusId == '') {
@@ -1115,7 +1132,7 @@ var app = new Vue({
                 event.preventDefault()
                 this.submition = true
                 this.saveUser();
-                this.sendNotification(app.Newdata.fname, app.Newdata.telno);
+                // this.sendNotification(app.Newdata.fname, app.Newdata.telno);
                 console.log("Prepared for Db");
                 this.clearfeilds();
                 app.submition = false;
