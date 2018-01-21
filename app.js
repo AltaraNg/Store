@@ -142,7 +142,7 @@ var app = new Vue({
 
 
         CustomerOrders: function() {
-            axios.post("http://localhost/altaracredit/altara_api/api.php?action=order", {
+            axios.post("https://altara-api.herokuapp.com/api.php?action=order", {
                     Customer_id: app.Customer_id
                 })
                 .then(function(response) {
