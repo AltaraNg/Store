@@ -82,7 +82,13 @@ p {
     box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
 }
 
+.glyphicon {  margin-bottom: 10px;margin-right: 10px;}
 
+small {
+display: block;
+line-height: 1.428571429;
+color: #999;
+}
 /* Animation */
 
 @-webkit-keyframes spinner {
