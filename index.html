@@ -35,7 +35,7 @@
                                 <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success btn-small" style="font-size:12px">Customer Look Up</button>
                             </div>
                         </div>
-                        <div class="col-sm-4" style="margin:0 auto; margin-bottom:10px;">
+                        <!-- <div class="col-sm-4" style="margin:0 auto; margin-bottom:10px;">
                             <div style="margin:0 auto;width:250px;">
                                 <img src="update.png" width="40" height="40" />
 
@@ -47,7 +47,7 @@
                             <div style="margin:0 auto; width:250px;"><img src="reg.png" width="40" height="40" />
                                 <button type="button" data-toggle="modal" data-target="#myModal2" class="btn btn-success btn-small" style="font-size:12px">Customer List</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -106,13 +106,7 @@
 
                             <div v-if="idchecked" class="row" style="height:500px">
 
-                                <div class="" style="
-max-width: 550px;
-width: 550px;
-height: 200px;
-display: block;
-margin: auto;
-">
+                                <div class="" style="max-width: 550px;width: 550px;height: 200px;display: block;margin: auto;">
                                     <div class="well well-sm">
                                         <div class="row">
                                             <div class="col-sm-6 col-md-4">
@@ -123,8 +117,7 @@ margin: auto;
                                                     <strong>{{CustName}}</strong> </h4>
                                                 <i class="glyphicon glyphicon-user"></i><strong>Customer ID: {{Customer_id}}</strong>
                                                 <br />
-                                                <small><cite title="">{{address}} <i class="glyphicon glyphicon-map-marker">
-</i></cite></small>
+                                                <small><cite title="">{{address}} <i class="glyphicon glyphicon-map-marker"></i></cite></small>
                                                 <i class="glyphicon glyphicon-phone-alt"></i>{{repay[0].telephone}}
                                                 <br />
                                                 <i class="glyphicon glyphicon-gift"></i>Member since : {{Regdate}}
@@ -156,8 +149,8 @@ margin: auto;
                                             <td>{{list_order.order_id}}</td>
                                             <td>{{list_order.product_name}}</td>
                                             <td>{{list_order.product_price}}</td>
-                                            <td>{{list_order.product_qty}} {{list_order.first}}</td>
-                                            <td>N{{list_order.product_price * list_order.product_qty}}.00</td>
+                                            <td>{{list_order.product_qty}}</td>
+                                            <td>N{{list_order.product_price * list_order.product_qty * (40/100)}}.00</td>
                                             <td><button class=" btn btn-success" data-toggle="modal" data-target="#myModal3">View Plans</button>
 
                                                 <div id="myModal3" class="modal fade" role="dialog">
