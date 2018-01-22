@@ -65,10 +65,10 @@
 
                             <div class="loading" v-if='dataloaded'>Loading&#8230;</div>
                             <p class="alert alert-danger alert-dismissable" v-if='errorMessage'>
-                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{errorMessage}}
+                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a>                                {{errorMessage}}
                             </p>
                             <p class="alert alert-success alert-dismissable" v-if='successMessage'>
-                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{successMessage}}
+                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a>                                {{successMessage}}
                             </p>
                             <div v-if="!access_granted">
                                 <div class="row " style="padding:40px;">
@@ -107,14 +107,14 @@
                             <div v-if="idchecked" class="row" style="height:500px">
 
                                 <div class="" style="
-                                            max-width: 550px;
-                                            width: 550px;
-                                            height: 200px;
-                                            display: block;
-                                            margin: auto;
-                                        ">
+max-width: 550px;
+width: 550px;
+height: 200px;
+display: block;
+margin: auto;
+">
                                     <div class="well well-sm">
-                                        <div class="row" >
+                                        <div class="row">
                                             <div class="col-sm-6 col-md-4">
                                                 <img src="http://placehold.it/156x206" alt="" />
                                             </div>
@@ -124,7 +124,7 @@
                                                 <i class="glyphicon glyphicon-user"></i><strong>Customer ID: {{Customer_id}}</strong>
                                                 <br />
                                                 <small><cite title="">{{address}} <i class="glyphicon glyphicon-map-marker">
-                                                        </i></cite></small>
+</i></cite></small>
                                                 <i class="glyphicon glyphicon-phone-alt"></i>{{repay[0].telephone}}
                                                 <br />
                                                 <i class="glyphicon glyphicon-gift"></i>Member since : {{Regdate}}
@@ -193,50 +193,88 @@
 
                                                                         <tr style="font-size:12px">
                                                                             <th>Status</th>
-                                                                            <td> <img v-if="list_order.first == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.first == 0" src="waiting.png" width="20" height="20px" alt="">
+                                                                            <td> 
+                                                                                <img v-if="list_order.first == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.first == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<15)" src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.first == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 15)" src="cancel.png" width="20" height="20px" alt="">
+
                                                                             </td>
 
-                                                                            <td> <img v-if="list_order.second == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.second == 0" src="waiting.png" width="20" height="20px" alt=""> </td>
+                                                                            <td> 
+                                                                                <img v-if="list_order.second == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.second == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<29)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.second == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 29)" src="cancel.png" width="20" height="20px" alt="">      
+                                                                       
+                                                                            </td>
 
-                                                                            <td> <img v-if="list_order.third == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.third == 0" src="waiting.png" width="20" height="20px" alt=""></td>
+                                                                            <td> 
+                                                                                <img v-if="list_order.third == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.third == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<43)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.third == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 43)" src="cancel.png" width="20" height="20px" alt="">      
+                                                                            </td>
 
-                                                                            <td> <img v-if="list_order.fourth == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.fourth == 0" src="waiting.png" width="20" height="20px" alt=""> </td>
+                                                                            <td> 
+                                                                                <img v-if="list_order.fourth == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.fourth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<57)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.fourth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 57)" src="cancel.png" width="20" height="20px" alt="">      
+                                                                            </td>
+                                                                            
+                                                                            <td> 
+                                                                                <img v-if="list_order.fifth == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.fifth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<71)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.fifth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 71)" src="cancel.png" width="20" height="20px" alt="">        
+                                                                            </td>
 
-                                                                            <td> <img v-if="list_order.fifth == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.fifth == 0" src="waiting.png" width="20" height="20px" alt=""> </td>
+                                                                            <td> 
+                                                                                <img v-if="list_order.sixth == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.sixth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<85)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.sixth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 85)" src="cancel.png" width="20" height="20px" alt=""> 
+                                                                            </td>
+                                                                          
+                                                                            <td> 
+                                                                                <img v-if="list_order.seventh == 1" src="checked.png"  width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.seventh == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<99)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.seventh == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 99)" src="cancel.png" width="20" height="20px" alt="">  
+                                                                           </td>
 
-                                                                            <td> <img v-if="list_order.sixth == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.sixth == 0" src="waiting.png" width="20" height="20px" alt=""> </td>
+                                                                            <td> 
+                                                                                <img v-if="list_order.eight == 1" src="checked.png"  width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.eight == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<113)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.eight == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 113)" src="cancel.png" width="20" height="20px" alt="">  
+                                                                            </td>
 
-                                                                            <td> <img v-if="list_order.seventh == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.seventh == 0" src="waiting.png" width="20" height="20px" alt=""> </td>
+                                                                            <td> 
+                                                                                <img v-if="list_order.nineth == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.nineth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<127)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.nineth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 127)" src="cancel.png" width="20" height="20px" alt="">  
+                                                                            </td>
 
-                                                                            <td> <img v-if="list_order.eight == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.eight == 0" src="waiting.png" width="20" height="20px" alt=""> </td>
+                                                                            <td>
+                                                                                <img v-if="list_order.tenth == 1" src="checked.png"  width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.tenth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<141)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.tenth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 141)" src="cancel.png" width="20" height="20px" alt="">     
+                                                                             </td>
 
-                                                                            <td> <img v-if="list_order.nineth == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.nineth == 0" src="waiting.png" width="20" height="20px" alt=""></td>
+                                                                            <td> 
+                                                                                <img v-if="list_order.eleventh == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.eleventh == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<155)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.eleventh == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 155)" src="cancel.png" width="20" height="20px" alt="">       
+                                                                            </td>
 
-                                                                            <td> <img v-if="list_order.tenth == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.tenth == 0" src="waiting.png" width="20" height="20px" alt=""> </td>
+                                                                            <td> 
+                                                                                <img v-if="list_order.twelveth == 1" src="checked.png"  width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.twelveth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<169)"  src="waiting.png" width="20" height="20px" alt="">
+                                                                                <img v-if="list_order.twelveth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 169)" src="cancel.png" width="20" height="20px" alt="">  
+                                                                            </td>
 
-                                                                            <td> <img v-if="list_order.eleventh == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.eleventh == 0" src="waiting.png" width="20" height="20px" alt=""> </td>
-
-                                                                            <td> <img v-if="list_order.twelveth == 1" src="checked.png" width="20" height="20px" alt="">
-                                                                                <img v-if="list_order.twelveth == 0" src="waiting.png" width="20" height="20px" alt=""> </td>
                                                                         </tr>
                                                                         <!-- <tr v-for="(list_customer , index) in filteredList_customers">
-                                                                                                            <td>{{index + 1}}</td>
-                                                                                                            <td>{{list_customer.customer_id}}</td>
-                                                                                                            <td>{{list_customer.first_name }} {{list_customer.middle_name}} {{list_customer.last_name}}</td>
-                                                                                                            <td>{{list_customer.telephone}}</td>
-                                                                                                            
-                                                                                                        </tr> -->
+<td>{{index + 1}}</td>
+<td>{{list_customer.customer_id}}</td>
+<td>{{list_customer.first_name }} {{list_customer.middle_name}} {{list_customer.last_name}}</td>
+<td>{{list_customer.telephone}}</td>
+
+</tr> -->
                                                                     </table>
                                                                 </div>
                                                             </div>
@@ -250,12 +288,12 @@
 
                                         </tr>
                                         <!-- <tr v-for="(list_customer , index) in filteredList_customers">
-                                                            <td>{{index + 1}}</td>
-                                                            <td>{{list_customer.customer_id}}</td>
-                                                            <td>{{list_customer.first_name }} {{list_customer.middle_name}} {{list_customer.last_name}}</td>
-                                                            <td>{{list_customer.telephone}}</td>
-                                                            
-                                                        </tr> -->
+<td>{{index + 1}}</td>
+<td>{{list_customer.customer_id}}</td>
+<td>{{list_customer.first_name }} {{list_customer.middle_name}} {{list_customer.last_name}}</td>
+<td>{{list_customer.telephone}}</td>
+
+</tr> -->
                                     </table>
                                 </div>
 
@@ -320,10 +358,13 @@
 
 
     <script type="text/javascript" src="axios.js">
+
     </script>
     <script type="text/javascript" src="https://unpkg.com/vue@2.5.2">
+
     </script>
     <script type="text/javascript" src="app.js">
+
     </script>
 
 </body>

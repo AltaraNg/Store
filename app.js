@@ -39,6 +39,7 @@ var app = new Vue({
         phoneNo: '',
         Regdate: '',
         repay_date:[],
+        orderDate:''
     },
 
     mounted: function () {
@@ -172,10 +173,10 @@ var app = new Vue({
                         app.errorMessage = response.data.message;
                     } else {
                         app.idchecked = true;
-                        var d = response.data.orders[0].order_date;
-                        console.log(d);
-                        var date = new Date(d);
-                        var a=[14,24,38,52,76,90,104,118,132,146,160,174];
+                        app.orderDate = response.data.orders[0].order_date;
+                        console.log(app.orderDate);
+                        var date = new Date(app.orderDate);
+                        var a=[14,28,42,56,70,84,98,112,126,140,154,168];
                         
                         for (i=0; i<=11; i++){
                         var ans = app.formatDate(app.addDays(date,a[i]));
