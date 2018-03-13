@@ -37,11 +37,11 @@ table.list {
 table.list th {
     background: #06307c;
     color: #ffffff;
-    padding: 9px;
+    padding: 4px;
 }
 
 table.list td {
-    padding: 9px
+    padding: 4px
 }
 
 table.list tr {
@@ -88,7 +88,7 @@ button {
 
 table.form input,
 table.form td {
-    padding: 9px;
+    padding: 4px;
 }
 
 table.form tr {
