@@ -31,7 +31,8 @@
 
                     <div class="row" style=" margin:10px;padding:10px;">
                         <div class="col-sm-4" style="margin:0 auto; margin-bottom:10px;">
-                            <div style="margin:0 auto; width:250px;"><img src="reg.png" width="40" height="40" />
+                            <div style="margin:0 auto; width:250px;">
+                                <img src="reg.png" width="40" height="40" />
                                 <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success btn-small" style="font-size:12px">Customer Look Up</button>
                             </div>
                         </div>
@@ -42,9 +43,10 @@
                                 <button type="button" class="btn btn-success btn-small" data-toggle="modal" data-target="#myModal2" style="font-size:12px">Purchase Log</button>
                             </div>
                         </div>
-                        
+
                         <div class="col-sm-4" style="margin:0 auto; margin-bottom:10px;">
-                            <div style="margin:0 auto; width:250px;"><img src="reg.png" width="40" height="40"/>
+                            <div style="margin:0 auto; width:250px;">
+                                <img src="reg.png" width="40" height="40" />
                                 <button type="button" data-toggle="modal" data-target="#myModal1" class="btn btn-success btn-small" style="font-size:12px">Repayment Log</button>
                             </div>
                         </div>
@@ -65,10 +67,10 @@
 
                             <div class="loading" v-if='dataloaded'>Loading&#8230;</div>
                             <p class="alert alert-danger alert-dismissable" v-if='errorMessage'>
-                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a>                                {{errorMessage}}
+                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{errorMessage}}
                             </p>
                             <p class="alert alert-success alert-dismissable" v-if='successMessage'>
-                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a>                                {{successMessage}}
+                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{successMessage}}
                             </p>
                             <div v-if="!access_granted">
                                 <div class="row " style="padding:40px;">
@@ -95,7 +97,8 @@
                                     <input type="text" placeholder="Enter Customer ID Here.." v-model="Customer_id" class="form-control">
                                 </div>
 
-                                <br> <br>
+                                <br>
+                                <br>
 
                                 <button type="button" @click="CheckId()" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Check Customer</button>
                             </div>
@@ -110,15 +113,24 @@
                                             </div>
                                             <div class="col-sm-6 col-md-6">
                                                 <h4>
-                                                    <strong>{{CustName}}</strong> </h4>
-                                                <i class="glyphicon glyphicon-user"></i><strong>Customer ID: {{Customer_id}}</strong>
+                                                    <strong>{{CustName}}</strong>
+                                                </h4>
+                                                <i class="glyphicon glyphicon-user"></i>
+                                                <strong>Customer ID: {{Customer_id}}</strong>
                                                 <br />
-                                                <small><cite title="">{{address}} <i class="glyphicon glyphicon-map-marker"></i></cite></small>
+                                                <small>
+                                                    <cite title="">{{address}}
+                                                        <i class="glyphicon glyphicon-map-marker"></i>
+                                                    </cite>
+                                                </small>
                                                 <i class="glyphicon glyphicon-phone-alt"></i>{{repay[0].telephone}}
                                                 <br />
                                                 <i class="glyphicon glyphicon-gift"></i>Member since : {{Regdate}}
                                                 <br />
-                                                <i> <img  src="cancel.png" width="15" height="15" alt=""></i> <strong>Not Approved</strong>
+                                                <i>
+                                                    <img src="cancel.png" width="15" height="15" alt="">
+                                                </i>
+                                                <strong>Not Approved</strong>
                                                 <!-- Split button -->
 
                                             </div>
@@ -147,7 +159,8 @@
                                             <td>{{list_order.product_price}}</td>
                                             <td>{{list_order.product_qty}}</td>
                                             <td>N{{list_order.product_price * list_order.product_qty * (40/100)}}.00</td>
-                                            <td><button class=" btn btn-success" data-toggle="modal" data-target="#myModal3">View Plans</button>
+                                            <td>
+                                                <button class=" btn btn-success" data-toggle="modal" data-target="#myModal3">View Plans</button>
 
                                                 <div id="myModal3" class="modal fade" role="dialog">
                                                     <div class="modal-dialog">
@@ -164,21 +177,13 @@
                                                                             <th colspan="12" style="text-align:center">Repayment Plans</th>
                                                                         </tr>
 
+
+
                                                                         <tr style="font-size:12px">
                                                                             <th>Date</th>
-                                                                            <td>{{repay_date[0]}}</td>
-                                                                            <td>{{repay_date[1]}} </td>
-                                                                            <td>{{repay_date[2]}} </td>
-                                                                            <td>{{repay_date[3]}} </td>
-                                                                            <td>{{repay_date[4]}} </td>
-                                                                            <td>{{repay_date[5]}} </td>
-                                                                            <td>{{repay_date[6]}} </td>
-                                                                            <td>{{repay_date[7]}} </td>
-                                                                            <td>{{repay_date[8]}} </td>
-                                                                            <td>{{repay_date[9]}}</td>
-                                                                            <td>{{repay_date[10]}} </td>
-                                                                            <td>{{repay_date[11]}} </td>
+                                                                            <td v-for="rday in repay_date">{{rday}}</td>
                                                                         </tr>
+
 
                                                                         <tr style="font-size:12px">
                                                                             <th>Status</th>
@@ -307,7 +312,72 @@
                                                                         </tr>
 
                                                                     </table>
+                                                                    <button type="button" data-toggle="modal" data-target="#myModal1" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make Repayment</button>
                                                                 </div>
+                                                                <div id="myModal1" class="modal fade" role="dialog">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="panel-heading" style="background-color: #00264d;">
+                                                                                <h4 class="modal-title" style="color:white">Repayment</h4>
+                                                                            </div>
+                                                                            <div class="panel-body">
+                                                                                <div class="loading" v-if='dataloaded'>Loading&#8230;</div>
+                                                                                <p class="alert alert-danger alert-dismissable" v-if='errorMessage'>
+                                                                                    <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{errorMessage}}
+                                                                                </p>
+                                                                                <p class="alert alert-success alert-dismissable" v-if='successMessage'>
+                                                                                    <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{successMessage}}
+                                                                                </p>
+                                                                                <div v-if="!access_granted3">
+                                                                                    <div class="row " style="padding:40px;">
+                                                                                        <div class="col-sm-6 form-group">
+                                                                                            <label>Store Agent ID</label>
+                                                                                            <input type="text" placeholder="Enter DVA ID.." v-model="Employee_id" class="form-control">
+
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 form-group">
+                                                                                            <label>Access Code</label>
+                                                                                            <input type="password" placeholder="Enter Access code Here.." v-model="Access_code" class="form-control">
+
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                    <button type="button" @click="GainAccess(feature3)" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Login</button>
+                                                                                    <br>
+                                                                                </div>
+
+                                                                                <div v-if="access_granted3" class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
+                                                                                    <div style=" padding-right:5px;padding-left:5px;">
+                                                                                        <table class=" table">
+                                                                                            <tr>
+                                                                                                <th>Repayment stage</th>
+                                                                                                <th>Amount to Repay</th>
+                                                                                                <th>Date</th>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    <label for="">{{repaydata[0].period}}</label>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <label for="">{{repay_amt}}</label>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <label for="">{{repaydata[0].date}}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                        <button type="button" @click="Repay(list_order.order_id)" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
+                                                                                        <br>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
 
                                                         </div>
@@ -341,10 +411,10 @@
 
                             <div class="loading" v-if='dataloaded'>Loading&#8230;</div>
                             <p class="alert alert-danger alert-dismissable" v-if='errorMessage'>
-                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a>                                {{errorMessage}}
+                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{errorMessage}}
                             </p>
                             <p class="alert alert-success alert-dismissable" v-if='successMessage'>
-                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a>                                {{successMessage}}
+                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{successMessage}}
                             </p>
                             <div v-if="!access_granted2">
                                 <div class="row " style="padding:40px;">
@@ -365,128 +435,59 @@
                                 <br>
                             </div>
 
-                            <div  v-if="access_granted2" class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
-                              <div style=" padding-right:5px;padding-left:5px;">
-                                        <table class=" table">
-                                            <tr>
-                                                <th>Customer Id </th>
-                                                <th>Customer Name </th>
-                                                <th>Date </th>
-                                                <th>Vend Receipt Number </th>
-                                                <th>Product Name </th>
-                                                <th>Product Price </th>
-                                                <th>40% paid</th>
-                                            </tr>
-                                            <tr>
-                                                <td><input style="width:60px;" type="text"   v-model="purchase.custp_id" required/> </td>
-                                                <td><input style="width:90px;" type="text"   v-model="purchase.custp_name" required/></td>
-                                                <td><input style="width:120px;" type="date"  v-model="purchase.p_date"  required/> </td>
-                                                <td><input style="width:90px;" type="text"   v-model="purchase.p_reciept"  required/></td>
-                                                <td><input style="width:90px;" type="text"   v-model="purchase.product_name" required/></td>
-                                                <td><input style="width:90px;" type="text"   v-model="purchase.producct_price" required/></td>
-                                                <td><input style="width:90px;" type="number" v-model="purchase.fourty_percent" required/></td>
-                                                
-                                            </tr>
-                                        </table>
-                                        <button type="button" @click="Purchase()" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Login</button>
-                                        <br>
-                                    </div>
+                            <div v-if="access_granted2" class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
+                                <div style=" padding-right:5px;padding-left:5px;">
+                                    <table class=" table">
+                                        <tr>
+                                            <th>Vend Receipt Number </th>
+                                            <th>Customer Id </th>
+                                            <th>Date </th>
+                                            <th>Product Name </th>
+                                            <th>Product Price </th>
+                                            <th>Product Sku </th>
+                                            <th>Product Qty </th>
+                                            <th>40% paid</th>
+                                            <th>Repayment</th>
+    
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                        <input style="width:90px;" type="text" v-model="purchase.p_reciept" required/>
+                                                    </td>
+                                            <td>
+                                                <input style="width:60px;" type="text" v-model="purchase.custp_id" required/> </td>
+                                                <td>
+                                                        <input style="width:120px;" type="date" v-model="purchase.p_date" required/> </td>
+                                            <td>
+                                                <input style="width:90px;" type="text" v-model="purchase.product_name" required/>
+                                            </td>
+                                            <td>
+                                                <input style="width:80px;" type="text" v-model="purchase.product_price" required/>
+                                            </td>
+                                            <td>
+                                                    <input style="width:90px;" type="text" v-model="purchase.product_sku" required/>
+                                                </td>
+                                                <td>
+                                                    <input style="width:50px;" type="text" v-model="purchase.product_qty" required/>
+                                                </td>
+                                            <td>
+                                                <label> {{ Math.round((40/100)*purchase.product_price)}} </label>
+                                            </td>
+                                            <td>
+                                                    <label> {{ Math.round( (purchase.product_price - ( (40/100)*purchase.product_price ))/12)}} </label>
+                                                </td>
+
+                                        </tr>
+                                    </table>
+                                    <button type="button" @click="Purchase()" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Login</button>
+                                    <br>
+                                </div>
                             </div>
-
-
-                            <!-- <div v-if="idchecked2" class="row" style="height:500px">
-                                    <button type="button" @click="idchecked2 = false;" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">New Customer</button>
-                            </div> -->
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
-
-           
-            <div id="myModal1" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-
-                        <div class="panel-heading" style="background-color: #00264d;">
-                            <h4 class="modal-title" style="color:white">Repayment</h4>
-                        </div>
-                        <div class="panel-body">
-                                
-                                                            <div class="loading" v-if='dataloaded'>Loading&#8230;</div>
-                                                            <p class="alert alert-danger alert-dismissable" v-if='errorMessage'>
-                                                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a>                                {{errorMessage}}
-                                                            </p>
-                                                            <p class="alert alert-success alert-dismissable" v-if='successMessage'>
-                                                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a>                                {{successMessage}}
-                                                            </p>
-                                                            <div v-if="!access_granted3">
-                                                                <div class="row " style="padding:40px;">
-                                                                    <div class="col-sm-6 form-group">
-                                                                        <label>Store Agent ID</label>
-                                                                        <input type="text" placeholder="Enter DVA ID.." v-model="Employee_id" class="form-control">
-                                
-                                                                    </div>
-                                                                    <div class="col-sm-6 form-group">
-                                                                        <label>Access Code</label>
-                                                                        <input type="password" placeholder="Enter Access code Here.." v-model="Access_code" class="form-control">
-                                
-                                                                    </div>
-                                
-                                                                </div>
-                                
-                                                                <button type="button" @click="GainAccess(feature3)" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Login</button>
-                                                                <br>
-                                                            </div>
-                                                            <!-- v-if="access_granted3" -->
-                           
-                                                            <div  class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
-                                                              <div style=" padding-right:5px;padding-left:5px;">
-                                                                        <table class=" table">
-                                                                            <tr>
-                                                                                <th>Customer Id </th>
-                                                                                <th>Date </th>
-                                                                                <th>Vend Receipt Number </th>
-                                                                                <th>Product Name </th>
-                                                                                <th>Product Price </th>
-                                                                                <th>Repayment Level</th>
-                                                                                <th>Amount to Repay</th>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td><input style="width:60px;" type="text"  required/> </td>
-                                                                                <td><input style="width:90px;" type="text"  required/></td>
-                                                                                <td><input style="width:120px;" type="date"  required/> </td>
-                                                                                <td><input style="width:90px;" type="text"  required/></td>
-                                                                                <td><input style="width:90px;" type="text"  required/></td>
-                                                                                <td><input style="width:90px;" type="text"  required/></td>
-                                                                                <td><input style="width:90px;" type="number"  required/></td>
-                                                                                
-                                                                            </tr>
-                                                                                <!-- <td>
-                                                                                    <div class="currency-input">
-                                                                                        <input type="number" v-model="m1a" @blur="formatNaira(m1a)" required/>
-                                                                                        <span class="currency-symbol">₦</span>
-                                                                                    </div>
-                                                                                </td> -->
-                                                                   
-                                                
-                                                                        </table>
-                                                                        <button type="button" @click="Repayment()" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Login</button>
-                                                                        <br>
-                                                                    </div>
-                                                            </div>
-                                
-                                                            <!-- <div v-if="idchecked2" class="row" style="height:500px">
-                                                                    <button type="button" @click="idchecked2 = false;" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">New Customer</button>
-                                                            </div> -->
-                                                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-
 
         </div>
     </div>

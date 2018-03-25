@@ -45,32 +45,33 @@ var app = new Vue({
         phoneNo: '',
         Regdate: '',
         repay_date: [],
+        repaydata: [],
         orderDate: '',
-        purchase : {
-            custp_id : '',
-            custp_name: '',
-            p_date : '',
+        fristpurchase:false,
+        purchase: {
             p_reciept: '',
+            custp_id: '',
+            p_date: '',
             product_name: '',
-            producct_price: '',
-            fourty_percent: '',
+            product_price: '',
+            product_sku: '',
+            product_qty:'',
+            repaymt:''
         },
-        repayment : {
-            custp_id : '',
-            custp_name: '',
-            p_date : '',
-            p_reciept: '',
-            product_name: '',
-            producct_price: '',
-            fourty_percent: '',
-        }
+        // repayment: {
+        //     custp_id: '',
+        //     custp_name: '',
+        //     p_date: '',
+        //     p_reciept: '',
+        //     product_name: '',
+        //     producct_price: '',
+        //     fourty_percent: '',
+        // }
     },
-
     mounted: function () {
         console.log('mounted');
         // this.CustomerOrders();
     },
-
     computed: {
         filteredList_customers: function () {
             return this.list_customers.filter((list_customer) => {
@@ -78,39 +79,58 @@ var app = new Vue({
             });
         },
     },
-
     methods: {
-
-    Purchase : function(){       
-        var formData = app.toFormData(app.purchase);
-        console.log(app.purchase)
-        axios.post("http://localhost/altaracredit/altara_api/api.php?action=purchase", formData)
-            .then(function (response) {
-                console.log(response);
-                if (response.data.error) {
-                    app.errorMessage = response.data.message;
-                } else {
-                    app.successMessage = response.data.message;
-                }
+        Purchase: function () {
+            app.purchase.repaymt = Math.round( (app.purchase.product_price - ( (40/100)*app.purchase.product_price ))/12);
+            var formData = app.toFormData(app.purchase);
+            console.log(app.purchase)
+            axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.error) {
+                        app.errorMessage = response.data.message;
+                    } else {
+                        app.fristpurchase = true;
+                        app.Repay(app.purchase.p_reciept);
+                        app.successMessage = response.data.message;
+                    }
                 });
-    },
-
-    Repay : function(){       
-        var formData = app.toFormData(app.repayment);
-        console.log(app.repayment)
-        axios.post("http://localhost/altaracredit/altara_api/api.php?action=repay", formData)
-            .then(function (response) {
-                console.log(response);
-                if (response.data.error) {
-                    app.errorMessage = response.data.message;
-                } else {
-                    app.successMessage = response.data.message;
-                }
+        },
+        Repay: function (id) {
+            var periodi;
+            if ( app.fristpurchase == true){
+                console.log('yes');
+              periodi ='firstpayment'
+            }
+            else {
+              periodi =app.repaydata[0].period
+            }
+            var pushrepay = {
+                repayid: id,
+                period: periodi
+            }
+          var formData = app.toFormData(pushrepay);
+            axios.post("http://localhost/altaracredit/altara_api/api.php?action=repay",formData)
+                .then(function (response) {
+                    console.log(response);
+                   
+                    if (response.data.error) {
+                        app.errorMessage = response.data.message;
+                        setTimeout(function () {
+                            app.errorMessage = '';
+                        }, 2000);
+                    } else {
+                        if (app.fristpurchase == false){
+                            app.CustomerOrders();
+                        }
+                        app.fristpurchase = false;
+                        app.successMessage = response.data.message;
+                        setTimeout(function () {
+                            app.successMessage = '';
+                        }, 2000);
+                    }
                 });
-    },
-
-
-
+        },
         GainAccess: function (feature) {
             console.log(feature)
             app.submitted = true;
@@ -211,8 +231,9 @@ var app = new Vue({
                 });
         },
 
-        CheckId: function (feature) {
+        CheckId: function () {
             app.dataloaded = true;
+            console.log(app.Customer_id);
             axios.post("https://altara-api.herokuapp.com/api.php?action=checkId", {
                 Customer_id: app.Customer_id
             })
@@ -229,30 +250,22 @@ var app = new Vue({
                             app.repay = response.data.checklist;
                             console.log(app.repay);
                             app.dataloaded = false;
+                            app.CustomerOrders();
+                            app.CustName = response.data.checklist[0].first_name + " " + response.data.checklist[0].last_name
+                            app.address = response.data.checklist[0].add_houseno + ", " + response.data.checklist[0].add_street + ", " + response.data.checklist[0].area_address + ", Ibadan, Oyo state";
+                            app.phoneNo = response.data.checklist[0].telephone;
 
-if (feature == 'lookup'){
-    app.CustomerOrders();
-    app.CustName = response.data.checklist[0].first_name + " " + response.data.checklist[0].last_name
-    app.address = response.data.checklist[0].add_houseno + ", " + response.data.checklist[0].add_street + ", " + response.data.checklist[0].area_address + ", Ibadan, Oyo state";
-    app.phoneNo = response.data.checklist[0].telephone;
+                            //sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
+                            var sqlDateArr1 = response.data.checklist[0].Date_of_Registration.split("-");
+                            var monthNames = ["January", "February", "March", "April", "May", "June",
+                                "July", "August", "September", "October", "November", "December"
+                            ];
+                            var sqlDateArr2 = sqlDateArr1[2].split(" ");
+                            var sDay = sqlDateArr2[0];
+                            var sMonth = (Number(sqlDateArr1[1]) - 1).toString();
+                            var sYear = sqlDateArr1[0];
+                            app.Regdate = monthNames[sMonth] + ", " + sDay + ", " + sYear;
 
-    //sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
-    var sqlDateArr1 = response.data.checklist[0].Date_of_Registration.split("-");
-    var monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
-    var sqlDateArr2 = sqlDateArr1[2].split(" ");
-    var sDay = sqlDateArr2[0];
-    var sMonth = (Number(sqlDateArr1[1]) - 1).toString();
-    var sYear = sqlDateArr1[0];
-    app.Regdate = monthNames[sMonth] + ", " + sDay + ", " + sYear;
-}
-if (feature == 'purchaselog'){
-    app.idchecked2 = false;
-}
-if (feature == 'repaymentlog'){
-    app.idchecked3 = false;
-}
                         } else {
                             app.errorMessage = "Customer ID Doest Exist!";
                             // app.sendNotification(name, telnumber)
@@ -281,6 +294,7 @@ if (feature == 'repaymentlog'){
         },
 
         CustomerOrders: function () {
+
             axios.post("https://altara-api.herokuapp.com/api.php?action=order", {
                 Customer_id: app.Customer_id
             })
@@ -290,22 +304,56 @@ if (feature == 'repaymentlog'){
                         app.errorMessage = response.data.message;
                     } else {
                         app.idchecked = true;
-                        app.orderDate = response.data.orders[0].order_date;
-                        console.log(app.orderDate);
-                        var date = new Date(app.orderDate);
-                        var a = [14, 28, 42, 56, 70, 84, 98, 112, 126, 140, 154, 168];
+                        if (response.data.orders.length != 0) {
+                            app.orderDate = response.data.orders[0].order_date;
+                            app.repay_amt = response.data.orders[0].repayment;
 
-                        for (i = 0; i <= 11; i++) {
-                            var ans = app.formatDate(app.addDays(date, a[i]));
-                            app.repay_date.push(ans);
+                            app.repaydata = [
+                                { period: '1st', status: response.data.orders[0].first },
+                                { period: '2nd', status: response.data.orders[0].second },
+                                { period: '3rd', status: response.data.orders[0].third },
+                                { period: '4th', status: response.data.orders[0].fourth },
+                                { period: '5th', status: response.data.orders[0].fifth },
+                                { period: '6th', status: response.data.orders[0].sixth },
+                                { period: '7th', status: response.data.orders[0].seventh },
+                                { period: '8th', status: response.data.orders[0].eight },
+                                { period: '9th', status: response.data.orders[0].nineth },
+                                { period: '10th', status: response.data.orders[0].tenth },
+                                { period: '11th', status: response.data.orders[0].eleventh },
+                                { period: '12th', status: response.data.orders[0].twelveth }
+                            ]
+
+                            console.log(app.orderDate);
+                            var date = new Date(app.orderDate);
+                            var a = [14, 28, 42, 56, 70, 84, 98, 112, 126, 140, 154, 168];
+                            for (i = 0; i <= 11; i++) {
+                                var ans = app.formatDate(app.addDays(date, a[i]));
+                                app.repay_date.push(ans);
+                            }
+                            console.log(app.repay_date);
+                            app.List_orders = response.data.orders;
+
+
+                            for (i = 0; i < app.repay_date.length; i++) {
+                                app.repaydata.forEach(element => {
+                                    if (app.repaydata.indexOf(element) == i) {
+                                        element.date = app.repay_date[i]
+                                    }
+                                });
+                            }
+
+
+                            app.repaydata = app.repaydata.filter(function (el) {
+                                return el.status == "0";
+                            });
+
+                            console.log(app.repaydata);
+
                         }
-                        console.log(app.repay_date);
-                        app.List_orders = response.data.orders;
                     }
                 });
         },
 
-        // Correct
         addDays: function (date, days) {
             var result = new Date(date);
             result.setDate(date.getDate() + days);
@@ -321,6 +369,7 @@ if (feature == 'repaymentlog'){
             app.repay = list;
             console.log(app.repay);
         },
+
         checkCust: function () {
             if (app.CheckCusId == '') {
                 app.errorMessageChk = "Field can't be empty";
@@ -329,7 +378,7 @@ if (feature == 'repaymentlog'){
                 }, 1000);
 
             } else {
-
+                console.log(app.CheckCusId);
                 axios.post("https://wafcolapi.herokuapp.com/api.php?action=checkId", {
                     Customer_id: app.CheckCusId
                 })
