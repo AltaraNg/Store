@@ -47,7 +47,7 @@ var app = new Vue({
         repay_date: [],
         repaydata: [],
         orderDate: '',
-        fristpurchase:false,
+        firstpurchase:false,
         purchase: {
             p_reciept: '',
             custp_id: '',
@@ -90,7 +90,7 @@ var app = new Vue({
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
                     } else {
-                        app.fristpurchase = true;
+                        app.firstpurchase = true;
                         app.Repay(app.purchase.p_reciept);
                         app.successMessage = response.data.message;
                     }
@@ -98,7 +98,7 @@ var app = new Vue({
         },
         Repay: function (id) {
             var periodi;
-            if ( app.fristpurchase == true){
+            if ( app.firstpurchase == true){
                 console.log('yes');
               periodi ='firstpayment'
             }
@@ -120,10 +120,10 @@ var app = new Vue({
                             app.errorMessage = '';
                         }, 2000);
                     } else {
-                        if (app.fristpurchase == false){
+                        if (app.firstpurchase == false){
                             app.CustomerOrders();
                         }
-                        app.fristpurchase = false;
+                        app.firstpurchase = false;
                         app.successMessage = response.data.message;
                         setTimeout(function () {
                             app.successMessage = '';
