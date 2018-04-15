@@ -16,6 +16,7 @@ const ERRORS = {
 var app = new Vue({
     el: '#root',
     data: {
+        product_sku:'',
         errorMessage: "",
         successMessage: "",
         search: '',
@@ -72,6 +73,13 @@ var app = new Vue({
         }
 
     },
+    watch: {
+        product_sku: function() {
+            if (this.product_sku.length == 7) {
+                console.log("call change");
+            }
+        }
+      },
     mounted: function () {
         console.log('mounted');
         // this.CustomerOrders();
@@ -85,6 +93,7 @@ var app = new Vue({
     },
     methods: {
         Purchase: function () {
+            app.purchase.product_sku = app.product_sku;
             app.purchase.repaymt = Math.round((app.purchase.product_price - ((40 / 100) * app.purchase.product_price)) / 12);
             var formData = app.toFormData(app.purchase);
             console.log(app.purchase)
@@ -99,6 +108,9 @@ var app = new Vue({
                         app.successMessage = response.data.message;
                     }
                 });
+        },
+        getdetailsbySKU(){
+
         },
         ProductLog: function () {
             console.log(app.product);
