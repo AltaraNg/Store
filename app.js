@@ -16,7 +16,9 @@ const ERRORS = {
 var app = new Vue({
     el: '#root',
     data: {
-        product_sku:'',
+        product_sku: '',
+        product_price: '',
+        product_name: '',
         errorMessage: "",
         successMessage: "",
         search: '',
@@ -33,12 +35,12 @@ var app = new Vue({
         idchecked: false,
         access_granted2: false,
         access_granted3: false,
-        access_granted4:false,
+        access_granted4: false,
         idchecked2: false,
         feature: 'lookup',
         feature2: 'purchaselog',
         feature3: 'repaymentlog',
-        feature4:'productlog',
+        feature4: 'productlog',
         submitted: false,
         submition: false,
         dataloaded: false,
@@ -69,54 +71,68 @@ var app = new Vue({
             pprice: '',
             psid: '',
             psdate: '',
-            p_cat:''
+            p_cat: ''
         }
 
     },
     watch: {
         product_sku: function() {
             if (this.product_sku.length == 7) {
+                app.dataloaded = true;
                 console.log("call change");
+                axios.post("https://altara-api.herokuapp.com/api.php?action=checkprod", { product_sku: this.product_sku })
+                    .then(function(response) {
+                        app.dataloaded = false;
+                        console.log(response);
+                        if (response.data.error) {
+                            app.errorMessage = response.data.message;
+                        } else {
+                            app.product_price = response.data.users[0].product_price;
+                            app.product_name = response.data.users[0].product_name;
+                        }
+                    });
             }
         }
-      },
-    mounted: function () {
+    },
+    mounted: function() {
         console.log('mounted');
         // this.CustomerOrders();
     },
     computed: {
-        filteredList_customers: function () {
+        filteredList_customers: function() {
             return this.list_customers.filter((list_customer) => {
                 return list_customer.first_name.match(this.search) + list_customer.last_name.match(this.search);
             });
         },
     },
     methods: {
-        Purchase: function () {
+        Purchase: function() {
             app.purchase.product_sku = app.product_sku;
+            app.purchase.product_price = app.product_price;
+            app.purchase.product_name = app.product_name;
             app.purchase.repaymt = Math.round((app.purchase.product_price - ((40 / 100) * app.purchase.product_price)) / 12);
             var formData = app.toFormData(app.purchase);
             console.log(app.purchase)
             axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
-                .then(function (response) {
+                .then(function(response) {
                     console.log(response);
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
                     } else {
                         app.firstpurchase = true;
-                        app.Repay(app.purchase.p_reciept);
+                        app.Repay(app.purchase.p_reciept, app.purchase.p_date);
                         app.successMessage = response.data.message;
                     }
                 });
         },
-        getdetailsbySKU(){
+        getdetailsbySKU() {
 
         },
-        ProductLog: function () {
+        ProductLog: function() {
             console.log(app.product);
             var formData = app.toFormData(app.product);
             axios.post("https://altara-api.herokuapp.com/api.php?action=newproduct", formData)
-                .then(function (response) {
+                .then(function(response) {
                     console.log(response);
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
@@ -125,27 +141,31 @@ var app = new Vue({
                     }
                 });
         },
-        Repay: function (id) {
+        Repay: function(id, paydate) {
+            var date = new Date(paydate);
+            console.log(paydate);
+            console.log(app.formatDate(app.addDays(date, 14)));
             var periodi;
             if (app.firstpurchase == true) {
                 console.log('yes');
-                periodi = 'firstpayment'
-            }
-            else {
+                periodi = 'firstpayment';
+            } else {
                 periodi = app.repaydata[0].period
             }
             var pushrepay = {
                 repayid: id,
-                period: periodi
+                period: periodi,
+                nowdate: paydate,
+                nextdate: app.formatDate(app.addDays(date, 14))
             }
             var formData = app.toFormData(pushrepay);
             axios.post("http://localhost/altaracredit/altara_api/api.php?action=repay", formData)
-                .then(function (response) {
+                .then(function(response) {
                     console.log(response);
 
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
-                        setTimeout(function () {
+                        setTimeout(function() {
                             app.errorMessage = '';
                         }, 2000);
                     } else {
@@ -154,13 +174,13 @@ var app = new Vue({
                         }
                         app.firstpurchase = false;
                         app.successMessage = response.data.message;
-                        setTimeout(function () {
+                        setTimeout(function() {
                             app.successMessage = '';
                         }, 2000);
                     }
                 });
         },
-        GainAccess: function (feature) {
+        GainAccess: function(feature) {
             console.log(feature)
             app.submitted = true;
             var emp = app.Employee_id;
@@ -168,12 +188,10 @@ var app = new Vue({
             if (!isNaN(emp.charAt(4))) {
                 emp.slice(4);
                 emp.slice(0, -3)
-            }
-            else if ((!isNaN(emp.charAt(5)))) {
+            } else if ((!isNaN(emp.charAt(5)))) {
                 emp.slice(5);
                 emp.slice(0, -3)
-            }
-            else {
+            } else {
 
             }
             var dat = {
@@ -183,13 +201,13 @@ var app = new Vue({
             var formData = app.toFormData(dat);
             console.log()
             axios.post("https://altara-api.herokuapp.com/api.php?action=aknowledge", formData)
-                .then(function (response) {
+                .then(function(response) {
                     app.dataloaded = false;
                     console.log(response);
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
 
-                        setTimeout(function () {
+                        setTimeout(function() {
                             app.errorMessage = '';
                         }, 2000);
 
@@ -200,13 +218,13 @@ var app = new Vue({
                                     app.access_granted = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function () {
+                                    setTimeout(function() {
                                         app.successMessage = '';
                                     }, 2000);
                                 } else {
                                     app.errorMessage = "Access Denied, Wrong Login Details";
 
-                                    setTimeout(function () {
+                                    setTimeout(function() {
                                         app.errorMessage = '';
                                     }, 2000);
                                 }
@@ -217,13 +235,13 @@ var app = new Vue({
                                     app.access_granted2 = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function () {
+                                    setTimeout(function() {
                                         app.successMessage = '';
                                     }, 2000);
                                 } else {
                                     app.errorMessage = "Access Denied, Wrong Login Details";
 
-                                    setTimeout(function () {
+                                    setTimeout(function() {
                                         app.errorMessage = '';
                                     }, 2000);
                                 }
@@ -233,13 +251,13 @@ var app = new Vue({
                                     app.access_granted3 = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function () {
+                                    setTimeout(function() {
                                         app.successMessage = '';
                                     }, 2000);
                                 } else {
                                     app.errorMessage = "Access Denied, Wrong Login Details";
 
-                                    setTimeout(function () {
+                                    setTimeout(function() {
                                         app.errorMessage = '';
                                     }, 2000);
                                 }
@@ -250,25 +268,23 @@ var app = new Vue({
                                     app.access_granted4 = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function () {
+                                    setTimeout(function() {
                                         app.successMessage = '';
                                     }, 2000);
                                 } else {
                                     app.errorMessage = "Access Denied, Wrong Login Details";
 
-                                    setTimeout(function () {
+                                    setTimeout(function() {
                                         app.errorMessage = '';
                                     }, 2000);
                                 }
                             }
 
-                        }
-
-                        else {
+                        } else {
 
                             app.errorMessage = "Access Denied, Wrong Login Details";
 
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 app.errorMessage = '';
                             }, 2000);
                         }
@@ -277,18 +293,18 @@ var app = new Vue({
                 });
         },
 
-        CheckId: function () {
+        CheckId: function() {
             app.dataloaded = true;
             console.log(app.Customer_id);
             axios.post("https://altara-api.herokuapp.com/api.php?action=checkId", {
-                Customer_id: app.Customer_id
-            })
-                .then(function (response) {
+                    Customer_id: app.Customer_id
+                })
+                .then(function(response) {
                     console.log(response);
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
                         app.dataloaded = false;
-                        setTimeout(function () {
+                        setTimeout(function() {
                             app.errorMessage = '';
                         }, 2000);
                     } else {
@@ -315,7 +331,7 @@ var app = new Vue({
                         } else {
                             app.errorMessage = "Customer ID Doest Exist!";
                             // app.sendNotification(name, telnumber)
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 app.errorMessage = '';
                             }, 2000);
                             app.dataloaded = false;
@@ -326,7 +342,7 @@ var app = new Vue({
                 });
         },
 
-        toFormData: function (obj) {
+        toFormData: function(obj) {
             var form_data = new FormData();
             for (var key in obj) {
                 form_data.append(key, obj[key]);
@@ -334,17 +350,17 @@ var app = new Vue({
             return form_data;
         },
 
-        resetMessage: function () {
+        resetMessage: function() {
             app.errorMessage = "";
             app.successMessage = "";
         },
 
-        CustomerOrders: function () {
+        CustomerOrders: function() {
 
             axios.post("https://altara-api.herokuapp.com/api.php?action=order", {
-                Customer_id: app.Customer_id
-            })
-                .then(function (response) {
+                    Customer_id: app.Customer_id
+                })
+                .then(function(response) {
                     console.log(response);
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
@@ -389,7 +405,7 @@ var app = new Vue({
                             }
 
 
-                            app.repaydata = app.repaydata.filter(function (el) {
+                            app.repaydata = app.repaydata.filter(function(el) {
                                 return el.status == "0";
                             });
 
@@ -400,40 +416,40 @@ var app = new Vue({
                 });
         },
 
-        addDays: function (date, days) {
+        addDays: function(date, days) {
             var result = new Date(date);
             result.setDate(date.getDate() + days);
             return result;
         },
 
 
-        formatDate: function (date) {
-            return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+        formatDate: function(date) {
+            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         },
 
-        Repayment: function (list) {
+        Repayment: function(list) {
             app.repay = list;
             console.log(app.repay);
         },
 
-        checkCust: function () {
+        checkCust: function() {
             if (app.CheckCusId == '') {
                 app.errorMessageChk = "Field can't be empty";
-                setTimeout(function () {
+                setTimeout(function() {
                     app.errorMessageChk = '';
                 }, 1000);
 
             } else {
                 console.log(app.CheckCusId);
                 axios.post("https://wafcolapi.herokuapp.com/api.php?action=checkId", {
-                    Customer_id: app.CheckCusId
-                })
-                    .then(function (response) {
+                        Customer_id: app.CheckCusId
+                    })
+                    .then(function(response) {
                         console.log(response);
                         if (response.data.error) {
                             app.errorMessageChk = response.data.message;
 
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 app.errorMessageChk = '';
                             }, 1000);
 
@@ -445,11 +461,11 @@ var app = new Vue({
                                 // console.log(app.SelectedGuaData);
 
                                 app.CustName = response.data.checklist[0].first_name + " " + response.data.checklist[0].last_name
-                                // app.phoneNo = response.data.checklist[0].telephone
+                                    // app.phoneNo = response.data.checklist[0].telephone
                             } else {
                                 app.errorMessageChk = "Customer ID doesnt exist!";
 
-                                setTimeout(function () {
+                                setTimeout(function() {
                                     app.errorMessageChk = '';
                                 }, 1000);
                             }
@@ -465,7 +481,7 @@ var app = new Vue({
             telnumber = telnumber.substr(1);
             let message = "Dear " + name + ", Welcome to Altara Credit Limited. You are required to bring the following documents. 1. Proof of ID, 2. Passport Photo (2), 3. Utility bill(Nepa, Not later than 3 months), 4. Six Months Bank Statement till date,  5. Gurantor's cheque.";
             axios.get("https://api.infobip.com/sms/1/text/query?username=Oluwatoke12&password=Altara99&to=" + 234 + telnumber + "&text=" + message + "")
-                .then(function (response2) {
+                .then(function(response2) {
 
                     console.log(response2);
                     if (response2.status == 200) {
