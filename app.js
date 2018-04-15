@@ -32,10 +32,12 @@ var app = new Vue({
         idchecked: false,
         access_granted2: false,
         access_granted3: false,
+        access_granted4:false,
         idchecked2: false,
         feature: 'lookup',
         feature2: 'purchaselog',
         feature3: 'repaymentlog',
+        feature4:'productlog',
         submitted: false,
         submition: false,
         dataloaded: false,
@@ -47,7 +49,7 @@ var app = new Vue({
         repay_date: [],
         repaydata: [],
         orderDate: '',
-        firstpurchase:false,
+        firstpurchase: false,
         purchase: {
             p_reciept: '',
             custp_id: '',
@@ -55,18 +57,20 @@ var app = new Vue({
             product_name: '',
             product_price: '',
             product_sku: '',
-            product_qty:'',
-            repaymt:''
+            product_qty: '',
+            repaymt: ''
         },
-        // repayment: {
-        //     custp_id: '',
-        //     custp_name: '',
-        //     p_date: '',
-        //     p_reciept: '',
-        //     product_name: '',
-        //     producct_price: '',
-        //     fourty_percent: '',
-        // }
+
+        product: {
+            psku: '',
+            pname: '',
+            pdesc: '',
+            pprice: '',
+            psid: '',
+            psdate: '',
+            p_cat:''
+        }
+
     },
     mounted: function () {
         console.log('mounted');
@@ -81,7 +85,7 @@ var app = new Vue({
     },
     methods: {
         Purchase: function () {
-            app.purchase.repaymt = Math.round( (app.purchase.product_price - ( (40/100)*app.purchase.product_price ))/12);
+            app.purchase.repaymt = Math.round((app.purchase.product_price - ((40 / 100) * app.purchase.product_price)) / 12);
             var formData = app.toFormData(app.purchase);
             console.log(app.purchase)
             axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
@@ -96,31 +100,44 @@ var app = new Vue({
                     }
                 });
         },
+        ProductLog: function () {
+            console.log(app.product);
+            var formData = app.toFormData(app.product);
+            axios.post("https://altara-api.herokuapp.com/api.php?action=newproduct", formData)
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.error) {
+                        app.errorMessage = response.data.message;
+                    } else {
+                        app.successMessage = response.data.message;
+                    }
+                });
+        },
         Repay: function (id) {
             var periodi;
-            if ( app.firstpurchase == true){
+            if (app.firstpurchase == true) {
                 console.log('yes');
-              periodi ='firstpayment'
+                periodi = 'firstpayment'
             }
             else {
-              periodi =app.repaydata[0].period
+                periodi = app.repaydata[0].period
             }
             var pushrepay = {
                 repayid: id,
                 period: periodi
             }
-          var formData = app.toFormData(pushrepay);
-            axios.post("http://localhost/altaracredit/altara_api/api.php?action=repay",formData)
+            var formData = app.toFormData(pushrepay);
+            axios.post("http://localhost/altaracredit/altara_api/api.php?action=repay", formData)
                 .then(function (response) {
                     console.log(response);
-                   
+
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
                         setTimeout(function () {
                             app.errorMessage = '';
                         }, 2000);
                     } else {
-                        if (app.firstpurchase == false){
+                        if (app.firstpurchase == false) {
                             app.CustomerOrders();
                         }
                         app.firstpurchase = false;
@@ -202,6 +219,23 @@ var app = new Vue({
                             if (feature == 'repaymentlog') {
                                 if (response.data.data[0].Employee_Role_id == 9 || response.data.data[0].Employee_Role_id == 8 || response.data.data[0].Employee_Role_id == 1 || response.data.data[0].Employee_Role_id == 5 || response.data.data[0].Employee_Role_id == 6) {
                                     app.access_granted3 = true;
+                                    app.successMessage = "Access Granted!, Enter Customer ID below";
+
+                                    setTimeout(function () {
+                                        app.successMessage = '';
+                                    }, 2000);
+                                } else {
+                                    app.errorMessage = "Access Denied, Wrong Login Details";
+
+                                    setTimeout(function () {
+                                        app.errorMessage = '';
+                                    }, 2000);
+                                }
+                            }
+
+                            if (feature == 'productlog') {
+                                if (response.data.data[0].Employee_Role_id == 9 || response.data.data[0].Employee_Role_id == 8 || response.data.data[0].Employee_Role_id == 1 || response.data.data[0].Employee_Role_id == 5 || response.data.data[0].Employee_Role_id == 6) {
+                                    app.access_granted4 = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
                                     setTimeout(function () {

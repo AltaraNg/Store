@@ -47,7 +47,7 @@
                         <div class="col-sm-4" style="margin:0 auto; margin-bottom:10px;">
                             <div style="margin:0 auto; width:250px;">
                                 <img src="reg.png" width="40" height="40" />
-                                <button type="button" data-toggle="modal" data-target="#myModal1" class="btn btn-success btn-small" style="font-size:12px">Repayment Log</button>
+                                <button type="button" data-toggle="modal" data-target="#myModal4" class="btn btn-success btn-small" style="font-size:12px">Product Log</button>
                             </div>
                         </div>
                     </div>
@@ -488,6 +488,95 @@
                     </div>
                 </div>
             </div>
+
+
+            <div id="myModal4" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="panel-heading" style="background-color: #00264d;">
+                            <h4 class="modal-title" style="color:white">Product Log</h4>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="loading" v-if='dataloaded'>Loading&#8230;</div>
+                            <p class="alert alert-danger alert-dismissable" v-if='errorMessage'>
+                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{errorMessage}}
+                            </p>
+                            <p class="alert alert-success alert-dismissable" v-if='successMessage'>
+                                <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{successMessage}}
+                            </p>
+                            <div v-if="!access_granted4">
+                                <div class="row " style="padding:40px;">
+                                    <div class="col-sm-6 form-group">
+                                        <label>Store Agent ID</label>
+                                        <input type="text" placeholder="Enter DVA ID.." v-model="Employee_id" class="form-control">
+
+                                    </div>
+                                    <div class="col-sm-6 form-group">
+                                        <label>Access Code</label>
+                                        <input type="password" placeholder="Enter Access code Here.." v-model="Access_code" class="form-control">
+
+                                    </div>
+
+                                </div>
+
+                                <button type="button" @click="GainAccess(feature4)" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Login</button>
+                                <br>
+                            </div>
+
+                            <div v-if="access_granted4" class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
+                                <div style=" padding-right:5px;padding-left:5px;">
+                                    <table class=" table">
+                                        <tr>
+                                            <th>Product Sku </th>
+                                            <th>Product Name </th>
+                                            <th>Description </th>
+                                            <th>Product Price </th>
+                                            <th>Supplier ID </th>
+                                            <th>Product Category </th>
+                                            <th>Supplied Date </th>
+                                            <!-- <th>Purchased Date </th>
+                                            <th>Store Avaliabilty </th> -->
+    
+                                        </tr>
+                                        <tr>
+                                                
+
+                                                <td>
+                                                        <input style="width:90px;" type="text" v-model="product.psku" required/>
+                                                    </td>
+                                            <td>
+                                                <input style="width:60px;" type="text" v-model="product.pname" required/> </td>
+                                                <td>
+                                                        <input style="width:120px;" type="text" v-model="product.pdesc" required/> </td>
+                                            <td>
+                                                <input style="width:90px;" type="text" v-model="product.pprice" required/>
+                                            </td>
+                                            <td>
+                                                <input style="width:80px;" type="text" v-model="product.psid" required/>
+                                            </td>
+                                            <td>
+                                                    <input style="width:80px;" type="text" v-model="product.p_cat" required/>
+                                                </td>
+                                            <td>
+                                                    <input style="width:90px;" type="date" v-model="product.psdate" required/>
+                                                </td>
+        
+                                        </tr>
+                                    </table>
+                                    <button type="button" @click="ProductLog()" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Login</button>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
 
         </div>
     </div>
