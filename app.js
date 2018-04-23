@@ -77,12 +77,7 @@ var app = new Vue({
     },
     watch: {
         product_sku: function() {
-<<<<<<< HEAD
             if (this.product_sku.length == 10) {
-=======
-            if (this.product_sku.length == 7) {
-                app.dataloaded = true;
->>>>>>> 3fe31860587983b1d4de06579f47b9d473737cc5
                 console.log("call change");
                 axios.post("https://altara-api.herokuapp.com/api.php?action=checkprod", { product_sku: this.product_sku })
                     .then(function(response) {
