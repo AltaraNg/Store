@@ -158,13 +158,8 @@ var app = new Vue({
                 nextdate: app.formatDate(app.addDays(date, 14))
             }
             var formData = app.toFormData(pushrepay);
-<<<<<<< HEAD
             axios.post("https://altara-api.herokuapp.com/api.php?action=repay", formData)
                 .then(function (response) {
-=======
-            axios.post("http://localhost/altaracredit/altara_api/api.php?action=repay", formData)
-                .then(function(response) {
->>>>>>> 3fe31860587983b1d4de06579f47b9d473737cc5
                     console.log(response);
 
                     if (response.data.error) {
