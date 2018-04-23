@@ -75,7 +75,7 @@ var app = new Vue({
     },
     watch: {
         product_sku: function() {
-            if (this.product_sku.length == 7) {
+            if (this.product_sku.length == 10) {
                 console.log("call change");
             }
         }
