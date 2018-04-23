@@ -139,7 +139,7 @@ var app = new Vue({
                 period: periodi
             }
             var formData = app.toFormData(pushrepay);
-            axios.post("http://localhost/altaracredit/altara_api/api.php?action=repay", formData)
+            axios.post("https://altara-api.herokuapp.com/api.php?action=repay", formData)
                 .then(function (response) {
                     console.log(response);
 
