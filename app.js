@@ -121,6 +121,15 @@ var app = new Vue({
                         app.firstpurchase = true;
                         app.Repay(app.purchase.p_reciept, app.purchase.p_date);
                         app.successMessage = response.data.message;
+                        
+                        app.product_sku = "";
+                        app.product_price = '';
+                        app.product_name='';
+                        app.purchase.repaymt = '';
+                        app.purchase.custp_id = '';
+                        app.purchase.p_date = '';
+                        app.purchase.product_qty = '';
+                        app.purchase.p_reciept= '';
                     }
                 });
         },
@@ -137,6 +146,14 @@ var app = new Vue({
                         app.errorMessage = response.data.message;
                     } else {
                         app.successMessage = response.data.message;
+                        
+                        app.product.psku ='';
+                        app.product.pname ='';
+                        app.product.pdesc ='';
+                        app.product.pprice ='';
+                        app.product.psid ='';
+                        app.product.psdate ='';
+                        app.product.p_cat ='';
                     }
                 });
         },
