@@ -133,9 +133,6 @@ var app = new Vue({
                     }
                 });
         },
-        getdetailsbySKU() {
-
-        },
         ProductLog: function() {
             console.log(app.product);
             var formData = app.toFormData(app.product);
@@ -158,6 +155,7 @@ var app = new Vue({
                 });
         },
         Repay: function(id, paydate) {
+            console.log(id  + " " + paydate )
             var date = new Date(paydate);
             console.log(paydate);
             console.log(app.formatDate(app.addDays(date, 14)));
