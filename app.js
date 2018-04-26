@@ -77,7 +77,8 @@ var app = new Vue({
     },
     watch: {
         product_sku: function() {
-            if (this.product_sku.length == 10) {
+            console.log(this.product_sku.toUpperCase());
+            if (this.product_sku.length > 5) {
                 console.log("call change");
                 axios.post("https://altara-api.herokuapp.com/api.php?action=checkprod", { product_sku: this.product_sku })
                     .then(function(response) {
@@ -86,8 +87,22 @@ var app = new Vue({
                         if (response.data.error) {
                             app.errorMessage = response.data.message;
                         } else {
-                            app.product_price = response.data.users[0].product_price;
-                            app.product_name = response.data.users[0].product_name;
+                            if (response.data.users[0].product_price){
+                                app.product_price = response.data.users[0].product_price;
+                            }
+                            else
+                            app.errorMessage = 'No records';
+                            console.log('No' + app.product_sku )
+
+                            if (response.data.users[0].product_name){
+                                app.product_name = response.data.users[0].product_name;
+                            }
+                            else
+                            app.errorMessage = 'No records'
+                            console.log('No')
+
+                            
+                            
                         }
                     });
             }
@@ -106,7 +121,7 @@ var app = new Vue({
     },
     methods: {
         Purchase: function() {
-            app.purchase.product_sku = app.product_sku;
+            app.purchase.product_sku = app.product_sku.toUpperCase();
             app.purchase.product_price = app.product_price;
             app.purchase.product_name = app.product_name;
             app.purchase.repaymt = Math.round((app.purchase.product_price - ((40 / 100) * app.purchase.product_price)) / 12);
@@ -134,6 +149,8 @@ var app = new Vue({
                 });
         },
         ProductLog: function() {
+            app.product.psku = app.product.psku.toUpperCase();
+            app.product.pname = app.product.pname.toUpperCase();
             console.log(app.product);
             var formData = app.toFormData(app.product);
             axios.post("https://altara-api.herokuapp.com/api.php?action=newproduct", formData)
