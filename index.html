@@ -423,10 +423,10 @@
                                                 <input style="width:50px;" type="text" v-model="purchase.product_qty" required/>
                                             </td>
                                             <td>
-                                                <label> {{ Math.round((40/100)*product_price)}} </label>
+                                                <label> {{ (Math.floor((0.4*product_price)/100))*100}} </label>
                                             </td>
                                             <td>
-                                                <label> {{ Math.round( (product_price - ( (40/100)*product_price ))/12)}} </label>
+                                                <label> {{ Math.floor( ((product_price - ((Math.floor((0.4*product_price)/100))*100))/12)/100)*100}} </label>
                                             </td>
                                             <td>
                                                 <input style="width:120px;" type="date" v-model="purchase.p_date" required/> </td>
