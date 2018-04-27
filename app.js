@@ -125,7 +125,7 @@ var app = new Vue({
             app.purchase.product_price = app.product_price;
             app.purchase.product_name = app.product_name;
            
-            app.purchase.repaymt =  Math.floor( (app.product_price - ( Math.floor((0.4*app.product_price)*100)/100)/12)*100)/100;
+            app.purchase.repaymt =   Math.floor( ((app.product_price - ((Math.floor((0.4*app.product_price)/100))*100))/12)/100)*100;
             var formData = app.toFormData(app.purchase);
             console.log(app.purchase)
             axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
