@@ -51,11 +51,15 @@ var app = new Vue({
         Regdate: '',
         repay_date: [],
         repaydata: [],
+        selected_order: [],
+        list_employees:[],
+        orderList: [],
         orderDate: '',
         firstpurchase: false,
         purchase: {
             p_reciept: '',
             custp_id: '',
+            sales_agent:'',
             p_date: '',
             product_name: '',
             product_price: '',
@@ -76,60 +80,59 @@ var app = new Vue({
 
     },
     watch: {
-        product_sku: function() {
+        product_sku: function () {
             console.log(this.product_sku.toUpperCase());
             if (this.product_sku.length > 5) {
                 console.log("call change");
                 axios.post("https://altara-api.herokuapp.com/api.php?action=checkprod", { product_sku: this.product_sku })
-                    .then(function(response) {
+                    .then(function (response) {
                         app.dataloaded = false;
                         console.log(response);
                         if (response.data.error) {
                             app.errorMessage = response.data.message;
                         } else {
-                            if (response.data.users[0].product_price){
+                            if (response.data.users[0].product_price) {
                                 app.product_price = response.data.users[0].product_price;
                             }
                             else
-                            app.errorMessage = 'No records';
-                            console.log('No' + app.product_sku )
+                                app.errorMessage = 'No records';
+                            console.log('No' + app.product_sku)
 
-                            if (response.data.users[0].product_name){
+                            if (response.data.users[0].product_name) {
                                 app.product_name = response.data.users[0].product_name;
                             }
                             else
-                            app.errorMessage = 'No records'
+                                app.errorMessage = 'No records'
                             console.log('No')
-
-                            
-                            
                         }
                     });
             }
         }
     },
-    mounted: function() {
+    mounted: function () {
         console.log('mounted');
+        this.ListEmployees();
         // this.CustomerOrders();
     },
     computed: {
-        filteredList_customers: function() {
+        filteredList_customers: function () {
             return this.list_customers.filter((list_customer) => {
                 return list_customer.first_name.match(this.search) + list_customer.last_name.match(this.search);
             });
         },
     },
     methods: {
-        Purchase: function() {
+        Purchase: function () {
             app.purchase.product_sku = app.product_sku.toUpperCase();
             app.purchase.product_price = app.product_price;
             app.purchase.product_name = app.product_name;
-           
-            app.purchase.repaymt =   Math.floor( ((app.product_price - ((Math.floor((0.4*app.product_price)/100))*100))/12)/100)*100;
+
+            app.purchase.repaymt = Math.floor(((app.product_price - ((Math.floor((0.4 * app.product_price) / 100)) * 100)) / 12) / 100) * 100;
             var formData = app.toFormData(app.purchase);
             console.log(app.purchase)
-            axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
-                .then(function(response) {
+            // axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
+            axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=purchase" , formData)
+                .then(function (response) {
                     console.log(response);
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
@@ -137,43 +140,59 @@ var app = new Vue({
                         app.firstpurchase = true;
                         app.Repay(app.purchase.p_reciept, app.purchase.p_date);
                         app.successMessage = response.data.message;
-                        
+
                         app.product_sku = "";
                         app.product_price = '';
-                        app.product_name='';
+                        app.product_name = '';
                         app.purchase.repaymt = '';
                         app.purchase.custp_id = '';
                         app.purchase.p_date = '';
                         app.purchase.product_qty = '';
-                        app.purchase.p_reciept= '';
+                        app.purchase.p_reciept = '';
+                        app.purchase.sales_agent = '';
                     }
                 });
         },
-        ProductLog: function() {
+
+        ListEmployees: function () {
+            // axios.get("https://altara-api.herokuapp.com/api.php?action=listsalesemp")
+            axios.get("http://localhost/AltaraCredit/altara_api/api.php?action=listsalesemp")
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.error) {
+                        app.errorMessage = response.data.message;
+                    } else {
+                        app.list_employees = response.data.users;
+                        console.log(app.list_employees);
+                    }
+                });
+        },
+
+        ProductLog: function () {
             app.product.psku = app.product.psku.toUpperCase();
             app.product.pname = app.product.pname.toUpperCase();
             console.log(app.product);
             var formData = app.toFormData(app.product);
             axios.post("https://altara-api.herokuapp.com/api.php?action=newproduct", formData)
-                .then(function(response) {
+                .then(function (response) {
                     console.log(response);
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
                     } else {
                         app.successMessage = response.data.message;
-                        
-                        app.product.psku ='';
-                        app.product.pname ='';
-                        app.product.pdesc ='';
-                        app.product.pprice ='';
-                        app.product.psid ='';
-                        app.product.psdate ='';
-                        app.product.p_cat ='';
+
+                        app.product.psku = '';
+                        app.product.pname = '';
+                        app.product.pdesc = '';
+                        app.product.pprice = '';
+                        app.product.psid = '';
+                        app.product.psdate = '';
+                        app.product.p_cat = '';
                     }
                 });
         },
-        Repay: function(id, paydate) {
-            console.log(id  + " " + paydate )
+        Repay: function (id, paydate) {
+            console.log(id + " " + paydate)
             var date = new Date(paydate);
             console.log(paydate);
             console.log(app.formatDate(app.addDays(date, 14)));
@@ -183,6 +202,7 @@ var app = new Vue({
                 periodi = 'firstpayment';
             } else {
                 periodi = app.repaydata[0].period
+                console.log(app.repaydata[0].period);
             }
             var pushrepay = {
                 repayid: id,
@@ -197,22 +217,46 @@ var app = new Vue({
 
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
-                        setTimeout(function() {
+                        setTimeout(function () {
                             app.errorMessage = '';
                         }, 2000);
                     } else {
                         if (app.firstpurchase == false) {
-                            app.CustomerOrders();
+                            // app.UpdateRepay(id);
                         }
+                       
                         app.firstpurchase = false;
                         app.successMessage = response.data.message;
-                        setTimeout(function() {
+                        setTimeout(function () {
                             app.successMessage = '';
                         }, 2000);
                     }
                 });
         },
-        GainAccess: function(feature) {
+
+        UpdateRepay: function (id) {
+            app.dataloaded = true;
+            axios.post("https://altara-api.herokuapp.com/api.php?action=uprepay", {
+                repay_id: id
+            })
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.error) {
+                        app.errorMessage = response.data.message;
+                    } else {
+                      
+                        console.log(response.data.orders[0])
+                        response.data.orders[0].order_date = app.orderDate;
+                        response.data.orders[0].repayment = app.repay_amt;
+
+                        app.pushToRepay(response.data.orders[0]);
+                        app.dataloaded = false;
+                    }
+                });
+        },
+
+
+        GainAccess: function (feature) {
             console.log(feature)
             app.submitted = true;
             var emp = app.Employee_id;
@@ -233,13 +277,13 @@ var app = new Vue({
             var formData = app.toFormData(dat);
             console.log()
             axios.post("https://altara-api.herokuapp.com/api.php?action=aknowledge", formData)
-                .then(function(response) {
+                .then(function (response) {
                     app.dataloaded = false;
                     console.log(response);
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
 
-                        setTimeout(function() {
+                        setTimeout(function () {
                             app.errorMessage = '';
                         }, 2000);
 
@@ -250,13 +294,13 @@ var app = new Vue({
                                     app.access_granted = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         app.successMessage = '';
                                     }, 2000);
                                 } else {
                                     app.errorMessage = "Access Denied, Wrong Login Details";
 
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         app.errorMessage = '';
                                     }, 2000);
                                 }
@@ -267,13 +311,13 @@ var app = new Vue({
                                     app.access_granted2 = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         app.successMessage = '';
                                     }, 2000);
                                 } else {
                                     app.errorMessage = "Access Denied, Wrong Login Details";
 
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         app.errorMessage = '';
                                     }, 2000);
                                 }
@@ -283,13 +327,13 @@ var app = new Vue({
                                     app.access_granted3 = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         app.successMessage = '';
                                     }, 2000);
                                 } else {
                                     app.errorMessage = "Access Denied, Wrong Login Details";
 
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         app.errorMessage = '';
                                     }, 2000);
                                 }
@@ -300,13 +344,13 @@ var app = new Vue({
                                     app.access_granted4 = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         app.successMessage = '';
                                     }, 2000);
                                 } else {
                                     app.errorMessage = "Access Denied, Wrong Login Details";
 
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         app.errorMessage = '';
                                     }, 2000);
                                 }
@@ -316,7 +360,7 @@ var app = new Vue({
 
                             app.errorMessage = "Access Denied, Wrong Login Details";
 
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 app.errorMessage = '';
                             }, 2000);
                         }
@@ -325,18 +369,18 @@ var app = new Vue({
                 });
         },
 
-        CheckId: function() {
+        CheckId: function () {
             app.dataloaded = true;
             console.log(app.Customer_id);
             axios.post("https://altara-api.herokuapp.com/api.php?action=checkId", {
-                    Customer_id: app.Customer_id
-                })
-                .then(function(response) {
+                Customer_id: app.Customer_id
+            })
+                .then(function (response) {
                     console.log(response);
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
                         app.dataloaded = false;
-                        setTimeout(function() {
+                        setTimeout(function () {
                             app.errorMessage = '';
                         }, 2000);
                     } else {
@@ -363,7 +407,7 @@ var app = new Vue({
                         } else {
                             app.errorMessage = "Customer ID Doest Exist!";
                             // app.sendNotification(name, telnumber)
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 app.errorMessage = '';
                             }, 2000);
                             app.dataloaded = false;
@@ -374,7 +418,7 @@ var app = new Vue({
                 });
         },
 
-        toFormData: function(obj) {
+        toFormData: function (obj) {
             var form_data = new FormData();
             for (var key in obj) {
                 form_data.append(key, obj[key]);
@@ -382,106 +426,111 @@ var app = new Vue({
             return form_data;
         },
 
-        resetMessage: function() {
+        resetMessage: function () {
             app.errorMessage = "";
             app.successMessage = "";
         },
 
-        CustomerOrders: function() {
+        CustomerOrders: function () {
 
             axios.post("https://altara-api.herokuapp.com/api.php?action=order", {
-                    Customer_id: app.Customer_id
-                })
-                .then(function(response) {
+                Customer_id: app.Customer_id
+            })
+                .then(function (response) {
                     console.log(response);
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
                     } else {
                         app.idchecked = true;
                         if (response.data.orders.length != 0) {
-                            app.orderDate = response.data.orders[0].order_date;
-                            app.repay_amt = response.data.orders[0].repayment;
-
-                            app.repaydata = [
-                                { period: '1st', status: response.data.orders[0].first },
-                                { period: '2nd', status: response.data.orders[0].second },
-                                { period: '3rd', status: response.data.orders[0].third },
-                                { period: '4th', status: response.data.orders[0].fourth },
-                                { period: '5th', status: response.data.orders[0].fifth },
-                                { period: '6th', status: response.data.orders[0].sixth },
-                                { period: '7th', status: response.data.orders[0].seventh },
-                                { period: '8th', status: response.data.orders[0].eight },
-                                { period: '9th', status: response.data.orders[0].nineth },
-                                { period: '10th', status: response.data.orders[0].tenth },
-                                { period: '11th', status: response.data.orders[0].eleventh },
-                                { period: '12th', status: response.data.orders[0].twelveth }
-                            ]
-
-                            console.log(app.orderDate);
-                            var date = new Date(app.orderDate);
-                            var a = [14, 28, 42, 56, 70, 84, 98, 112, 126, 140, 154, 168];
-                            for (i = 0; i <= 11; i++) {
-                                var ans = app.formatDate(app.addDays(date, a[i]));
-                                app.repay_date.push(ans);
-                            }
-                            console.log(app.repay_date);
-                            app.List_orders = response.data.orders;
-
-
-                            for (i = 0; i < app.repay_date.length; i++) {
-                                app.repaydata.forEach(element => {
-                                    if (app.repaydata.indexOf(element) == i) {
-                                        element.date = app.repay_date[i]
-                                    }
-                                });
-                            }
-
-
-                            app.repaydata = app.repaydata.filter(function(el) {
-                                return el.status == "0";
-                            });
-
-                            console.log(app.repaydata);
-
+                            app.orderList = response.data.orders
                         }
                     }
                 });
         },
 
-        addDays: function(date, days) {
+        pushToRepay: function (selectedOrder) {
+
+            app.repay_date = [];
+
+            console.log(app.repay_date);
+            app.selected_order = selectedOrder;
+            app.orderDate = selectedOrder.order_date;
+            app.repay_amt = selectedOrder.repayment;
+
+            app.repaydata = [
+                { period: '1st', status: selectedOrder.first },
+                { period: '2nd', status: selectedOrder.second },
+                { period: '3rd', status: selectedOrder.third },
+                { period: '4th', status: selectedOrder.fourth },
+                { period: '5th', status: selectedOrder.fifth },
+                { period: '6th', status: selectedOrder.sixth },
+                { period: '7th', status: selectedOrder.seventh },
+                { period: '8th', status: selectedOrder.eight },
+                { period: '9th', status: selectedOrder.nineth },
+                { period: '10th', status: selectedOrder.tenth },
+                { period: '11th', status: selectedOrder.eleventh },
+                { period: '12th', status: selectedOrder.twelveth }
+            ]
+
+            console.log(app.orderDate);
+            var date = new Date(app.orderDate);
+            var a = [14, 28, 42, 56, 70, 84, 98, 112, 126, 140, 154, 168];
+
+            for (i = 0; i <= 11; i++) {
+                var ans = app.formatDate(app.addDays(date, a[i]));
+                app.repay_date.push(ans);
+            }
+
+            for (i = 0; i < app.repay_date.length; i++) {
+                app.repaydata.forEach(element => {
+                    if (app.repaydata.indexOf(element) == i) {
+                        element.date = app.repay_date[i]
+                    }
+                });
+            }
+
+            app.repaydata = app.repaydata.filter(function (el) {
+                return el.status == "0";
+            });
+
+            console.log(app.repaydata);
+        },
+
+        addDays: function (date, days) {
             var result = new Date(date);
             result.setDate(date.getDate() + days);
             return result;
         },
 
 
-        formatDate: function(date) {
+        formatDate: function (date) {
             return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         },
 
-        Repayment: function(list) {
+        Repayment: function (list) {
             app.repay = list;
             console.log(app.repay);
         },
 
-        checkCust: function() {
+        checkCust: function () {
             if (app.CheckCusId == '') {
                 app.errorMessageChk = "Field can't be empty";
-                setTimeout(function() {
+                setTimeout(function () {
                     app.errorMessageChk = '';
                 }, 1000);
 
             } else {
                 console.log(app.CheckCusId);
                 axios.post("https://wafcolapi.herokuapp.com/api.php?action=checkId", {
-                        Customer_id: app.CheckCusId
-                    })
-                    .then(function(response) {
+                    Customer_id: app.CheckCusId
+                })
+                    .then(function (response) {
                         console.log(response);
                         if (response.data.error) {
                             app.errorMessageChk = response.data.message;
 
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 app.errorMessageChk = '';
                             }, 1000);
 
@@ -493,11 +542,11 @@ var app = new Vue({
                                 // console.log(app.SelectedGuaData);
 
                                 app.CustName = response.data.checklist[0].first_name + " " + response.data.checklist[0].last_name
-                                    // app.phoneNo = response.data.checklist[0].telephone
+                                // app.phoneNo = response.data.checklist[0].telephone
                             } else {
                                 app.errorMessageChk = "Customer ID doesnt exist!";
 
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     app.errorMessageChk = '';
                                 }, 1000);
                             }
@@ -513,7 +562,7 @@ var app = new Vue({
             telnumber = telnumber.substr(1);
             let message = "Dear " + name + ", Welcome to Altara Credit Limited. You are required to bring the following documents. 1. Proof of ID, 2. Passport Photo (2), 3. Utility bill(Nepa, Not later than 3 months), 4. Six Months Bank Statement till date,  5. Gurantor's cheque.";
             axios.get("https://api.infobip.com/sms/1/text/query?username=Oluwatoke12&password=Altara99&to=" + 234 + telnumber + "&text=" + message + "")
-                .then(function(response2) {
+                .then(function (response2) {
 
                     console.log(response2);
                     if (response2.status == 200) {
