@@ -130,8 +130,8 @@ var app = new Vue({
             app.purchase.repaymt = Math.floor(((app.product_price - ((Math.floor((0.4 * app.product_price) / 100)) * 100)) / 12) / 100) * 100;
             var formData = app.toFormData(app.purchase);
             console.log(app.purchase)
-            // axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
-            axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=purchase" , formData)
+            axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
+            // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=purchase" , formData)
                 .then(function (response) {
                     console.log(response);
                     if (response.data.error) {
@@ -155,8 +155,8 @@ var app = new Vue({
         },
 
         ListEmployees: function () {
-            // axios.get("https://altara-api.herokuapp.com/api.php?action=listsalesemp")
-            axios.get("http://localhost/AltaraCredit/altara_api/api.php?action=listsalesemp")
+            axios.get("https://altara-api.herokuapp.com/api.php?action=listsalesemp")
+            // axios.get("http://localhost/AltaraCredit/altara_api/api.php?action=listsalesemp")
                 .then(function (response) {
                     console.log(response);
                     if (response.data.error) {
