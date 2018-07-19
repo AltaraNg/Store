@@ -127,10 +127,16 @@
                                                 <br />
                                                 <i class="glyphicon glyphicon-gift"></i>Member since : {{Regdate}}
                                                 <br />
-                                                <i>
-                                                    <img src="cancel.png" width="15" height="15" alt="">
+                                                <i v-if="p_guar == 1 && w_guar == 1 && store_v == 1 && check_id == 1  && check_pp == 1 && check_gc == 1">
+                                                    <img src="checked.png" width="15" height="15" alt="">
+                                                    <strong>Approved</strong>
                                                 </i>
-                                                <strong>Not Approved</strong>
+
+                                                <i v-else>
+                                                    <img src="cancel.png" width="15" height="15" alt="">
+                                                    <strong>Not Approved</strong>
+                                                </i>
+                                                
                                                 <!-- Split button -->
 
                                             </div>

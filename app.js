@@ -67,6 +67,14 @@ var app = new Vue({
             product_qty: '',
             repaymt: ''
         },
+        check_ut : '',
+        check_id: '',
+        check_bs: '',
+        check_pp : '',
+        check_gc : '',
+        w_guar : '',
+        p_guar: '',
+        store_v: '',
 
         product: {
             psku: '',
@@ -112,7 +120,7 @@ var app = new Vue({
     mounted: function () {
         console.log('mounted');
         this.ListEmployees();
-        // this.CustomerOrders();
+        
     },
     computed: {
         filteredList_customers: function () {
@@ -388,6 +396,7 @@ var app = new Vue({
                             app.repay = response.data.checklist;
                             console.log(app.repay);
                             app.dataloaded = false;
+                            app.CheckDoc(app.Customer_id)
                             app.CustomerOrders();
                             app.CustName = response.data.checklist[0].first_name + " " + response.data.checklist[0].last_name
                             app.address = response.data.checklist[0].add_houseno + ", " + response.data.checklist[0].add_street + ", " + response.data.checklist[0].area_address + ", Ibadan, Oyo state";
@@ -417,7 +426,48 @@ var app = new Vue({
                     }
                 });
         },
+        CheckDoc: function(customer) {
+            console.log(customer)
+            axios.post("https://altara-api.herokuapp.com/api.php?action=checkDoc", {
+                    Customer_id: customer,
+                })
+                .then(function(response) {
+                    console.log(response);
+                    if (response.data.error) {
+                        app.errorMessage = response.data.message;
+                        setTimeout(function() {
+                            app.errorMessage = '';
+                        }, 2000);
+                    } else {
+                        if (response.data.checklist.length != 0) {
+                            app.check_ut = response.data.checklist[0].utility;
+                            app.check_id = response.data.checklist[0].id_proof;
+                            app.check_bs = response.data.checklist[0].banks;
+                            app.check_pp = response.data.checklist[0].passport;
+                            app.check_gc = response.data.checklist[0].gcheque;
+                            app.w_guar = response.data.checklist[0].work_guarantor;
+                            app.p_guar = response.data.checklist[0].personal_gua;
+                            app.store_v = response.data.checklist[0].store_visited;
+                        }
+                        
+                        else {
+                            // app.errorMessage = "Customer ID Doest Exist!";
+                            // // app.sendNotification(name, telnumber)
+                            // setTimeout(function() {
+                            //     app.errorsMessage = '';
+                            // }, 2000);
+                            // app.dataloaded = false;
+                        }
+                        app.successMessage = response.data.message;
+                        // app.sendNotification(name, telnumber)
+                        setTimeout(function() {
+                            app.successMessage = '';
+                        }, 2000);
 
+                    }
+                });
+
+        },
         toFormData: function (obj) {
             var form_data = new FormData();
             for (var key in obj) {
