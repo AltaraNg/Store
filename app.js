@@ -17,8 +17,13 @@ var app = new Vue({
     el: '#root',
     data: {
         product_sku: '',
+        ppercentage:'',
         product_price: '',
+        twproduct_price:'',
+        frproduct_price:'',
+        first_payment:'',
         product_name: '',
+        repayment:'',
         errorMessage: "",
         successMessage: "",
         search: '',
@@ -64,7 +69,7 @@ var app = new Vue({
             product_name: '',
             product_price: '',
             product_sku: '',
-            product_qty: '',
+            order_type: '',
             repaymt: ''
         },
         check_ut : '',
@@ -80,18 +85,29 @@ var app = new Vue({
             psku: '',
             pname: '',
             pdesc: '',
-            pprice: '',
             psid: '',
             psdate: '',
-            p_cat: ''
-        }
+            p_cat: '',
+            tpc_pprice:'',
+            fpc_pprice:'',
+            receiver_id:'',
+            store_name:''
+        },
+        Branchname: [
+            "Challenge",
+            "Dugbe",
+            "Iwo-Road",
+            "Bodija",
+            "Agodi-Gate"
+        ],
+
 
     },
     watch: {
         product_sku: function () {
             console.log(this.product_sku.toUpperCase());
-            if (this.product_sku.length > 5) {
-                console.log("call change");
+            if (this.product_sku.length > 5 ) {              
+                  console.log("call change");
                 axios.post("https://altara-api.herokuapp.com/api.php?action=checkprod", { product_sku: this.product_sku })
                     .then(function (response) {
                         app.dataloaded = false;
@@ -99,22 +115,35 @@ var app = new Vue({
                         if (response.data.error) {
                             app.errorMessage = response.data.message;
                         } else {
-                            if (response.data.users[0].product_price) {
-                                app.product_price = response.data.users[0].product_price;
+                            if (response.data.users.length > 0) {
+                                app.twproduct_price= response.data.users[0].pc_pprice20;
+                                app.frproduct_price = response.data.users[0].pc_pprice40;
+                              
                             }
                             else
                                 app.errorMessage = 'No records';
-                            console.log('No' + app.product_sku)
-
                             if (response.data.users[0].product_name) {
                                 app.product_name = response.data.users[0].product_name;
                             }
                             else
                                 app.errorMessage = 'No records'
-                            console.log('No')
                         }
                     });
-            }
+        }
+        },
+        ppercentage: function () {
+            if (this.product_sku.length != '' && this.ppercentage == 'twenty') {              
+                  app.product_price = app.twproduct_price;
+                  console.log("twenty" + app.product_price);
+                  app.repayment = Math.floor(((app.product_price - ((Math.floor((0.2 * app.product_price) / 100)) * 100)) / 12) / 100) * 100;
+                  app.first_payment = (Math.floor((0.2*app.product_price)/100))*100
+        }
+        else {
+            app.product_price = app.frproduct_price;
+            console.log("fourty" + app.product_price);
+            app.repayment = Math.floor(((app.product_price - ((Math.floor((0.4 * app.product_price) / 100)) * 100)) / 12) / 100) * 100;
+            app.first_payment =  (Math.floor((0.4*app.product_price)/100))*100
+        }
         }
     },
     mounted: function () {
@@ -131,15 +160,17 @@ var app = new Vue({
     },
     methods: {
         Purchase: function () {
+            var percent;
             app.purchase.product_sku = app.product_sku.toUpperCase();
             app.purchase.product_price = app.product_price;
             app.purchase.product_name = app.product_name;
-
-            app.purchase.repaymt = Math.floor(((app.product_price - ((Math.floor((0.4 * app.product_price) / 100)) * 100)) / 12) / 100) * 100;
+            app.purchase.order_type = app.ppercentage;
+            app.purchase.repaymt = app.repayment;
+            
             var formData = app.toFormData(app.purchase);
             console.log(app.purchase)
+
             axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
-            // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=purchase" , formData)
                 .then(function (response) {
                     console.log(response);
                     if (response.data.error) {
@@ -147,15 +178,17 @@ var app = new Vue({
                     } else {
                         app.firstpurchase = true;
                         app.Repay(app.purchase.p_reciept, app.purchase.p_date);
+                        app.updateStore(app.purchase.product_sku, app.purchase.p_date, app.purchase.sales_agent );
                         app.successMessage = response.data.message;
-
                         app.product_sku = "";
                         app.product_price = '';
                         app.product_name = '';
+                        app.repayment = '';
+                        app.first_payment = '';
+                        app.ppercentage = '';
                         app.purchase.repaymt = '';
                         app.purchase.custp_id = '';
                         app.purchase.p_date = '';
-                        app.purchase.product_qty = '';
                         app.purchase.p_reciept = '';
                         app.purchase.sales_agent = '';
                     }
@@ -177,6 +210,18 @@ var app = new Vue({
         },
 
         ProductLog: function () {
+
+            if ( app.product.psku != '' &&
+            app.product.pname != '' &&
+            app.product.pdesc != '' &&
+            app.product.psid != '' &&
+            app.product.psdate != '' &&
+            app.product.p_cat != '' &&
+            app.product.tpc_pprice != '' &&
+            app.product.fpc_pprice != '' &&
+            app.product.receiver_id != '' &&
+            app.product.store_name != '' ){
+
             app.product.psku = app.product.psku.toUpperCase();
             app.product.pname = app.product.pname.toUpperCase();
             console.log(app.product);
@@ -192,12 +237,19 @@ var app = new Vue({
                         app.product.psku = '';
                         app.product.pname = '';
                         app.product.pdesc = '';
-                        app.product.pprice = '';
                         app.product.psid = '';
                         app.product.psdate = '';
                         app.product.p_cat = '';
+                        app.product.tpc_pprice= '';
+                        app.product.fpc_pprice= '';
+                        app.product.receiver_id= '';
+                        app.product.store_name= '';
+                        
                     }
                 });
+
+            }
+            else app.errorMessage = 'All field must be filled';
         },
         Repay: function (id, paydate) {
             console.log(id + " " + paydate)
@@ -498,7 +550,23 @@ var app = new Vue({
                     }
                 });
         },
-
+        updateStore:function (psku, pdate, seller){
+            console.log(psku + pdate + seller)
+            app.dataloaded = true;
+            axios.post("https://altara-api.herokuapp.com/api.php?action=upstore", {
+                product_sku: psku,
+                purchase_date :pdate,
+                seller_id: seller
+            })
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.error) {
+                        app.errorMessage = response.data.message;
+                    } else {
+                        app.dataloaded = false;
+                    }
+                });
+        },
         pushToRepay: function (selectedOrder) {
 
             app.repay_date = [];

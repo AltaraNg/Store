@@ -136,7 +136,7 @@
                                                     <img src="cancel.png" width="15" height="15" alt="">
                                                     <strong>Not Approved</strong>
                                                 </i>
-                                                
+
                                                 <!-- Split button -->
 
                                             </div>
@@ -152,8 +152,8 @@
                                             <th>Order No.</th>
                                             <th>Product Name</th>
                                             <th>Product Price</th>
-                                            <th>Product Qty</th>
-                                            <th>40% PPrice</th>
+                                            <th>Percentage</th>
+                                            <th>Repayment</th>
                                             <th>Repayment Plans</th>
                                         </tr>
 
@@ -163,8 +163,8 @@
                                             <td>{{list_order.order_id}}</td>
                                             <td>{{list_order.product_name}}</td>
                                             <td>{{list_order.product_price}}</td>
-                                            <td>{{list_order.product_qty}}</td>
-                                            <td>N{{list_order.product_price * list_order.product_qty * (40/100)}}.00</td>
+                                            <td>{{list_order.order_type}}</td>
+                                            <td>N{{list_order.repayment}}</td>
                                             <td>
                                                 <button class=" btn btn-success" data-toggle="modal" data-target="#myModal3" @click="pushToRepay(list_order)">View Plans</button>
 
@@ -190,13 +190,10 @@
                                                             <th colspan="12" style="text-align:center">Repayment Plans</th>
                                                         </tr>
 
-
-
                                                         <tr style="font-size:12px">
                                                             <th>Date</th>
                                                             <td v-for="rday in repay_date">{{rday}}</td>
                                                         </tr>
-
 
                                                         <tr style="font-size:12px">
                                                             <th>Status</th>
@@ -337,7 +334,7 @@
                                                                 </div>
 
                                                                 <div v-if="access_granted3" class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
-                                                                    <a href="#" class="close"  data-dismiss="modal" data-target="#myModal1" aria-label="close">&times;</a>
+                                                                    <a href="#" class="close" data-dismiss="modal" data-target="#myModal1" aria-label="close">&times;</a>
                                                                     <div class="loading" v-if='dataloaded'>Loading&#8230;</div>
                                                                     <div style=" padding-right:5px;padding-left:5px;">
                                                                         <table class=" table">
@@ -358,7 +355,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
-                                                                        <button  type="button" @click="Repay(selected_order.order_id,repaydata[0].date);" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
+                                                                        <button type="button" @click="Repay(selected_order.order_id,repaydata[0].date);" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
                                                                         <br>
                                                                     </div>
                                                                 </div>
@@ -424,57 +421,99 @@
 
                             <div v-if="access_granted2" class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
                                 <div style=" padding-right:5px;padding-left:5px;">
-                                    <table class=" table">
-                                        <tr>
-                                            <th>Vend Receipt Number </th>
-                                            <th>Sales Agent </th>
-                                            <th>Customer Id </th>
-                                            <th>Product Sku </th>
-                                            <th>Product Name </th>
-                                            <th>Product Price </th>
-                                            <th>Product Qty </th>
-                                            <th>40% paid</th>
-                                            <th>Repayment</th>
-                                            <th>Date </th>
 
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input style="width:90px;" type="text" v-model="purchase.p_reciept" required/>
-                                            </td>
-                                            <td><select  class="form-control " v-model="purchase.sales_agent">
-                                                <option value="">Select</option>
-                                                <option v-for="employee in list_employees"
-                                                :value="employee.Employee_id">{{ employee.Employee_id}} &nbsp;  {{employee.Employee_name}}
-                                        </option>
-                                            </select> </td>
-                                            <td>
-                                                <input style="width:60px;" type="text" v-model="purchase.custp_id" required/> </td>
-                                            <td>
-                                                <input style="width:90px;" type="text" v-model="product_sku" required/>
-                                            </td>
-                                            <td>
-                                                <input style="width:90px;" disabled type="text" v-model="product_name" required/>
-                                            </td>
-                                            <td>
-                                                <input style="width:80px;" disabled type="text" v-model="product_price" required/>
-                                            </td>
 
-                                            <td>
-                                                <input style="width:50px;" type="text" v-model="purchase.product_qty" required/>
-                                            </td>
-                                            <td>
-                                                <label> {{ (Math.floor((0.4*product_price)/100))*100}} </label>
-                                            </td>
-                                            <td>
-                                                <label> {{ Math.floor( ((product_price - ((Math.floor((0.4*product_price)/100))*100))/12)/100)*100}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <input style="width:120px;" type="date" v-model="purchase.p_date" required/> </td>
+                                        <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Vend Receipt Number</label>
+        
+                                                            <input class="col-md-9" type="text" v-model="purchase.p_reciept" required/>
+        
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Sales Agent </label>
+        
+                                                            <select class=" col-md-9 " v-model="purchase.sales_agent">
+                                                                    <option value="">Select</option>
+                                                                    <option v-for="employee in list_employees" :value="employee.Employee_id">{{ employee.Employee_id}} &nbsp; {{employee.Employee_name}}
+                                                                    </option>
+                                                                </select>
+        
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Customer Id</label>
+        
+                                                            <input class="col-md-9" type="text" v-model="purchase.custp_id" required/>
+        
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Product Sku</label>
+        
+                                                            <input class="col-md-9" type="text" v-model="product_sku" required/>
+        
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <div class="row">
+                                                                <label class="col-md-3 control-label">Percentage</label>
+                                                                <select  :disabled="product_name == ''" class="col-md-9" v-model="ppercentage">
+                                                                        <option value="twenty"> 20%</option>
+                                                                        <option value="forty"> 40%</option>
+                                                                       
+                                                                    </select>
+            
+                                                            </div>
+                                                        </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Product Name</label>
+                                                          
+                                                            <input class="col-md-9"   disabled type="text" v-model="product_name" required/>
+        
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Product Price</label>
+                                                            <input class="col-md-9" type="text" disabled v-model="product_price" required/>
+                                                        </div>
 
-                                        </tr>
-                                    </table>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">First Payment </label> 
+                                                            <input class="col-md-9" type="text" disabled v-model="first_payment" required/>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Repayment</label>
+                                                            <input class="col-md-9" type="text" disabled v-model="repayment" required/>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <div class="row">
+                                                                <label class="col-md-3 control-label">Date</label>
+                                                                <input class="col-md-9" type="date" v-model="purchase.p_date" required/>
+                                                            </div>
+
+                                                    </div>
+                                                    
+
+                                                </div>
+                                            </div>
+                                    
                                     <button type="button" @click="Purchase()" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Submit</button>
                                     <br>
                                 </div>
@@ -525,45 +564,97 @@
 
                             <div v-if="access_granted4" class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
                                 <div style=" padding-right:5px;padding-left:5px;">
-                                    <table class=" table">
-                                        <tr>
-                                            <th>Product Sku </th>
-                                            <th>Product Name </th>
-                                            <th>Description </th>
-                                            <th>Product Price </th>
-                                            <th>Supplier ID </th>
-                                            <th>Product Category </th>
-                                            <th>Supplied Date </th>
-                                            <!-- <th>Purchased Date </th>
-<th>Store Avaliabilty </th> -->
 
-                                        </tr>
-                                        <tr>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Product Sku</label>
 
+                                                    <input class="col-md-9" type="text" v-model="product.psku" required/>
 
-                                            <td>
-                                                <input style="width:90px;" type="text" v-model="product.psku" required/>
-                                            </td>
-                                            <td>
-                                                <input style="width:60px;" type="text" v-model="product.pname" required/> </td>
-                                            <td>
-                                                <input style="width:120px;" type="text" v-model="product.pdesc" required/> </td>
-                                            <td>
-                                                <input style="width:90px;" type="text" v-model="product.pprice" required/>
-                                            </td>
-                                            <td>
-                                                <input style="width:80px;" type="text" v-model="product.psid" required/>
-                                            </td>
-                                            <td>
-                                                <input style="width:80px;" type="text" v-model="product.p_cat" required/>
-                                            </td>
-                                            <td>
-                                                <input style="width:90px;" type="date" v-model="product.psdate" required/>
-                                            </td>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Product Name</label>
 
-                                        </tr>
-                                    </table>
-                                    <button type="button" @click="ProductLog()" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Login</button>
+                                                    <input class="col-md-9" type="text" v-model="product.pname" required/>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Product Category</label>
+
+                                                    <input class="col-md-9" type="text" v-model="product.p_cat" required/>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Description</label>
+
+                                                    <input class="col-md-9" type="text" v-model="product.pdesc" required/>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">40% Price</label>
+
+                                                    <input class="col-md-9" type="number" v-model="product.fpc_pprice" required/>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">20% Price</label>
+
+                                                    <input class="col-md-9" type="number" v-model="product.tpc_pprice" required/>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Reciever ID</label>
+
+                                                    <input class="col-md-9" type="text" v-model="product.receiver_id" required/>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Store</label>
+                                                    <select  class="col-md-9" v-model="product.store_name">
+                                                            <option value="">Select Branch</option>
+                                                            <option v-for="(Branchn, $index) in Branchname"
+                                                            :value="Branchname[$index]">{{ Branchn }}
+                                                    </option>
+                                                        </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Supplier ID</label>
+
+                                                    <input class="col-md-9" class="col-md-9" type="text" v-model="product.psid" required/>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Supplied Date</label>
+
+                                                    <input class="col-md-9" type="date" v-model="product.psdate" required/>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" @click="ProductLog()" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Add Product</button>
                                     <br>
                                 </div>
                             </div>
