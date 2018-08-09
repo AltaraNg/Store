@@ -375,7 +375,7 @@
 
 
 
-                                <button type="button" @click="idchecked = false;" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">New Customer</button>
+                                <button type="button" @click="idchecked = false; orderList=[];" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">New Customer</button>
                             </div>
                         </div>
 
@@ -501,6 +501,18 @@
                                                             <input class="col-md-9" type="text" disabled v-model="repayment" required/>
                                                         </div>
 
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Customer Referrer ID</label>
+                                                            <input class="col-md-9"    type="text" v-model="referrer_id" required/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Staff Referrer ID </label>
+                                                            <input class="col-md-9"   type="text" v-model="staff_referrer_id" required/>
+                                                        </div>
                                                     </div>
                                                     <div class="form-group">
                                                             <div class="row">

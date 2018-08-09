@@ -16,6 +16,8 @@ const ERRORS = {
 var app = new Vue({
     el: '#root',
     data: {
+        referrer_id:'',
+        staff_referrer_id:'',
         product_sku: '',
         ppercentage:'',
         product_price: '',
@@ -70,7 +72,9 @@ var app = new Vue({
             product_price: '',
             product_sku: '',
             order_type: '',
-            repaymt: ''
+            repaymt: '',
+            staff_referrer_id:'',
+            referrer_id:''
         },
         check_ut : '',
         check_id: '',
@@ -100,8 +104,6 @@ var app = new Vue({
             "Bodija",
             "Agodi-Gate"
         ],
-
-
     },
     watch: {
         product_sku: function () {
@@ -166,9 +168,21 @@ var app = new Vue({
             app.purchase.product_name = app.product_name;
             app.purchase.order_type = app.ppercentage;
             app.purchase.repaymt = app.repayment;
+            app.purchase.referrer_id = app.referrer_id;
+            app.purchase.staff_referrer_id = app.staff_referrer_id;
             
             var formData = app.toFormData(app.purchase);
             console.log(app.purchase)
+
+            if ( app.purchase.product_sku!= '' &&
+            app.purchase.product_price != '' &&
+            app.purchase.product_name != '' &&
+            app.purchase.order_type != '' &&
+            app.purchase.repaymt != '' &&
+            app.purchase.custp_id != '' &&
+            app.purchase.p_date != '' &&
+            app.purchase.p_reciept != '' &&
+            app.purchase.sales_agent != ''  ){
 
             axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
                 .then(function (response) {
@@ -191,8 +205,12 @@ var app = new Vue({
                         app.purchase.p_date = '';
                         app.purchase.p_reciept = '';
                         app.purchase.sales_agent = '';
+                        app.staff_referrer_id='';
+                        app.referrer_id='';
                     }
                 });
+            }
+            else app.errorMessage = 'All field must be filled';
         },
 
         ListEmployees: function () {
