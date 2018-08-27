@@ -570,7 +570,6 @@ var app = new Vue({
         },
         updateStore:function (psku, pdate, seller){
             console.log(psku + pdate + seller)
-            app.dataloaded = true;
             axios.post("https://altara-api.herokuapp.com/api.php?action=upstore", {
                 product_sku: psku,
                 purchase_date :pdate,
@@ -581,7 +580,6 @@ var app = new Vue({
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
                     } else {
-                        app.dataloaded = false;
                     }
                 });
         },
