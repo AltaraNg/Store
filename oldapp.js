@@ -104,7 +104,6 @@ var app = new Vue({
             "Bodija",
             "Agodi-Gate"
         ],
-        payDate:''
     },
     watch: {
         product_sku: function () {
@@ -286,13 +285,11 @@ var app = new Vue({
             var pushrepay = {
                 repayid: id,
                 period: periodi,
-                data_payed:app.payDate,
                 nowdate: paydate,
                 nextdate: app.formatDate(app.addDays(date, 14))
             }
             var formData = app.toFormData(pushrepay);
             axios.post("https://altara-api.herokuapp.com/api.php?action=repay", formData)
-            //   axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=repay", formData)
                 .then(function (response) {
                     console.log(response);
 
@@ -454,7 +451,6 @@ var app = new Vue({
             app.dataloaded = true;
             console.log(app.Customer_id);
             axios.post("https://altara-api.herokuapp.com/api.php?action=checkId", {
-                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkId", {
                 Customer_id: app.Customer_id
             })
                 .then(function (response) {
@@ -556,10 +552,9 @@ var app = new Vue({
         },
 
         CustomerOrders: function () {
-console.log(app.Customer_id);
+
             axios.post("https://altara-api.herokuapp.com/api.php?action=order", {
-                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=order", {
-                Customer_id: 4
+                Customer_id: app.Customer_id
             })
                 .then(function (response) {
                     console.log(response);
@@ -588,7 +583,6 @@ console.log(app.Customer_id);
                     }
                 });
         },
-        
         pushToRepay: function (selectedOrder) {
 
             app.repay_date = [];
@@ -631,7 +625,7 @@ console.log(app.Customer_id);
             }
 
             app.repaydata = app.repaydata.filter(function (el) {
-                return el.status == "0000-00-00";
+                return el.status == "0";
             });
 
             console.log(app.repaydata);

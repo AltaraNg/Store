@@ -127,7 +127,7 @@
                                                 <br />
                                                 <i class="glyphicon glyphicon-gift"></i>Member since : {{Regdate}}
                                                 <br />
-                                                <i v-if="p_guar == 1 && w_guar == 1 && store_v == 1 && check_id == 1  && check_pp == 1 && check_gc== 1">
+                                                <i v-if="p_guar == 1 && w_guar == 1 && store_v == 1 && check_id == 1  && check_pp == 1 && check_gc == 1">
                                                     <img src="checked.png" width="15" height="15" alt="">
                                                     <strong>Approved</strong>
                                                 </i>
@@ -191,122 +191,110 @@
                                                         </tr>
 
                                                         <tr style="font-size:12px">
-                                                            <th>Due Date</th>
+                                                            <th>Date</th>
                                                             <td v-for="rday in repay_date">{{rday}}</td>
                                                         </tr>
 
                                                         <tr style="font-size:12px">
                                                             <th>Status</th>
                                                             <td>
-                                                                <img v-if="selected_order.first != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.first == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<15)"
+                                                                <img v-if="selected_order.first == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.first == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<15)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.first == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 15)"
-                                                                    src="cancel.png" width="20" height="20px" alt=""> 
-                                                            </td>
-
-                                                            <td>
-                                                                <img v-if="selected_order.second != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.second == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<29)"
-                                                                    src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.second == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 29)"
+                                                                <img v-if="selected_order.first == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 15)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
 
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.third != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.third == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<43)"
+                                                                <img v-if="selected_order.second == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.second == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<29)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.third == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 43)"
+                                                                <img v-if="selected_order.second == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 29)"
+                                                                    src="cancel.png" width="20" height="20px" alt="">
+
+                                                            </td>
+
+                                                            <td>
+                                                                <img v-if="selected_order.third == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.third == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<43)"
+                                                                    src="waiting.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.third == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 43)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.fourth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.fourth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<57)"
+                                                                <img v-if="selected_order.fourth == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.fourth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<57)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.fourth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 57)"
+                                                                <img v-if="selected_order.fourth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 57)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.fifth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.fifth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<71)"
+                                                                <img v-if="selected_order.fifth == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.fifth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<71)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.fifth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 71)"
+                                                                <img v-if="selected_order.fifth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 71)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.sixth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.sixth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<85)"
+                                                                <img v-if="selected_order.sixth == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.sixth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<85)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.sixth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 85)"
+                                                                <img v-if="selected_order.sixth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 85)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.seventh != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.seventh == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<99)"
+                                                                <img v-if="selected_order.seventh == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.seventh == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<99)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.seventh == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 99)"
+                                                                <img v-if="selected_order.seventh == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 99)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.eight != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.eight == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<113)"
+                                                                <img v-if="selected_order.eight == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.eight == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<113)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.eight == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 113)"
+                                                                <img v-if="selected_order.eight == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 113)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.nineth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.nineth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<127)"
+                                                                <img v-if="selected_order.nineth == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.nineth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<127)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.nineth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 127)"
+                                                                <img v-if="selected_order.nineth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 127)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.tenth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.tenth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<141)"
+                                                                <img v-if="selected_order.tenth == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.tenth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<141)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.tenth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 141)"
+                                                                <img v-if="selected_order.tenth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 141)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.eleventh != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.eleventh == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<155)"
+                                                                <img v-if="selected_order.eleventh == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.eleventh == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<155)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.eleventh == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 155)"
+                                                                <img v-if="selected_order.eleventh == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 155)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.twelveth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.twelveth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<169)"
+                                                                <img v-if="selected_order.twelveth == 1" src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.twelveth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<169)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.twelveth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 169)"
+                                                                <img v-if="selected_order.twelveth == 0 && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 169)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
-                                                        </tr>
-                                                        <tr style="font-size:12px">
-                                                            <th>Pay Date</th>
-                                                            <td v-if="selected_order.first != '0000-00-00'">{{selected_order.first}}</td>
-                                                            <td v-if="selected_order.second != '0000-00-00'">{{selected_order.second }}</td>
-                                                            <td v-if="selected_order.third != '0000-00-00'">{{selected_order.third}}</td>
-                                                            <td v-if="selected_order.fourth != '0000-00-00'">{{selected_order.fourth}}</td>
-                                                            <td v-if="selected_order.fifth != '0000-00-00'">{{selected_order.fifth}}</td>
-                                                            <td v-if="selected_order.sixth != '0000-00-00'">{{selected_order.sixth}}</td>
-                                                            <td v-if="selected_order.seventh != '0000-00-00'">{{selected_order.seventh}}</td>
-                                                            <td v-if="selected_order.eight != '0000-00-00'">{{selected_order.eight}}</td>
-                                                            <td v-if="selected_order.nineth != '0000-00-00'">{{selected_order.nineth}}</td>
-                                                            <td v-if="selected_order.tenth != '0000-00-00'">{{selected_order.tenth}}</td>
                                                         </tr>
 
                                                     </table>
@@ -353,8 +341,7 @@
                                                                             <tr>
                                                                                 <th>Repayment stage</th>
                                                                                 <th>Amount to Repay</th>
-                                                                                <th>Due Date</th>
-                                                                                <th>Pay Date</th>
+                                                                                <th>Date</th>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>
@@ -366,13 +353,9 @@
                                                                                 <td>
                                                                                     <label for="">{{repaydata[0].date}}</label>
                                                                                 </td>
-                                                                                <td>
-                                                                                    <input class="col-md-9" type="date" v-model="payDate" required/>
-                                                                                </td>
                                                                             </tr>
                                                                         </table>
-                    
-                                                                        <button type="button" :disabled="payDate =='' " @click="Repay(selected_order.order_id,repaydata[0].date);" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
+                                                                        <button type="button" @click="Repay(selected_order.order_id,repaydata[0].date);" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
                                                                         <br>
                                                                     </div>
                                                                 </div>
