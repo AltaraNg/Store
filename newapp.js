@@ -60,15 +60,10 @@ var app = new Vue({
         repaydata: [],
         selected_order: [],
         list_employees:[],
-        Sale_Category:[
-            "Referer",
-            "Group Sale(5)",
-            "Group Sale(10)",
-            "Renewal",
-            "Promo"
-        ],
         orderList: [],
         orderDate: '',
+        emp_status:'',
+        select_view:[],
         firstpurchase: false,
         purchase: {
             p_reciept: '',
@@ -81,10 +76,8 @@ var app = new Vue({
             order_type: '',
             repaymt: '',
             staff_referrer_id:'',
-            referrer_id:'',
-            sale_type:''
+            referrer_id:''
         },
-        sale_type:'',
         check_ut : '',
         check_id: '',
         check_bs: '',
@@ -113,14 +106,12 @@ var app = new Vue({
             "Bodija",
             "Agodi-Gate"
         ],
-        payDate:'',
-        amtPay:'',
-        cat_label:''
+        payDate:''
     },
     watch: {
         product_sku: function () {
             console.log(this.product_sku.toUpperCase());
-            if (this.product_sku.length > 5 ) {
+            if (this.product_sku.length > 5 ) {              
                   console.log("call change");
                 axios.post("https://altara-api.herokuapp.com/api.php?action=checkprod", { product_sku: this.product_sku })
                     .then(function (response) {
@@ -130,40 +121,8 @@ var app = new Vue({
                             app.errorMessage = response.data.message;
                         } else {
                             if (response.data.users.length > 0) {
-                                if (app.sale_type == '2'){
-                                    console.log('group 5% off');
-                                    app.cat_label = 'Group-5'
-                                    app.twproduct_price =  response.data.users[0].pc_pprice20 * 0.95;
-                                    app.frproduct_price =  response.data.users[0].pc_pprice40 * 0.95;
-                                }
-                                else if (app.sale_type == '3') {
-                                    console.log('group 10% off');
-                                    app.cat_label = 'Group-10 '
-                                    console.log(app.sale_type);
-                                    app.twproduct_price =  response.data.users[0].pc_pprice20 * 0.90;
-                                    app.frproduct_price =  response.data.users[0].pc_pprice40 * 0.90;
-                                }
-                                else if (app.sale_type == '5') {
-                                    app.cat_label = 'Promo '
-                                    app.twproduct_price =  response.data.users[0].pc_pprice20;
-                                    app.frproduct_price =  response.data.users[0].pc_pprice40;
-                                   
-                                }
-                                else if (app.sale_type == '1') {
-                                    console.log('group 10% off');
-                                    app.cat_label = 'Referer '
-                                    app.twproduct_price =  response.data.users[0].pc_pprice20;
-                                    app.frproduct_price =  response.data.users[0].pc_pprice40;
-                                }
-                                else { 
-                                        app.cat_label = 'Renewal '
-                                        app.referrer_id = '';
-                                    app.twproduct_price =  response.data.users[0].pc_pprice20;
-                                    app.frproduct_price =  response.data.users[0].pc_pprice40;
-                                 }
-
-                                // app.twproduct_price= response.data.users[0].pc_pprice20;
-                                // app.frproduct_price = response.data.users[0].pc_pprice40;
+                                app.twproduct_price= response.data.users[0].pc_pprice20;
+                                app.frproduct_price = response.data.users[0].pc_pprice40;
                               
                             }
                             else
@@ -175,13 +134,8 @@ var app = new Vue({
                                 app.errorMessage = 'No records'
                         }
                     });
-        } else { app.ppercentage = '';
-        app.first_payment = '';
-        app.repayment = '';
-        app.product_name = '';
-        app.product_price = '';}
+        }
         },
-
         ppercentage: function () {
             if (this.product_sku.length != '' && this.ppercentage == 'twenty') {              
                   app.product_price = app.twproduct_price;
@@ -219,12 +173,11 @@ var app = new Vue({
             app.purchase.repaymt = app.repayment;
             app.purchase.referrer_id = app.referrer_id;
             app.purchase.staff_referrer_id = app.staff_referrer_id;
-            app.purchase.sale_type = app.sale_type;
             
             var formData = app.toFormData(app.purchase);
             console.log(app.purchase)
 
-            if ( app.purchase.product_sku != '' &&
+            if ( app.purchase.product_sku!= '' &&
             app.purchase.product_price != '' &&
             app.purchase.product_name != '' &&
             app.purchase.order_type != '' &&
@@ -232,11 +185,8 @@ var app = new Vue({
             app.purchase.custp_id != '' &&
             app.purchase.p_date != '' &&
             app.purchase.p_reciept != '' &&
-            app.purchase.sales_agent != '' &&
-            app.purchase.staff_referrer_id !='' ){
-                console.log(app.purchase.referrer_id)
-                if (
-                    (app.purchase.sale_type !='' && app.purchase.sale_type =='4')|| (app.purchase.sale_type !='4' &&  app.purchase.referrer_id != '')){
+            app.purchase.sales_agent != ''  ){
+
             axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
                 .then(function (response) {
                     console.log(response);
@@ -263,14 +213,7 @@ var app = new Vue({
                     }
                 });
             }
-            else {
-                app.errorMessage = 'Pls fill Customer referer'; setTimeout(function () {
-                    app.errorMessage = '';
-                }, 2000);
-            } }
-            else {app.errorMessage = 'All field must be filled'; setTimeout(function () {
-                app.errorMessage = '';
-            }, 2000);}
+            else app.errorMessage = 'All field must be filled';
         },
 
         ListEmployees: function () {
@@ -346,7 +289,6 @@ var app = new Vue({
                 repayid: id,
                 period: periodi,
                 data_payed:app.payDate,
-                amount_payed:app.amtPay,
                 nowdate: paydate,
                 nextdate: app.formatDate(app.addDays(date, 14))
             }
@@ -375,26 +317,26 @@ var app = new Vue({
                 });
         },
 
-        UpdateRepay: function (id) {
-            app.dataloaded = true;
-            axios.post("https://altara-api.herokuapp.com/api.php?action=uprepay", {
-                repay_id: id
-            })
-                .then(function (response) {
-                    console.log(response);
-                    if (response.data.error) {
-                        app.errorMessage = response.data.message;
-                    } else {
+        // UpdateRepay: function (id) {
+        //     app.dataloaded = true;
+        //     axios.post("https://altara-api.herokuapp.com/api.php?action=uprepay", {
+        //         repay_id: id
+        //     })
+        //         .then(function (response) {
+        //             console.log(response);
+        //             if (response.data.error) {
+        //                 app.errorMessage = response.data.message;
+        //             } else {
                       
-                        console.log(response.data.orders[0])
-                        response.data.orders[0].order_date = app.orderDate;
-                        response.data.orders[0].repayment = app.repay_amt;
+        //                 console.log(response.data.orders[0])
+        //                 response.data.orders[0].order_date = app.orderDate;
+        //                 response.data.orders[0].repayment = app.repay_amt;
 
-                        app.pushToRepay(response.data.orders[0]);
-                        app.dataloaded = false;
-                    }
-                });
-        },
+        //                 app.pushToRepay(response.data.orders[0]);
+        //                 app.dataloaded = false;
+        //             }
+        //         });
+        // },
 
 
         GainAccess: function (feature) {
@@ -650,34 +592,85 @@ console.log(app.Customer_id);
         },
         
         pushToRepay: function (selectedOrder) {
-
+            selectedOrder.slice();
+            console.log(selectedOrder);
+            console.log(app.orderList);
             app.repay_date = [];
-
             console.log(app.repay_date);
             app.selected_order = selectedOrder;
             app.orderDate = selectedOrder.order_date;
             app.repay_amt = selectedOrder.repayment;
-
-            app.repaydata = [
-                { period: '1st', status: selectedOrder.first },
-                { period: '2nd', status: selectedOrder.second },
-                { period: '3rd', status: selectedOrder.third },
-                { period: '4th', status: selectedOrder.fourth },
-                { period: '5th', status: selectedOrder.fifth },
-                { period: '6th', status: selectedOrder.sixth },
-                { period: '7th', status: selectedOrder.seventh },
-                { period: '8th', status: selectedOrder.eight },
-                { period: '9th', status: selectedOrder.nineth },
-                { period: '10th', status: selectedOrder.tenth },
-                { period: '11th', status: selectedOrder.eleventh },
-                { period: '12th', status: selectedOrder.twelveth }
-            ]
+            app.emp_status = selectedOrder.employment_status;
 
             console.log(app.orderDate);
             var date = new Date(app.orderDate);
-            var a = [14, 28, 42, 56, 70, 84, 98, 112, 126, 140, 154, 168];
+            var a,b;
+            delete app.selected_order.order_id,
+            delete app.selected_order.employment_status, 
+            delete app.selected_order.order_date,
+            delete app.selected_order.order_type,
+            delete app.selected_order.product_price, 
+            delete app.selected_order.product_qty, 
+            delete app.selected_order.product_name,
+            delete app.selected_order.repayment;
 
-            for (i = 0; i <= 11; i++) {
+
+            if (app.emp_status == 'Salaried') {
+                console.log('Salaried')
+                app.repaydata = [
+                    { period: '1st', status: selectedOrder.first },
+                    { period: '2nd', status: selectedOrder.second },
+                    { period: '3rd', status: selectedOrder.third },
+                    { period: '4th', status: selectedOrder.fourth },
+                    { period: '5th', status: selectedOrder.fifth },
+                    { period: '6th', status: selectedOrder.sixth }
+                ]
+                a = [30, 60, 90, 120, 150, 180];
+
+                delete app.selected_order.seventh, 
+                delete app.selected_order.eight, 
+                delete app.selected_order.nineth, 
+                delete app.selected_order.tenth, 
+                delete app.selected_order.eleventh, 
+                delete app.selected_order.twelveth;
+                
+            }
+            else {
+                console.log('Non-Salaried')
+                app.repaydata = [
+                    { period: '1st', status: selectedOrder.first },
+                    { period: '2nd', status: selectedOrder.second },
+                    { period: '3rd', status: selectedOrder.third },
+                    { period: '4th', status: selectedOrder.fourth },
+                    { period: '5th', status: selectedOrder.fifth },
+                    { period: '6th', status: selectedOrder.sixth },
+                    { period: '7th', status: selectedOrder.seventh },
+                    { period: '8th', status: selectedOrder.eight },
+                    { period: '9th', status: selectedOrder.nineth },
+                    { period: '10th', status: selectedOrder.tenth },
+                    { period: '11th', status: selectedOrder.eleventh },
+                    { period: '12th', status: selectedOrder.twelveth }
+                ]
+                a = [14, 28, 42, 56, 70, 84, 98, 112, 126, 140, 154, 168];
+            }
+           
+           
+            for (i = 0; i <= a.length - 1; i++) {
+                app.select_view.push({ time: a[i] + 1 });
+              }
+              var newarr = Object.keys(app.selected_order).map(function (key) {
+                return app.selected_order[key];
+              });
+              for (i = 0; i < newarr.length; i++) {
+                app.select_view.forEach(element => {
+                  if (app.select_view.indexOf(element) == i) {
+                    element.repay = newarr[i]
+                  }
+                });
+              }
+              
+
+            for (i = 0; i <= a.length-1; i++) {
                 var ans = app.formatDate(app.addDays(date, a[i]));
                 app.repay_date.push(ans);
             }
