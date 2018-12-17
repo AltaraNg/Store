@@ -276,8 +276,8 @@ var app = new Vue({
         },
 
         ListEmployees: function () {
-            // axios.get("https://altara-api.herokuapp.com/api.php?action=listsalesemp")
-            axios.get("http://localhost/AltaraCredit/altara_api/api.php?action=listsalesemp")
+            axios.get("https://altara-api.herokuapp.com/api.php?action=listsalesemp")
+            // axios.get("http://localhost/AltaraCredit/altara_api/api.php?action=listsalesemp")
                 .then(function (response) {
                     console.log(response);
                     if (response.data.error) {
