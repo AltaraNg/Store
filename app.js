@@ -64,7 +64,7 @@ var app = new Vue({
             "Referer",
             "Group Sale(5)",
             "Group Sale(10)",
-            "Renewal",
+            "Renewal/First time",
             "Promo"
         ],
         orderList: [],
@@ -93,7 +93,6 @@ var app = new Vue({
         w_guar : '',
         p_guar: '',
         store_v: '',
-
         product: {
             psku: '',
             pname: '',
@@ -111,7 +110,9 @@ var app = new Vue({
             "Dugbe",
             "Iwo-Road",
             "Bodija",
-            "Agodi-Gate"
+            "Agodi-Gate",
+            "Life-Style Bodija",
+            "Apata"
         ],
         payDate:'',
         amtPay:'',
