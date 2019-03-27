@@ -112,7 +112,8 @@ var app = new Vue({
             "Bodija",
             "Agodi-Gate",
             "Life-Style Bodija",
-            "Apata"
+            "Apata",
+            "Life-Style Iwo-Road"
         ],
         payDate:'',
         amtPay:'',
