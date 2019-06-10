@@ -128,15 +128,18 @@
                                                 <br />
                                                 <i class="glyphicon glyphicon-gift"></i>Member since : {{Regdate}}
                                                 <br />
+                                                <i class="glyphicon glyphicon-gift"></i>Employement Status : {{empStatus}}
+                                                <br />
+
                                                 <i v-if="p_guar == 1 && w_guar == 1 && store_v == 1 && check_id == 1  && check_pp == 1 && check_gc== 1">
                                                     <img src="checked.png" width="15" height="15" alt="">
                                                     <strong>Approved</strong>
                                                 </i>
 
-                                                <i v-else>
+                                                <!-- <i v-else>
                                                     <img src="cancel.png" width="15" height="15" alt="">
                                                     <strong>Not Approved</strong>
-                                                </i>
+                                                </i> -->
 
                                                 <!-- Split button -->
 
@@ -152,22 +155,24 @@
                                             <th>Date</th>
                                             <th>Order No.</th>
                                             <th>Product Name</th>
-                                            <th>Product Price</th>
+                                            <th>Total Product Price</th>
                                             <th>Percentage</th>
-                                            <th>Repayment</th>
+                                            <th>Down_payment</th>
                                             <th>Repayment Plans</th>
                                         </tr>
 
                                         <tr v-for="(list_order , index) in orderList" style="font-size:12px">
                                             <td>{{index + 1}}</td>
                                             <td>{{list_order.order_date}}</td>
-                                            <td>{{list_order.order_id}}</td>
-                                            <td>{{list_order.product_name}}</td>
+                                            <td>{{list_order.id}}</td>
+                                            <td>{{list_order.product_desc}} {{list_order.product_name}} {{list_order.product_category}}</td>
                                             <td>{{list_order.product_price}}</td>
-                                            <td>{{list_order.order_type}}</td>
-                                            <td>N{{list_order.repayment}}</td>
+                                            <td>{{list_order.name}}</td>
+                                            <td>N{{list_order.down_payment}}</td>
                                             <td>
-                                                <button class=" btn btn-success" data-toggle="modal" data-target="#myModal3" @click="pushToRepay(list_order)">View Plans</button>
+                                                <button  v-if="empStatus == 'Salaried' || empStatus == 'formal'" class=" btn btn-success" data-toggle="modal" data-target="#myModal5" @click="pushToRepay(list_order)">View Plans</button>
+                                                <button v-else class=" btn btn-success" data-toggle="modal" data-target="#myModal3" @click="pushToRepay(list_order)">View Plans</button>
+                                               
 
                                             </td>
 
@@ -176,7 +181,7 @@
                                     </table>
                                 </div>
 
-                                <div id="myModal3" class="modal fade" role="dialog">
+                                <div v-if="empStatus != 'Salaried' || empStatus != 'formal'"  id="myModal3" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
@@ -199,137 +204,170 @@
                                                         <tr style="font-size:12px">
                                                             <th>Status</th>
                                                             <td>
-                                                                <img v-if="selected_order.first != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.first == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<15)"
+                                                                <img v-if="selected_order.first != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.first == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<15)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.first == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 15)"
+                                                                <img v-if="selected_order.first == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 15)"
                                                                     src="cancel.png" width="20" height="20px" alt=""> 
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.second != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.second == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<29)"
+                                                                <img v-if="selected_order.second != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.second == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<29)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.second == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 29)"
+                                                                <img v-if="selected_order.second == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 29)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
 
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.third != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.third == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<43)"
+                                                                <img v-if="selected_order.third != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.third == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<43)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.third == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 43)"
+                                                                <img v-if="selected_order.third == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 43)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.fourth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.fourth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<57)"
+                                                                <img v-if="selected_order.fourth != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.fourth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<57)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.fourth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 57)"
+                                                                <img v-if="selected_order.fourth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 57)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.fifth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.fifth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<71)"
+                                                                <img v-if="selected_order.fifth != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.fifth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<71)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.fifth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 71)"
+                                                                <img v-if="selected_order.fifth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 71)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.sixth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.sixth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<85)"
+                                                                <img v-if="selected_order.sixth != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.sixth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<85)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.sixth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 85)"
+                                                                <img v-if="selected_order.sixth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 85)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.seventh != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.seventh == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<99)"
+                                                                <img v-if="selected_order.seventh != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.seventh == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<99)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.seventh == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 99)"
+                                                                <img v-if="selected_order.seventh == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 99)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.eight != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.eight == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<113)"
+                                                                <img v-if="selected_order.eight != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.eight == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<113)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.eight == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 113)"
+                                                                <img v-if="selected_order.eight == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 113)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.nineth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.nineth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<127)"
+                                                                <img v-if="selected_order.nineth != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.nineth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<127)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.nineth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 127)"
+                                                                <img v-if="selected_order.nineth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 127)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.tenth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.tenth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<141)"
+                                                                <img v-if="selected_order.tenth != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.tenth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<141)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.tenth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 141)"
+                                                                <img v-if="selected_order.tenth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 141)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.eleventh != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.eleventh == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<155)"
+                                                                <img v-if="selected_order.eleventh != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.eleventh == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<155)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.eleventh == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 155)"
+                                                                <img v-if="selected_order.eleventh == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 155)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                             <td>
-                                                                <img v-if="selected_order.twelveth != '0000-00-00'" src="checked.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.twelveth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<169)"
+                                                                <img v-if="selected_order.twelveth != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.twelveth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<169)"
                                                                     src="waiting.png" width="20" height="20px" alt="">
-                                                                <img v-if="selected_order.twelveth == '0000-00-00' && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 169)"
+                                                                <img v-if="selected_order.twelveth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 169)"
                                                                     src="cancel.png" width="20" height="20px" alt="">
                                                             </td>
 
                                                         </tr>
                                                         <tr style="font-size:12px">
                                                             <th>Pay Date</th>
-                                                            <td v-if="selected_order.first != '0000-00-00'">{{selected_order.first}}</td>
-                                                            <td v-if="selected_order.second != '0000-00-00'">{{selected_order.second }}</td>
-                                                            <td v-if="selected_order.third != '0000-00-00'">{{selected_order.third}}</td>
-                                                            <td v-if="selected_order.fourth != '0000-00-00'">{{selected_order.fourth}}</td>
-                                                            <td v-if="selected_order.fifth != '0000-00-00'">{{selected_order.fifth}}</td>
-                                                            <td v-if="selected_order.sixth != '0000-00-00'">{{selected_order.sixth}}</td>
-                                                            <td v-if="selected_order.seventh != '0000-00-00'">{{selected_order.seventh}}</td>
-                                                            <td v-if="selected_order.eight != '0000-00-00'">{{selected_order.eight}}</td>
-                                                            <td v-if="selected_order.nineth != '0000-00-00'">{{selected_order.nineth}}</td>
-                                                            <td v-if="selected_order.tenth != '0000-00-00'">{{selected_order.tenth}}</td>
-                                                            <td v-if="selected_order.nineth != '0000-00-00'">{{selected_order.eleventh}}</td>
-                                                            <td v-if="selected_order.tenth != '0000-00-00'">{{selected_order.twelveth}}</td>
+                                                            <td v-if="selected_order.first != null ">{{selected_order.first}}</td>
+                                                            <td v-if="selected_order.second != null ">{{selected_order.second }}</td>
+                                                            <td v-if="selected_order.third != null ">{{selected_order.third}}</td>
+                                                            <td v-if="selected_order.fourth != null ">{{selected_order.fourth}}</td>
+                                                            <td v-if="selected_order.fifth != null ">{{selected_order.fifth}}</td>
+                                                            <td v-if="selected_order.sixth != null ">{{selected_order.sixth}}</td>
+                                                            <td v-if="selected_order.seventh != null ">{{selected_order.seventh}}</td>
+                                                            <td v-if="selected_order.eight != null ">{{selected_order.eight}}</td>
+                                                            <td v-if="selected_order.nineth != null ">{{selected_order.nineth}}</td>
+                                                            <td v-if="selected_order.tenth != null ">{{selected_order.tenth}}</td>
+                                                            <td v-if="selected_order.nineth != null ">{{selected_order.eleventh}}</td>
+                                                            <td v-if="selected_order.tenth != null ">{{selected_order.twelveth}}</td>
                                                         </tr>
                                                         <tr style="font-size:12px">
                                                             <th>Amount Paid</th>
-                                                            <td v-if="selected_order.first != '0000-00-00'">{{selected_order.first_amt}}</td>
-                                                            <td v-if="selected_order.second != '0000-00-00'">{{selected_order.second_amt }}</td>
-                                                            <td v-if="selected_order.third != '0000-00-00'">{{selected_order.third_amt}}</td>
-                                                            <td v-if="selected_order.fourth != '0000-00-00'">{{selected_order.fourth_amt}}</td>
-                                                            <td v-if="selected_order.fifth != '0000-00-00'">{{selected_order.fifth_amt}}</td>
-                                                            <td v-if="selected_order.sixth != '0000-00-00'">{{selected_order.sixth_amt}}</td>
-                                                            <td v-if="selected_order.seventh != '0000-00-00'">{{selected_order.seventh_amt}}</td>
-                                                            <td v-if="selected_order.eight != '0000-00-00'">{{selected_order.eight_amt}}</td>
-                                                            <td v-if="selected_order.nineth != '0000-00-00'">{{selected_order.nineth_amt}}</td>
-                                                            <td v-if="selected_order.tenth != '0000-00-00'">{{selected_order.tenth_amt}}</td>
-                                                            <td v-if="selected_order.nineth != '0000-00-00'">{{selected_order.eleventh_amt}}</td>
-                                                            <td v-if="selected_order.tenth != '0000-00-00'">{{selected_order.twelveth_amt}}</td>
+                                                            <td v-if="selected_order.first != null ">{{selected_order.first_amt}}</td>
+                                                            <td v-if="selected_order.second != null ">{{selected_order.second_amt }}</td>
+                                                            <td v-if="selected_order.third != null ">{{selected_order.third_amt}}</td>
+                                                            <td v-if="selected_order.fourth != null ">{{selected_order.fourth_amt}}</td>
+                                                            <td v-if="selected_order.fifth != null ">{{selected_order.fifth_amt}}</td>
+                                                            <td v-if="selected_order.sixth != null ">{{selected_order.sixth_amt}}</td>
+                                                            <td v-if="selected_order.seventh != null ">{{selected_order.seventh_amt}}</td>
+                                                            <td v-if="selected_order.eight != null ">{{selected_order.eight_amt}}</td>
+                                                            <td v-if="selected_order.nineth != null ">{{selected_order.nineth_amt}}</td>
+                                                            <td v-if="selected_order.tenth != null ">{{selected_order.tenth_amt}}</td>
+                                                            <td v-if="selected_order.nineth != null ">{{selected_order.eleventh_amt}}</td>
+                                                            <td v-if="selected_order.tenth != null ">{{selected_order.twelveth_amt}}</td>
                                                         </tr>
+                                                        <!-- <tr style="font-size:12px">
+                                                            <th>Method</th>
+                                                            <td v-if="selected_order.first != null ">{{selected_order.first_mtd}}</td>
+                                                            <td v-if="selected_order.second != null ">{{selected_order.second_mtd }}</td>
+                                                            <td v-if="selected_order.third != null ">{{selected_order.third_mtd}}</td>
+                                                            <td v-if="selected_order.fourth != null ">{{selected_order.fourth_mtd}}</td>
+                                                            <td v-if="selected_order.fifth != null ">{{selected_order.fifth_mtd}}</td>
+                                                            <td v-if="selected_order.sixth != null ">{{selected_order.sixth_mtd}}</td>
+                                                            <td v-if="selected_order.seventh != null ">{{selected_order.seventh_mtd}}</td>
+                                                            <td v-if="selected_order.eight != null ">{{selected_order.eight_mtd}}</td>
+                                                            <td v-if="selected_order.nineth != null ">{{selected_order.nineth_mtd}}</td>
+                                                            <td v-if="selected_order.tenth != null ">{{selected_order.tenth_mtd}}</td>
+                                                            <td v-if="selected_order.nineth != null ">{{selected_order.eleventh_mtd}}</td>
+                                                            <td v-if="selected_order.tenth != null ">{{selected_order.twelveth_mtd}}</td>
+                                                        </tr> -->
+                                                        <!-- <tr style="font-size:12px">
+                                                            <th>Bank</th>
+                                                            <td v-if="selected_order.first != null ">{{selected_order.first_bk}}</td>
+                                                            <td v-if="selected_order.second != null ">{{selected_order.second_bk }}</td>
+                                                            <td v-if="selected_order.third != null ">{{selected_order.third_bk}}</td>
+                                                            <td v-if="selected_order.fourth != null ">{{selected_order.fourth_bk}}</td>
+                                                            <td v-if="selected_order.fifth != null ">{{selected_order.fifth_bk}}</td>
+                                                            <td v-if="selected_order.sixth != null ">{{selected_order.sixth_bk}}</td>
+                                                            <td v-if="selected_order.seventh != null ">{{selected_order.seventh_bk}}</td>
+                                                            <td v-if="selected_order.eight != null ">{{selected_order.eight_bk}}</td>
+                                                            <td v-if="selected_order.nineth != null ">{{selected_order.nineth_bk}}</td>
+                                                            <td v-if="selected_order.tenth != null ">{{selected_order.tenth_bk}}</td>
+                                                            <td v-if="selected_order.nineth != null ">{{selected_order.eleventh_bk}}</td>
+                                                            <td v-if="selected_order.tenth != null ">{{selected_order.twelveth_bk}}</td>
+                                                        </tr> -->
+
+
 
                                                     </table>
                                                     <button type="button" data-toggle="modal" data-target="#myModal1" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make Repayment</button>
                                                 </div>
+
                                                 <div id="myModal1" class="modal fade" role="dialog">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
@@ -363,24 +401,26 @@
                                                                     <br>
                                                                 </div>
 
-                                                                <div v-if="access_granted3" class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
+                                                                <div v-if="access_granted3" class="row" style="padding:30px;width:95%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
                                                                     <a href="#" class="close" data-dismiss="modal" data-target="#myModal1" aria-label="close">&times;</a>
                                                                     <div class="loading" v-if='dataloaded'>Loading&#8230;</div>
                                                                     <div style=" padding-right:5px;padding-left:5px;">
                                                                         <table class=" table">
                                                                             <tr>
-                                                                                <th>Repayment stage</th>
-                                                                                <th>Amount to Repay</th>
-                                                                                <th>Amount Paid</th>
-                                                                                <th>Due Date</th>
-                                                                                <th>Pay Date</th>
+                                                                                <th>Level</th>
+                                                                                <th>Expected</th>
+                                                                                <th>Actual</th>
+                                                                                <th>Expected Date</th>
+                                                                                <th>Actual Date</th>
+                                                                                <th>Method</th>
+                                                                                <th>Bank</th>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>
                                                                                     <label for="">{{repaydata[0].period}}</label>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <label for="">{{repay_amt}}</label>
+                                                                                    <label class="col-md-9" for="">{{repay_amt}}</label>
                                                                                 </td>
                                                                                 <td>
                                                                                    <input class="col-md-9" type="number" v-model="amtPay" required/>
@@ -391,10 +431,24 @@
                                                                                 <td>
                                                                                     <input class="col-md-9" type="date" v-model="payDate" required/>
                                                                                 </td>
+                                                                                <td>
+                                                                                    <select   v-model="pay_mtd">
+                                                                                        <option value="1"> cash</option>
+                                                                                        <option value="2"> transfer</option>
+                                                                                        <option value="3"> pos</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select  class="col-md-9"  v-model="pay_bank">
+                                                                                        <option v-for="(bank, $index) in Bank"
+                                                                                        :value=" $index + 1 ">{{ bank }}
+                                                                                </option>
+                                                                                </select>
+                                                                                </td>
                                                                             </tr>
                                                                         </table>
                     
-                                                                        <button type="button" :disabled="payDate =='' || amtPay=='' " @click="Repay(selected_order.order_id,repaydata[0].date);" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
+                                                                        <button type="button" :disabled="payDate =='' || amtPay=='' " @click="Repay(selected_order.id,repaydata[0].date);" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
                                                                         <br>
                                                                     </div>
                                                                 </div>
@@ -412,14 +466,223 @@
                                     </div>
                                 </div>
 
+                                <div v-if="empStatus == 'Salaried' || empStatus == 'formal'"  id="myModal5" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
 
+                                            <div class="panel-heading" style="background-color: #00264d;">
+                                                <h4 class="modal-title" style="color:white">Repayment Plan</h4>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-group table-responsive" style="width:95%;margin:0 auto;margin-top:50px;">
+                                                    <table class=" table table-bordered list">
+                                                        <tr style="font-size:14px">
+                                                            <th></th>
+                                                            <th colspan="12" style="text-align:center">Repayment Plans</th>
+                                                        </tr>
 
+                                                        <tr style="font-size:12px">
+                                                            <th>Due Date</th>
+                                                            <td v-for="rday in repay_date">{{rday}}</td>
+                                                        </tr>
+
+                                                        <tr style="font-size:12px">
+                                                            <th>Status</th>
+                                                            <td>
+                                                                <img v-if="selected_order.first != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.first == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<15)"
+                                                                    src="waiting.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.first == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 15)"
+                                                                    src="cancel.png" width="20" height="20px" alt=""> 
+                                                            </td>
+
+                                                            <td>
+                                                                <img v-if="selected_order.second != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.second == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<29)"
+                                                                    src="waiting.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.second == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 29)"
+                                                                    src="cancel.png" width="20" height="20px" alt="">
+
+                                                            </td>
+
+                                                            <td>
+                                                                <img v-if="selected_order.third != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.third == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<43)"
+                                                                    src="waiting.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.third == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 43)"
+                                                                    src="cancel.png" width="20" height="20px" alt="">
+                                                            </td>
+
+                                                            <td>
+                                                                <img v-if="selected_order.fourth != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.fourth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<57)"
+                                                                    src="waiting.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.fourth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 57)"
+                                                                    src="cancel.png" width="20" height="20px" alt="">
+                                                            </td>
+
+                                                            <td>
+                                                                <img v-if="selected_order.fifth != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.fifth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<71)"
+                                                                    src="waiting.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.fifth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 71)"
+                                                                    src="cancel.png" width="20" height="20px" alt="">
+                                                            </td>
+
+                                                            <td>
+                                                                <img v-if="selected_order.sixth != null " src="checked.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.sixth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))<85)"
+                                                                    src="waiting.png" width="20" height="20px" alt="">
+                                                                <img v-if="selected_order.sixth == null  && (Math.ceil((Math.abs( new Date().getTime() - new Date(orderDate).getTime()))/ (1000 * 3600 * 24))> 85)"
+                                                                    src="cancel.png" width="20" height="20px" alt="">
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr style="font-size:12px">
+                                                            <th>Pay Date</th>
+                                                            <td v-if="selected_order.first != null ">{{selected_order.first}}</td>
+                                                            <td v-if="selected_order.second != null ">{{selected_order.second }}</td>
+                                                            <td v-if="selected_order.third != null ">{{selected_order.third}}</td>
+                                                            <td v-if="selected_order.fourth != null ">{{selected_order.fourth}}</td>
+                                                            <td v-if="selected_order.fifth != null ">{{selected_order.fifth}}</td>
+                                                            <td v-if="selected_order.sixth != null ">{{selected_order.sixth}}</td>
+                                                        </tr>
+                                                        <tr style="font-size:12px">
+                                                            <th>Amount Paid</th>
+                                                            <td v-if="selected_order.first != null ">{{selected_order.first_amt}}</td>
+                                                            <td v-if="selected_order.second != null ">{{selected_order.second_amt }}</td>
+                                                            <td v-if="selected_order.third != null ">{{selected_order.third_amt}}</td>
+                                                            <td v-if="selected_order.fourth != null ">{{selected_order.fourth_amt}}</td>
+                                                            <td v-if="selected_order.fifth != null ">{{selected_order.fifth_amt}}</td>
+                                                            <td v-if="selected_order.sixth != null ">{{selected_order.sixth_amt}}</td>
+                                                        </tr>
+                                                        <!-- <tr style="font-size:12px">
+                                                            <th>Method</th>
+                                                            <td v-if="selected_order.first != null ">{{selected_order.first_mtd}}</td>
+                                                            <td v-if="selected_order.second != null ">{{selected_order.second_mtd }}</td>
+                                                            <td v-if="selected_order.third != null ">{{selected_order.third_mtd}}</td>
+                                                            <td v-if="selected_order.fourth != null ">{{selected_order.fourth_mtd}}</td>
+                                                            <td v-if="selected_order.fifth != null ">{{selected_order.fifth_mtd}}</td>
+                                                            <td v-if="selected_order.sixth != null ">{{selected_order.sixth_mtd}}</td>
+                                                        </tr>
+
+                                                        <tr style="font-size:12px">
+                                                            <th>Bank</th>
+                                                            <td v-if="selected_order.first != null ">{{selected_order.first_bk}}</td>
+                                                            <td v-if="selected_order.second != null ">{{selected_order.second_bk }}</td>
+                                                            <td v-if="selected_order.third != null ">{{selected_order.third_bk}}</td>
+                                                            <td v-if="selected_order.fourth != null ">{{selected_order.fourth_bk}}</td>
+                                                            <td v-if="selected_order.fifth != null ">{{selected_order.fifth_bk}}</td>
+                                                            <td v-if="selected_order.sixth != null ">{{selected_order.sixth_bk}}</td>
+                                                        </tr> -->
+
+                                                    </table>
+                                                    <button type="button" data-toggle="modal" data-target="#myModal7" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make Repayment</button>
+                                                </div>
+
+                                                <div id="myModal7" class="modal fade" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="panel-heading" style="background-color: #00264d;">
+                                                                <h4 class="modal-title" style="color:white">Repayment</h4>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div class="loading" v-if='dataloaded'>Loading&#8230;</div>
+                                                                <p class="alert alert-danger alert-dismissable" v-if='errorMessage'>
+                                                                    <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{errorMessage}}
+                                                                </p>
+                                                                <p class="alert alert-success alert-dismissable" v-if='successMessage'>
+                                                                    <a href="#" class="close" v-on:click="resetMessage" data-dismiss="alert" aria-label="close">&times;</a> {{successMessage}}
+                                                                </p>
+                                                                <div v-if="!access_granted3">
+                                                                    <div class="row " style="padding:40px;">
+                                                                        <div class="col-sm-6 form-group">
+                                                                            <label>Store Agent ID</label>
+                                                                            <input type="text" placeholder="Enter DVA ID.." v-model="Employee_id" class="form-control">
+
+                                                                        </div>
+                                                                        <div class="col-sm-6 form-group">
+                                                                            <label>Access Code</label>
+                                                                            <input type="password" placeholder="Enter Access code Here.." v-model="Access_code" class="form-control">
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <button type="button" @click="GainAccess(feature3)" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Login</button>
+                                                                    <br>
+                                                                </div>
+
+                                                                <div v-if="access_granted3" class="row" style="padding:30px;width:95%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
+                                                                    <a href="#" class="close" data-dismiss="modal" data-target="#myModal1" aria-label="close">&times;</a>
+                                                                    <div class="loading" v-if='dataloaded'>Loading&#8230;</div>
+                                                                    <div style=" padding-right:5px;padding-left:5px;">
+                                                                        <table class=" table">
+                                                                            <tr>
+                                                                                <th>Level</th>
+                                                                                <th>Expected</th>
+                                                                                <th>Actual</th>
+                                                                                <th>Expected Date</th>
+                                                                                <th>Actual Date</th>
+                                                                                <th>Method</th>
+                                                                                <th>Bank</th>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <label class="col-md-9" for="">{{repaydata[0].period}}</label>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <label class="col-md-9" for="">{{repay_amt}}</label>
+                                                                                </td>
+                                                                                <td>
+                                                                                   <input class="col-md-9" type="number" v-model="amtPay" required/>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <label for="">{{repaydata[0].date}}</label>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input class="col-md-9" type="date" v-model="payDate" required/>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select    v-model="pay_mtd">
+                                                                                        <option value="1"> cash</option>
+                                                                                        <option value="2"> transfer</option>
+                                                                                        <option value="3"> pos</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select  class="col-md-9"  v-model="pay_bank">
+                                                                                        <option v-for="(bank, $index) in Bank"
+                                                                                        :value=" $index + 1 ">{{ bank }}
+                                                                                </option>
+                                                                                </select>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                    
+                                                                        <button type="button" :disabled="payDate =='' || amtPay=='' " @click="Repay(selected_order.id,repaydata[0].date);" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
+                                                                        <br>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                               
+                               
                                 <button type="button" @click="idchecked = false; orderList=[];" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">New Customer</button>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
 
@@ -464,109 +727,119 @@
 
                                         <div class="container-fluid">
                                                 <div class="row">
-
-                                                        <div class="form-group">
-                                                                <div class="row">
-                                                                    <label class="col-md-3 control-label">Sale Category</label>
-                                                                            <select  class="col-md-9" :disabled="product_sku != ''" v-model="sale_type">
-                                                                                  
-                                                                                    <option v-for="(sale_category, $index) in Sale_Category"
-                                                                                    :value=" $index + 1 ">{{ sale_category }}
-                                                                            </option>
-                                                                                </select>
-                                                                        </div>
-                                                        </div>
-
-
+                                                      
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">InvoiceRef Number</label>
-        
                                                             <input class="col-md-9" type="text" v-model="purchase.p_reciept" required/>
-        
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <label class="col-md-3 control-label">Sales Agent </label>
-        
-                                                            <select class=" col-md-9 " v-model="purchase.sales_agent">
-                                                                    <option value="">Select</option>
-                                                                    <option v-for="employee in list_employees" :value="employee.Employee_id">{{ employee.Employee_id}} &nbsp; {{employee.Employee_name}}
-                                                                    </option>
-                                                                </select>
-        
-                                                        </div>
-                                                    </div>
+                                                    
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">Customer Id</label>
-        
-                                                            <input class="col-md-9" type="text" v-model="purchase.custp_id" required/>
-        
+                                                            <input class="col-md-9" type="text" :disabled="product_sku != ''" v-model="purchase.custp_id" required/>
                                                         </div>
                                                     </div>
+
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Sales Agent </label>
+                                                            <select class=" col-md-9 " v-model="purchase.sales_agent">
+                                                                    <option value="">Select</option>
+                                                                    <option v-for="employee in list_employees" :value="employee.staff_id">{{ employee.staff_id}} &nbsp; {{employee.full_name}}
+                                                                    </option>
+                                                                </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Sales-type(Sales-Discount)</label>
+                                                                    <select  class="col-md-9" :disabled="product_sku != ''" v-model="purchase.discount">
+                                                                            <option v-for="(sale_category, $index) in Sale_Category"
+                                                                            :value=" sale_category.id">{{ sale_category.name }}
+                                                                    </option>
+                                                                    </select>
+                                                            </div>
+                                                     </div>
+
+                                                     <div class="form-group">
+                                                        <div class="row">
+                                                            <label  class="col-md-3 control-label">Category of Sales</label>
+                                                                <select  class="col-md-9" :disabled="product_sku != ''" v-model="purchase.sale_type">
+                                                                    <option v-for="(type, $index) in sales_t"
+                                                                    :value=" type.id">{{ type.name }}
+                                                            </option>
+                                                            </select>
+                                                        </div>
+                                                </div>
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">Product Sku</label>
-        
-                                                            <input class="col-md-9" :disabled="sale_type == ''" type="text" v-model="product_sku" required/>
-        
+                                                            <input class="col-md-9" :disabled="purchase.sale_type == ''" type="text" v-model="product_sku" required/>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                            <div class="row">
-                                                                <label class="col-md-3 control-label">Percentage</label>
-                                                                <select  :disabled="product_name == ''" class="col-md-9" v-model="ppercentage">
-                                                                        <option value="twenty"> 20%</option>
-                                                                        <option value="forty"> 40%</option>
-                                                                       
-                                                                    </select>
-            
-                                                            </div>
-                                                        </div>
+
+
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">Product Name</label>
-                                                          
                                                             <input class="col-md-9"   disabled type="text" v-model="product_name" required/>
-        
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
-                                                            <label class="col-md-3 control-label">Product Price</label>
-                                                            <input class="col-md-9" type="text" disabled v-model="product_price" required/>
+                                                            <label class="col-md-3 control-label">Product Price  - <span v-if="purchase.discount!=0">Discount given : <strong>{{computed_discount}}</strong></span></label>
+                                                            <input class="col-md-9" type="text" disabled v-model="purchase.product_price" required/>
                                                         </div>
-
                                                     </div>
-                                                    
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">First Payment </label> 
-                                                            <input class="col-md-9" type="text" disabled v-model="first_payment" required/>
+                                                            <input class="col-md-9" type="text" disabled v-model="purchase.down_pay" required/>
                                                         </div>
-
                                                     </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">Repayment</label>
-                                                            <input class="col-md-9" type="text" disabled v-model="repayment" required/>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <label class="col-md-3 control-label">{{cat_label}} 1D</label>
-                                                            <input class="col-md-9"  :disabled="sale_type == '4'"  type="text" v-model="referrer_id" required/>
+                                                            <input class="col-md-9" type="text" disabled v-model="purchase.repaymt" required/>
                                                         </div>
                                                     </div>
-                                                   
+
+                                                    
+                                                    
                                                     <div class="form-group">
                                                         <div class="row">
-                                                            <label class="col-md-3 control-label">Staff Referrer ID </label>
-                                                            <input class="col-md-9"   type="text" v-model="staff_referrer_id" required/>
+                                                            <label class="col-md-3 control-label">Payment Method</label>
+                                                                    <select  class="col-md-9"  v-model="purchase.pay_mtd">
+                                                                        <option value="1"> cash</option>
+                                                                        <option value="2"> transfer</option>
+                                                                        <option value="3"> pos</option>
+                                                                    </option>
+                                                                    </select>
+                                                            </div>
+                                                     </div>
+
+                                                     <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label">Bank </label>
+                                                                    <select  class="col-md-9"  v-model="purchase.dep_to">
+                                                                            <option v-for="(bank, $index) in Bank"
+                                                                            :value=" $index + 1 ">{{ bank }}
+                                                                    </option>
+                                                                    </select>
+                                                            </div>
+                                                     </div>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-md-3 control-label"> Referred By?</label>
+                                                            <input class="col-md-9" type="text" placeholder="Customer 1D" v-model="purchase.referrer_id"/>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -574,10 +847,8 @@
                                                                 <label class="col-md-3 control-label">Date</label>
                                                                 <input class="col-md-9" type="date" v-model="purchase.p_date" required/>
                                                             </div>
-
                                                     </div>
                                                     
-
                                                 </div>
                                             </div>
                                     
@@ -668,20 +939,20 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <label class="col-md-3 control-label">40% Price</label>
+                                                    <label class="col-md-3 control-label">Supplier Price</label>
 
-                                                    <input class="col-md-9" type="number" v-model="product.fpc_pprice" required/>
+                                                    <input class="col-md-9" type="number" v-model="product.p_price" required/>
 
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <div class="row">
                                                     <label class="col-md-3 control-label">20% Price</label>
 
                                                     <input class="col-md-9" type="number" v-model="product.tpc_pprice" required/>
 
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group">
                                                 <div class="row">
                                                     <label class="col-md-3 control-label">Reciever's Employee ID </label>
@@ -747,5 +1018,114 @@
     </script>
 
 </body>
+<!-- <div class="form-group">
+    <div class="row">
+        <label class="col-md-3 control-label">Sale Category</label>
+                <select  class="col-md-9" :disabled="product_sku != ''" v-model="sale_type">
+                      
+                        <option v-for="(sale_category, $index) in Sale_Category"
+                        :value=" $index + 1 ">{{ sale_category }}
+                </option>
+                    </select>
+            </div>
+</div>
+<div class="form-group">
+<div class="row">
+<label class="col-md-3 control-label">InvoiceRef Number</label>
+
+<input class="col-md-9" type="text" v-model="purchase.p_reciept" required/>
+
+</div>
+</div>
+<div class="form-group">
+<div class="row">
+<label class="col-md-3 control-label">Sales Agent </label>
+
+<select class=" col-md-9 " v-model="purchase.sales_agent">
+        <option value="">Select</option>
+        <option v-for="employee in list_employees" :value="employee.Employee_id">{{ employee.Employee_id}} &nbsp; {{employee.Employee_name}}
+        </option>
+    </select>
+
+</div>
+</div>
+<div class="form-group">
+<div class="row">
+<label class="col-md-3 control-label">Customer Id</label>
+
+<input class="col-md-9" type="text" v-model="purchase.custp_id" required/>
+
+</div>
+</div>
+<div class="form-group">
+<div class="row">
+<label class="col-md-3 control-label">Product Sku</label>
+
+<input class="col-md-9" :disabled="sale_type == ''" type="text" v-model="product_sku" required/>
+
+</div>
+</div>
+<div class="form-group">
+<div class="row">
+    <label class="col-md-3 control-label">Percentage</label>
+    <select  :disabled="product_name == ''" class="col-md-9" v-model="ppercentage">
+            <option value="twenty"> 20%</option>
+            <option value="forty"> 40%</option>
+           
+        </select>
+
+</div>
+</div>
+<div class="form-group">
+<div class="row">
+<label class="col-md-3 control-label">Product Name</label>
+
+<input class="col-md-9"   disabled type="text" v-model="product_name" required/>
+
+</div>
+</div>
+<div class="form-group">
+<div class="row">
+<label class="col-md-3 control-label">Product Price</label>
+<input class="col-md-9" type="text" disabled v-model="product_price" required/>
+</div>
+
+</div>
+
+<div class="form-group">
+<div class="row">
+<label class="col-md-3 control-label">First Payment </label> 
+<input class="col-md-9" type="text" disabled v-model="first_payment" required/>
+</div>
+
+</div>
+<div class="form-group">
+<div class="row">
+<label class="col-md-3 control-label">Repayment</label>
+<input class="col-md-9" type="text" disabled v-model="repayment" required/>
+</div>
+
+</div>
+
+<div class="form-group">
+<div class="row">
+<label class="col-md-3 control-label">{{cat_label}} 1D</label>
+<input class="col-md-9"  :disabled="sale_type == '4'"  type="text" v-model="referrer_id" required/>
+</div>
+</div>
+
+<div class="form-group">
+<div class="row">
+<label class="col-md-3 control-label">Staff Referrer ID </label>
+<input class="col-md-9"   type="text" v-model="staff_referrer_id" required/>
+</div>
+</div>
+<div class="form-group">
+<div class="row">
+    <label class="col-md-3 control-label">Date</label>
+    <input class="col-md-9" type="date" v-model="purchase.p_date" required/>
+</div>
+
+</div> -->
 
 </html>
