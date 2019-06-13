@@ -262,6 +262,8 @@ var app = new Vue({
     methods: {
         Purchase: function () {
             // var percent;
+              
+            console.log(app.purchase.referrer_id)
             app.purchase.product_sku = app.product_sku.toUpperCase();
             app.purchase.product_name = app.product_name;
             app.purchase.product_gty = 1;
