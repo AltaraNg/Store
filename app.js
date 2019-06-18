@@ -434,7 +434,7 @@ var app = new Vue({
                 pay_bank = app.pay_bank
             }
                 
-            if (app.empStatus == 'Salaried' || app.empStatus == 'formal'){
+            if (app.empStatus == 'formal'){
                 nextdate = app.formatDate(app.addDays(date, 28));
                 api_link =  "https://altara-api.herokuapp.com/api.php?action=formal_repay"
                 // api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_repay"
@@ -486,7 +486,7 @@ var app = new Vue({
         },
 
         // UpdateRepay: function (id) {
-        //     if (app.empStatus == 'Salaried' || app.empStatus == 'formal'){
+        //     if (app.empStatus == 'formal'){
         //         app.uprepay = 'formal_uprepay';
         //      }
         //      else {
@@ -769,7 +769,7 @@ var app = new Vue({
             
             console.log(app.empStatus);
             var api_link; 
-            if (app.empStatus == 'Salaried' || app.empStatus == 'formal'){
+            if (app.empStatus == 'formal'){
                 
                api_link =  "https://altara-api.herokuapp.com/api.php?action=formal_orders"
             //    api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_orders"
@@ -838,7 +838,7 @@ var app = new Vue({
             aTax = ((0.05 * pInt) + pInt);
             upFront =  (plan == 0) ? 0 : aTax * (plan/100);
             rePay = aTax - upFront;
-            mRepay = (c_cust =='formal' || c_cust =='Salaried')? rePay/6 :rePay/12;
+            mRepay = (c_cust =='formal')? rePay/6 :rePay/12;
             
             console.log ('Total Price = '+ aTax);
             console.log ('UpFront = '+ upFront);
@@ -857,7 +857,7 @@ var app = new Vue({
             app.orderDate = selectedOrder.order_date;
             app.repay_amt = selectedOrder.repayment_amount;
 
-            if (app.empStatus == 'Salaried' || app.empStatus == 'formal'){
+            if (app.empStatus == 'formal'){
                 app.repaydata = [
                     { period: '1st', status: selectedOrder.first },
                     { period: '2nd', status: selectedOrder.second },
@@ -887,7 +887,7 @@ var app = new Vue({
             console.log(app.orderDate);
             var date = new Date(app.orderDate);
              var a ;
-             if (app.empStatus == 'Salaried' || app.empStatus == 'formal'){
+             if (app.empStatus == 'formal'){
                 a = [28, 56, 84, 112, 140, 168];
                 for (i = 0; i <= 5; i++) {
                     var ans = app.formatDate(app.addDays(date, a[i]));
