@@ -164,6 +164,7 @@ var app = new Vue({
         pay_bank:'',
         computed_discount:'',
         discount_t:'',
+        bank_draft:false,
     },
     watch: {
         product_sku: function () {
@@ -195,7 +196,7 @@ var app = new Vue({
                             })
 
                             if (response.data.users.length > 0) {        
-                                app.priceCal(response.data.users[0].pc_pprice,app.sale_t,app.cust_type)
+                                app.priceCal(response.data.users[0].pc_pprice,app.sale_t,app.bank_draft)
                                 if (app.discount_t != 0){
                                     app.computed_discount = app.purchase.product_price*(app.discount_t/100)
                                 }
@@ -434,12 +435,12 @@ var app = new Vue({
                 pay_bank = app.pay_bank
             }
                 
-            if (app.empStatus == 'formal'){
+            if (app.bank_draft == true && app.empStatus == 'formal'){
                 nextdate = app.formatDate(app.addDays(date, 28));
                 api_link =  "https://altara-api.herokuapp.com/api.php?action=formal_repay"
                 // api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_repay"
-
              }
+
              else {
                 nextdate =app.formatDate(app.addDays(date, 14));
                 api_link =  "https://altara-api.herokuapp.com/api.php?action=informal_repay"
@@ -769,7 +770,7 @@ var app = new Vue({
             
             console.log(app.empStatus);
             var api_link; 
-            if (app.empStatus == 'formal'){
+            if (app.bank_draft == true && app.empStatus == 'formal'){
                 
                api_link =  "https://altara-api.herokuapp.com/api.php?action=formal_orders"
             //    api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_orders"
@@ -812,7 +813,7 @@ var app = new Vue({
                 });
         },
 
-        priceCal(mPrice,plan,c_cust) {
+        priceCal(mPrice,plan,bank_draft) {
             let dPrice ;
             let rPrice;
             let afInt;
@@ -838,15 +839,24 @@ var app = new Vue({
             aTax = ((0.05 * pInt) + pInt);
             upFront =  (plan == 0) ? 0 : aTax * (plan/100);
             rePay = aTax - upFront;
-            mRepay = (c_cust =='formal')? rePay/6 :rePay/12;
+            mRepay = (bank_draft==true)? rePay/6 :rePay/12;
+
+          
+
+            // app.purchase.product_price = Math.floor(aTax / 100) * 100
+            
+            app.purchase.down_pay = Math.floor(upFront / 100) * 100
+            app.purchase.repaymt = Math.floor(mRepay / 100) * 100
+            app.purchase.product_price = (bank_draft==true)? (app.purchase.repaymt*6 + app.purchase.down_pay) :(app.purchase.repaymt*12 + app.purchase.down_pay)
             
             console.log ('Total Price = '+ aTax);
             console.log ('UpFront = '+ upFront);
             console.log ('Montly Repayment = '+ mRepay);
 
-            app.purchase.product_price = Math.round( aTax * 10) / 10 ;
-            app.purchase.down_pay = Math.round( upFront * 10) / 10 ;
-            app.purchase.repaymt = Math.round( mRepay * 10) / 10 ;
+            console.log ('Total Price = '+ app.purchase.product_price);
+            console.log ('UpFront = '+ app.purchase.down_pay);
+            console.log ('Montly Repayment = '+ app.purchase.repaymt);
+
         },
 
         pushToRepay: function (selectedOrder) {
@@ -857,7 +867,7 @@ var app = new Vue({
             app.orderDate = selectedOrder.order_date;
             app.repay_amt = selectedOrder.repayment_amount;
 
-            if (app.empStatus == 'formal'){
+            if ( app.bank_draft == true && app.empStatus == 'formal'){
                 app.repaydata = [
                     { period: '1st', status: selectedOrder.first },
                     { period: '2nd', status: selectedOrder.second },
@@ -887,7 +897,7 @@ var app = new Vue({
             console.log(app.orderDate);
             var date = new Date(app.orderDate);
              var a ;
-             if (app.empStatus == 'formal'){
+             if (app.bank_draft == true && app.empStatus == 'formal'){
                 a = [28, 56, 84, 112, 140, 168];
                 for (i = 0; i <= 5; i++) {
                     var ans = app.formatDate(app.addDays(date, a[i]));
@@ -994,3 +1004,22 @@ var app = new Vue({
         }
     }
 });
+
+
+
+// UPDATE orders
+//         INNER JOIN
+//     customers ON customers.id = orders.customer_id 
+// SET 
+//     orders.repayment_amount = orders.repayment_amount * 2
+    
+//     Where customers.employment_status='formal' AND (((orders.repayment_amount*6) + orders.down_payment) < orders.product_price) AND orders.order_date < '2019-07-08'
+
+
+// UPDATE orders
+//         INNER JOIN
+//     customers ON customers.id = orders.customer_id 
+// SET 
+//     orders.repayment_amount = orders.repayment_amount / 2
+    
+//      Where customers.employment_status='Informal(business)' AND (((orders.repayment_amount*12) + orders.down_payment) > (orders.product_price + 1))
