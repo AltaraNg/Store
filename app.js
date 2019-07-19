@@ -1540,7 +1540,8 @@ var app = new Vue({
             //     api_link = "https://altara-api.herokuapp.com/api.php?action=informal_orders"
             //     //    api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=informal_orders"
             // }
-            axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=orders", {          
+            // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=orders", {   
+                axios.post("https://altara-api.herokuapp.com/api.php?action=orders", {           
             // axios.post(api_link, {
                 Customer_id: app.Customer_id
             })
