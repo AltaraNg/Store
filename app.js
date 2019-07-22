@@ -78,731 +78,810 @@ var app = new Vue({
         { id: 5, name: "6 month plan 80%", percent: 80 },
         ],
 
-      products: [
+        products: [
             {
-              branchId: 1,
-              branchType: "Appliances",
-              branchProducts: [
-                {
-                  id: 1,
-                  prodType: "Chest Freezer",
-                  models: [
+                branchId: 1,
+                branchType: "Appliances",
+                branchProducts: [
                     {
-                      name: "Polyster", sizes: [
-                        "260l",
-                        "185l",
-                        "165l",
-                        "127l",
-                        "320LGR",
-                        "519LGR",
-                        "295l",
-                        "190l",
-                        "359l"
-                      ]
+                        id: 1,
+                        prodType: "Chest Freezer",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "260l",
+                                    "185l",
+                                    "165l",
+                                    "127l",
+                                    "320LGR",
+                                    "519LGR",
+                                    "295l",
+                                    "190l",
+                                    "359l"
+                                ]
+                            },
+                            {
+                                name: "Midea", sizes: [
+                                    "185l",
+                                    "196l",
+                                    "206l"
+                                ]
+                            },
+                            {
+                                name: "Syinix", sizes: [
+                                    "145l",
+                                    "200l"
+                                ]
+                            },
+                            {
+                                name: "Hisence", sizes: [
+                                    "310l",
+                                    "250l",
+                                    "205l",
+                                    "100l"
+                                ]
+                            },
+                            {
+                                name: "Century", sizes: [
+                                    "310l"
+                                ]
+                            },
+                            {
+                                name: "Bruhm", sizes: [
+                                    "100l",
+                                    "200l"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Midea", sizes: [
-                        "185l",
-                        "196l",
-                        "206l"
-                      ]
+                        id: 2,
+                        prodType: "Refridegrator",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "429l",
+                                    "261l",
+                                    "203LR",
+                                    "78LB",
+                                    "172Sl",
+                                    "177Sl",
+                                    "176Wl",
+                                    "215l",
+                                    "250l"
+                                ]
+                            },
+                            {
+                                name: "LG", sizes: [
+                                    "161l",
+                                    "250l"
+                                ]
+                            },
+                            {
+                                name: "Syinix", sizes: [
+                                    "93l",
+                                    "212l",
+                                    "155l"
+                                ]
+                            },
+                            {
+                                name: "Hisence", sizes: [
+                                    "46l"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Syinix", sizes: [
-                        "145l",
-                        "200l"
-                      ]
+                        id: 3,
+                        prodType: "Washing Machine",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "10kg",
+                                    "6.5kg",
+                                    "9.5kg",
+                                    "7kg"
+                                ]
+                            },
+                            {
+                                name: "Century", sizes: [
+                                    "8kg",
+                                    "6kg",
+                                    "7.8kg"
+                                ]
+                            },
+                            {
+                                name: "QASA", sizes: [
+                                    "8.2kg",
+                                    "10.2kg",
+                                    "5kg"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Hisence", sizes: [
-                        "310l",
-                        "250l",
-                        "205l",
-                        "100l"
-                      ]
+                        id: 4,
+                        prodType: "Generator",
+                        models: [
+                            {
+                                name: "Elepax", sizes: [
+                                    "4kva",
+                                    "3.5kva",
+                                    "2.2kva",
+                                    "4.5kva"
+                                ]
+                            },
+                            {
+                                name: "Tiger", sizes: [
+                                    "1.2kva",
+                                    "2.2kva"
+                                ]
+                            },
+                            {
+                                name: "Lutian", sizes: [
+                                    "3.2kva",
+                                    "3.0kva",
+                                    "4.0kva",
+                                    "2.2kva",
+                                    "1.0kva"
+                                ]
+                            },
+                            {
+                                name: "Sumec Fireman", sizes: [
+                                    "1.0kva"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Century", sizes: [
-                        "310l"
-                      ]
+                        id: 5,
+                        prodType: "Standing Fan",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "20 inch",
+                                    "26 inch"
+                                ]
+                            },
+                            {
+                                name: "OX", sizes: [
+                                    "20 inch",
+                                    "26 inch"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Bruhm", sizes: [
-                        "100l",
-                        "200l"
-                      ]
+                        id: 6,
+                        prodType: "Industrial Fan",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "21 inch",
+                                ]
+                            },
+                            {
+                                name: "OX", sizes: [
+                                    "20 inch",
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 7,
+                        prodType: "Gas Cooker",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "3 GAS BUNNER, 1 ELECTRIC",
+                                    "4 GAS BURNNER"
+                                ]
+                            },
+                            {
+                                name: "Century", sizes: [
+                                    "3 GAS BUNNER, 1 ELECTRIC",
+                                    "4 GAS BURNNER"
+                                ]
+                            },
+                            {
+                                name: "QASA", sizes: [
+                                    "3 GAS BUNNER, 1 ELECTRIC"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 8,
+                        prodType: "Air Conditioner",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "1.5hp",
+                                    "1hp",
+                                    "2hp"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 9,
+                        prodType: "Microwave Oven",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "20l"
+                                ]
+                            },
+                            {
+                                name: "Midea", sizes: [
+                                    "20l"
+                                ]
+                            },
+                            {
+                                name: "Century", sizes: [
+                                    "20l"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 10,
+                        prodType: "Sewing Machine",
+                        models: [
+                            {
+                                name: "Buddyfly", sizes: [
+                                    "Domestic"
+                                ]
+                            },
+                            {
+                                name: "Beautiful", sizes: [
+                                    "Domestic"
+                                ]
+                            },
+                            {
+                                name: "Sumo Premium", sizes: [
+                                    "Industrial"
+                                ]
+                            },
+                            {
+                                name: "Emel", sizes: [
+                                    "Industrial"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 11,
+                        prodType: "Industrial Weaving Machine",
+                        models: [
+                            {
+                                name: "Huldong", sizes: [
+                                    "3 Threads"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 12,
+                        prodType: "Television",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "40 inches smart",
+                                    "43 inches smart",
+                                    "32 inches smart",
+                                    "40 inches LED",
+                                    "32 inches LED",
+                                    "20 inches LED",
+                                    "24 inches LED",
+                                    "50 inches LED",
+                                    "55 inches LED",
+                                    "28 inches LED HD",
+                                    "24 inches LED HD"
+                                ]
+                            },
+                            {
+                                name: "Syinix", sizes: [
+                                    "49 inches smart",
+                                    "39 inches LED",
+                                    "32 inches LED"
+                                ]
+                            },
+                            {
+                                name: "Hisence", sizes: [
+                                    "24 inches smart",
+                                    "32 inches LED",
+                                    "40 inches LED",
+                                    "43 inches LED"
+                                ]
+                            },
+                            {
+                                name: "Century", sizes: [
+                                    "32 inches LED"
+                                ]
+                            },
+                            {
+                                name: "LG", sizes: [
+                                    "32 inches LED"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 13,
+                        prodType: "Mobile Phone",
+                        models: [
+                            {
+                                name: "Infinix", sizes: [
+                                    "Zero 4 32gb, 3gb",
+                                    "Hot 5 16gb, 2gb",
+                                    "Hot 5 16gb, 1gb",
+                                    "Hot 6 16gb,2gb",
+                                    "Note 4 16gb, 2gb",
+                                    "S4-2gb",
+                                    "S3-3gb",
+                                    "Note 4-3gb",
+                                    "Note 5-4gb",
+                                    "Note 4 pro-2gb",
+                                    "Hot 6X-2gb",
+                                    "Hot 6-3gb",
+                                    "Hot 6X-3gb",
+                                    "Hot 6 pro-2gb",
+                                    "Hot 6 pro-3gb",
+                                    "Hot 7-2gb",
+                                    "Hot 7 pro-2gb",
+                                    "Smart 2",
+                                    "Smart 2 pro"
+                                ]
+                            },
+                            {
+                                name: "Tecno", sizes: [
+                                    "K7 SPARK 16gb, 1gb",
+                                    "K9 PLUS 1gb",
+                                    "POVOIR 2(LA7) 16gb,2gb",
+                                    "7D",
+                                    "10D",
+                                    "camon X",
+                                    "camon CM",
+                                    "camon CX",
+                                    "camon 11-4gb",
+                                    "camon 11-3gb",
+                                    "KA7-1gb",
+                                    "KA7 spark-2gb",
+                                    "KA70-2gb",
+                                    "pouvoir LA7-3gb",
+                                    "pouvoir LA7 pro-3gb",
+                                    "pouvoir LB6-1gb",
+                                    "pop 2"
+                                ]
+                            },
+                            {
+                                name: "Gionee", sizes: [
+                                    "P5 MINI 8gb, 1gb",
+                                    "S8S",
+                                    "F20FLite"
+                                ]
+                            },
+                            {
+                                name: "Itel", sizes: [
+                                    "S12 8gb, 1gb",
+                                    "S13",
+                                    "P32",
+                                    "S32",
+                                    "S33"
+                                ]
+                            },
+                            {
+                                name: "Nokia", sizes: [
+                                    "2.1",
+                                    "3.1"
+                                ]
+                            },
+                            {
+                                name: "Samsung", sizes: [
+                                    "J7 pro",
+                                    "J2 chore",
+                                    "J4 chore"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 14,
+                        prodType: "Tablet",
+                        models: [
+                            {
+                                name: "Tecno", sizes: [
+                                    "DROIPAD 7D, 16gb, 1gb"
+                                ]
+                            },
+                            {
+                                name: "Royale", sizes: [
+                                    "A1 FERO ANDRIOD 1gb"
+                                ]
+                            },
+                            {
+                                name: "Vigitab", sizes: [
+                                    "ANDRIOD 1gb"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 15,
+                        prodType: "Water Dispenser",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "2 TAPS"
+                                ]
+                            },
+                            {
+                                name: "Century", sizes: [
+                                    "2 TAPS"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 16,
+                        prodType: "Home Theatre",
+                        models: [
+                            {
+                                name: "Polyster", sizes: [
+                                    "HT520",
+                                    "VT607"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 17,
+                        prodType: "Laptop",
+                        models: [
+                            {
+                                name: "hp", sizes: [
+                                    "255 4gb/ 500HDD",
+                                    "15 CELERON 4gb/ 500HDD"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 18,
+                        prodType: "Stabilizer",
+                        models: [
+                            {
+                                name: "Century", sizes: [
+                                    "2kva",
+                                    "3kva",
+                                    "1.5kva"
+                                ]
+                            },
+                            {
+                                name: "Eva", sizes: [
+                                    "5kva",
+                                    "2kva"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 19,
+                        prodType: "Printer",
+                        models: [
+                            {
+                                name: "hp", sizes: [
+                                    "MFP130nw LJ",
+                                    "15 CELERON 4gb/ 500HDD"
+                                ]
+                            }
+                        ]
                     }
-                  ]
-                },
-                {
-                  id: 2,
-                  prodType: "Refridegrator",
-                  models: [
-                    {
-                      name: "Polyster", sizes: [
-                        "429l",
-                        "261l",
-                        "203LR",
-                        "78LB",
-                        "172Sl",
-                        "177Sl",
-                        "176Wl",
-                        "215l",
-                        "250l"
-                      ]
-                    },
-                    {
-                      name: "LG", sizes: [
-                        "161l",
-                        "250l"
-                      ]
-                    },
-                    {
-                      name: "Syinix", sizes: [
-                        "93l",
-                        "212l",
-                        "155l"
-                      ]
-                    },
-                    {
-                      name: "Hisence", sizes: [
-                        "46l"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 3,
-                  prodType: "Washing Machine",
-                  models: [
-                    {
-                      name: "Polyster", sizes: [
-                        "10kg",
-                        "6.5kg",
-                        "9.5kg",
-                        "7kg"
-                      ]
-                    },
-                    {
-                      name: "Century", sizes: [
-                        "8kg",
-                        "6kg",
-                        "7.8kg"
-                      ]
-                    },
-                    {
-                      name: "QASA", sizes: [
-                        "8.2kg",
-                        "10.2kg",
-                        "5kg"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 4,
-                  prodType: "Generator",
-                  models: [
-                    {
-                      name: "Elepax", sizes: [
-                        "4kva",
-                        "3.5kva",
-                        "2.2kva",
-                        "4.5kva"
-                      ]
-                    },
-                    {
-                      name: "Tiger", sizes: [
-                        "1.2kva",
-                        "2.2kva"
-                      ]
-                    },
-                    {
-                      name: "Lutian", sizes: [
-                        "3.2kva",
-                        "3.0kva",
-                        "4.0kva",
-                        "2.2kva",
-                        "1.0kva"
-                      ]
-                    },
-                    {
-                      name: "Sumec Fireman", sizes: [
-                        "1.0kva"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 5,
-                  prodType: "Standing Fan",
-                  models: [
-                    {
-                      name: "Polyster", sizes: [
-                        "20 inch",
-                        "26 inch"
-                      ]
-                    },
-                    {
-                      name: "OX", sizes: [
-                        "20 inch",
-                        "26 inch"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 6,
-                  prodType: "Industrial Fan",
-                  models: [
-                    {
-                      name: "Polyster", sizes: [
-                        "21 inch",
-                      ]
-                    },
-                    {
-                      name: "OX", sizes: [
-                        "20 inch",
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 7,
-                  prodType: "Gas Cooker",
-                  models: [
-                    {
-                      name: "Polyster", sizes: [
-                        "3 GAS BUNNER, 1 ELECTRIC",
-                        "4 GAS BURNNER"
-                      ]
-                    },
-                    {
-                      name: "Century", sizes: [
-                        "3 GAS BUNNER, 1 ELECTRIC",
-                        "4 GAS BURNNER"
-                      ]
-                    },
-                    {
-                      name: "QASA", sizes: [
-                        "3 GAS BUNNER, 1 ELECTRIC"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 8,
-                  prodType: "Air Conditioner",
-                  models: [
-                    {
-                      name: "Polyster", sizes: [
-                        "1.5hp",
-                        "1hp",
-                        "2hp"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 9,
-                  prodType: "Microwave Oven",
-                  models: [
-                    {
-                      name: "Polyster", sizes: [
-                        "20l"
-                      ]
-                    },
-                    {
-                      name: "Midea", sizes: [
-                        "20l"
-                      ]
-                    },
-                    {
-                      name: "Century", sizes: [
-                        "20l"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 10,
-                  prodType: "Sewing Machine",
-                  models: [
-                    {
-                      name: "Buddyfly", sizes: [
-                        "Domestic"
-                      ]
-                    },
-                    {
-                      name: "Beautiful", sizes: [
-                        "Domestic"
-                      ]
-                    },
-                    {
-                      name: "Sumo Premium", sizes: [
-                        "Industrial"
-                      ]
-                    },
-                    {
-                      name: "Emel", sizes: [
-                        "Industrial"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 11,
-                  prodType: "Industrial Weaving Machine",
-                  models: [
-                    {
-                      name: "Huldong", sizes: [
-                        "3 Threads"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 12,
-                  prodType: "Television",
-                  models: [
-                    {
-                      name: "Polyster", sizes: [
-                        "40 inches smart",
-                        "43 inches smart",
-                        "32 inches smart",
-                        "40 inches LED",
-                        "32 inches LED",
-                        "20 inches LED",
-                        "24 inches LED",
-                        "50 inches LED",
-                        "55 inches LED",
-                        "28 inches LED HD",
-                        "24 inches LED HD"
-                      ]
-                    },
-                    {
-                      name: "Syinix", sizes: [
-                        "49 inches smart",
-                        "39 inches LED",
-                        "32 inches LED"
-                      ]
-                    },
-                    {
-                      name: "Hisence", sizes: [
-                        "24 inches smart",
-                        "32 inches LED",
-                        "40 inches LED",
-                        "43 inches LED"
-                      ]
-                    },
-                    {
-                      name: "Century", sizes: [
-                        "32 inches LED"
-                      ]
-                    },
-                    {
-                      name: "LG", sizes: [
-                        "32 inches LED"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 13,
-                  prodType: "Mobile Phone",
-                  models: [
-                    {
-                      name: "Infinix", sizes: [
-                        "Zero 4 32gb, 3gb",
-                        "Hot 5 16gb, 2gb",
-                        "Hot 5 16gb, 1gb",
-                        "Hot 6 16gb,2gb",
-                        "Note 4 16gb, 2gb",
-                        "S4-2gb",
-                        "S3-3gb",
-                        "Note 4-3gb",
-                        "Note 5-4gb",
-                        "Note 4 pro-2gb",
-                        "Hot 6X-2gb",
-                        "Hot 6-3gb",
-                        "Hot 6X-3gb",
-                        "Hot 6 pro-2gb",
-                        "Hot 6 pro-3gb",
-                        "Hot 7-2gb",
-                        "Hot 7 pro-2gb",
-                        "Smart 2",
-                        "Smart 2 pro"
-                      ]
-                    },
-                    {
-                      name: "Tecno", sizes: [
-                        "K7 SPARK 16gb, 1gb",
-                        "K9 PLUS 1gb",
-                        "POVOIR 2(LA7) 16gb,2gb",
-                        "7D",
-                        "10D",
-                        "camon X",
-                        "camon CM",
-                        "camon CX",
-                        "camon 11-4gb",
-                        "camon 11-3gb",
-                        "KA7-1gb",
-                        "KA7 spark-2gb",
-                        "KA70-2gb",
-                        "pouvoir LA7-3gb",
-                        "pouvoir LA7 pro-3gb",
-                        "pouvoir LB6-1gb",
-                        "pop 2"
-                      ]
-                    },
-                    {
-                      name: "Gionee", sizes: [
-                        "P5 MINI 8gb, 1gb",
-                        "S8S",
-                        "F20FLite"
-                      ]
-                    },
-                    {
-                      name: "Itel", sizes: [
-                        "S12 8gb, 1gb",
-                        "S13",
-                        "P32",
-                        "S32",
-                        "S33"
-                      ]
-                    },
-                    {
-                      name: "Nokia", sizes: [
-                        "2.1",
-                        "3.1"
-                      ]
-                    },
-                    {
-                      name: "Samsung", sizes: [
-                        "J7 pro",
-                        "J2 chore",
-                        "J4 chore"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 14,
-                  prodType: "Tablet",
-                  models: [
-                    {
-                      name: "Tecno", sizes: [
-                        "DROIPAD 7D, 16gb, 1gb"
-                      ]
-                    },
-                    {
-                      name: "Royale", sizes: [
-                        "A1 FERO ANDRIOD 1gb"
-                      ]
-                    },
-                    {
-                      name: "Vigitab", sizes: [
-                        "ANDRIOD 1gb"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 15,
-                  prodType: "Water Dispenser",
-                  models: [
-                    {
-                      name: "Polyster", sizes: [
-                        "2 TAPS"
-                      ]
-                    },
-                    {
-                      name: "Century", sizes: [
-                        "2 TAPS"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 16,
-                  prodType: "Home Theatre",
-                  models: [
-                    {
-                      name: "Polyster", sizes: [
-                        "HT520",
-                        "VT607"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 17,
-                  prodType: "Laptop",
-                  models: [
-                    {
-                      name: "hp", sizes: [
-                        "255 4gb/ 500HDD",
-                        "15 CELERON 4gb/ 500HDD"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 18,
-                  prodType: "Stabilizer",
-                  models: [
-                    {
-                      name: "Century", sizes: [
-                        "2kva",
-                        "3kva",
-                        "1.5kva"
-                      ]
-                    },
-                    {
-                      name: "Eva", sizes: [
-                        "5kva",
-                        "2kva"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 19,
-                  prodType: "Printer",
-                  models: [
-                    {
-                      name: "hp", sizes: [
-                        "MFP130nw LJ",
-                        "15 CELERON 4gb/ 500HDD"
-                      ]
-                    }
-                  ]
-                }
-              ]
+                ]
             },
             {
-              branchId: 2,
-              branchType: "Lifestyle",
-              branchProducts: [
-                {
-                  id: 1,
-                  prodType: "Sofa",
-                  models: [
+                branchId: 2,
+                branchType: "Lifestyle",
+                branchProducts: [
                     {
-                      name: "Leather", sizes: [
-                        "Single",
-                        "Double",
-                        "Tripple",
-                        "fullset"
-                      ]
+                        id: 1,
+                        prodType: "Sofa",
+                        models: [
+                            {
+                                name: "Leather", sizes: [
+                                    "Single",
+                                    "Double",
+                                    "Tripple",
+                                    "fullset"
+                                ]
+                            },
+                            {
+                                name: "Fab", sizes: [
+                                    "Single",
+                                    "Double",
+                                    "Tripple",
+                                    "fullset"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Fab", sizes: [
-                        "Single",
-                        "Double",
-                        "Tripple",
-                        "fullset"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 2,
-                  prodType: "Dining Set ",
-                  models: [
-                    {
-                      name: "Cha", sizes: [
-                        "2 pair",
-                        "3 pair"
-                      ]
+                        id: 2,
+                        prodType: "Dining Set ",
+                        models: [
+                            {
+                                name: "Cha", sizes: [
+                                    "2 pair",
+                                    "3 pair"
+                                ]
+                            },
+                            {
+                                name: "Tab", sizes: [
+                                    "2 pair",
+                                    "3 pair"
+                                ]
+                            },
+                            {
+                                name: "Com", sizes: [
+                                    "2 pair",
+                                    "3 pair",
+                                    "6*4.5"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Tab", sizes: [
-                        "2 pair",
-                        "3 pair"
-                      ]
+                        id: 3,
+                        prodType: "Bed Frame ",
+                        models: [
+                            {
+                                name: "Com", sizes: [
+                                    "6*4.5",
+                                    "6*6"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Com", sizes: [
-                        "2 pair",
-                        "3 pair",
-                        "6*4.5"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 3,
-                  prodType: "Bed Frame ",
-                  models: [
-                    {
-                      name: "Com", sizes: [
-                        "6*4.5",
-                        "6*6"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 4,
-                  prodType: "Mattress",
-                  models: [
-                    {
-                      name: "Vitaform", sizes: [
-                        "6*4.5*8",
-                        "6*6*8",
-                        "6*6*10",
-                        "6*7*8",
-                        "6*4.5*12",
-                        "6*4.5*14",
-                        "6*4.5*18",
-                        "6*4.5*16",
-                        "6*4.5*20",
-                        "6*3.5*8",
-                        "6*6*12",
-                        "6*7*12",
-                        "6*6*16",
-                        "6*7*8",
-                        "6*6*8"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 5,
-                  prodType: "Duvet ",
-                  models: [
-                    {
-                      name: "Vitaform", sizes: [
-                        "6*6"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 6,
-                  prodType: "Duvet - Bed spread ",
-                  models: [
-                    {
-                      name: "Vitaform", sizes: [
-                        "6*6"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 7,
-                  prodType: "Pillow",
-                  models: [
-                    {
-                      name: "Gaz", sizes: [
-                        "--"
-                      ]
+                        id: 4,
+                        prodType: "Mattress",
+                        models: [
+                            {
+                                name: "Vitaform", sizes: [
+                                    "6*4.5*8",
+                                    "6*6*8",
+                                    "6*6*10",
+                                    "6*7*8",
+                                    "6*4.5*12",
+                                    "6*4.5*14",
+                                    "6*4.5*18",
+                                    "6*4.5*16",
+                                    "6*4.5*20",
+                                    "6*3.5*8",
+                                    "6*6*12",
+                                    "6*7*12",
+                                    "6*6*16",
+                                    "6*7*8",
+                                    "6*6*8"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Dov", sizes: [
-                        "--"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 8,
-                  prodType: "Wardrobe",
-                  models: [
-                    {
-                      name: "Com", sizes: [
-                        "2 doors"
-                      ]
+                        id: 5,
+                        prodType: "Duvet ",
+                        models: [
+                            {
+                                name: "Vitaform", sizes: [
+                                    "6*6"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Dov", sizes: [
-                        "2 doors"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 9,
-                  prodType: "Center Table",
-                  models: [
-                    {
-                      name: "Leather", sizes: [
-                        "--"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 10,
-                  prodType: "Dressing mirror",
-                  models: [
-                    {
-                      name: "Mdf", sizes: [
-                        "--"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 11,
-                  prodType: "Television stand",
-                  models: [
-                    {
-                      name: "Mdf", sizes: [
-                        "--"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 12,
-                  prodType: "Centre rugs",
-                  models: [
-                    {
-                      name: "Min", sizes: [
-                        "--"
-                      ]
+                        id: 6,
+                        prodType: "Duvet - Bed spread ",
+                        models: [
+                            {
+                                name: "Vitaform", sizes: [
+                                    "6*6"
+                                ]
+                            }
+                        ]
                     },
                     {
-                      name: "Max", sizes: [
-                        "--"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 13,
-                  prodType: "Hair dryer",
-                  models: [
+                        id: 7,
+                        prodType: "Pillow",
+                        models: [
+                            {
+                                name: "Gaz", sizes: [
+                                    "--"
+                                ]
+                            },
+                            {
+                                name: "Dov", sizes: [
+                                    "--"
+                                ]
+                            }
+                        ]
+                    },
                     {
-                      name: "Equ", sizes: [
-                        "--"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 14,
-                  prodType: "Washing basin",
-                  models: [
+                        id: 8,
+                        prodType: "Wardrobe",
+                        models: [
+                            {
+                                name: "Com", sizes: [
+                                    "2 doors"
+                                ]
+                            },
+                            {
+                                name: "Dov", sizes: [
+                                    "2 doors"
+                                ]
+                            }
+                        ]
+                    },
                     {
-                      name: "Fib", sizes: [
-                        "--"
-                      ]
-                    }
-                  ]
-                }
-              ]
+                        id: 9,
+                        prodType: "Center Table",
+                        models: [
+                            {
+                                name: "Leather", sizes: [
+                                    "--"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 10,
+                        prodType: "Dressing mirror",
+                        models: [
+                            {
+                                name: "Mdf", sizes: [
+                                    "--"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 11,
+                        prodType: "Television stand",
+                        models: [
+                            {
+                                name: "Mdf", sizes: [
+                                    "--"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 12,
+                        prodType: "Centre rugs",
+                        models: [
+                            {
+                                name: "Min", sizes: [
+                                    "--"
+                                ]
+                            },
+                            {
+                                name: "Max", sizes: [
+                                    "--"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 13,
+                        prodType: "Hair dryer",
+                        models: [
+                            {
+                                name: "Equ", sizes: [
+                                    "--"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 14,
+                        prodType: "Washing basin",
+                        models: [
+                            {
+                                name: "Fib", sizes: [
+                                    "--"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 15,
+                        prodType: "Mobile Phone",
+                        models: [
+                            {
+                                name: "Infinix", sizes: [
+                                    "Zero 4 32gb, 3gb",
+                                    "Hot 5 16gb, 2gb",
+                                    "Hot 5 16gb, 1gb",
+                                    "Hot 6 16gb,2gb",
+                                    "Note 4 16gb, 2gb",
+                                    "S4-2gb",
+                                    "S3-3gb",
+                                    "Note 4-3gb",
+                                    "Note 5-4gb",
+                                    "Note 4 pro-2gb",
+                                    "Hot 6X-2gb",
+                                    "Hot 6-3gb",
+                                    "Hot 6X-3gb",
+                                    "Hot 6 pro-2gb",
+                                    "Hot 6 pro-3gb",
+                                    "Hot 7-2gb",
+                                    "Hot 7 pro-2gb",
+                                    "Smart 2",
+                                    "Smart 2 pro"
+                                ]
+                            },
+                            {
+                                name: "Tecno", sizes: [
+                                    "K7 SPARK 16gb, 1gb",
+                                    "K9 PLUS 1gb",
+                                    "POVOIR 2(LA7) 16gb,2gb",
+                                    "7D",
+                                    "10D",
+                                    "camon X",
+                                    "camon CM",
+                                    "camon CX",
+                                    "camon 11-4gb",
+                                    "camon 11-3gb",
+                                    "KA7-1gb",
+                                    "KA7 spark-2gb",
+                                    "KA70-2gb",
+                                    "pouvoir LA7-3gb",
+                                    "pouvoir LA7 pro-3gb",
+                                    "pouvoir LB6-1gb",
+                                    "pop 2"
+                                ]
+                            },
+                            {
+                                name: "Gionee", sizes: [
+                                    "P5 MINI 8gb, 1gb",
+                                    "S8S",
+                                    "F20FLite"
+                                ]
+                            },
+                            {
+                                name: "Itel", sizes: [
+                                    "S12 8gb, 1gb",
+                                    "S13",
+                                    "P32",
+                                    "S32",
+                                    "S33"
+                                ]
+                            },
+                            {
+                                name: "Nokia", sizes: [
+                                    "2.1",
+                                    "3.1"
+                                ]
+                            },
+                            {
+                                name: "Samsung", sizes: [
+                                    "J7 pro",
+                                    "J2 chore",
+                                    "J4 chore"
+                                ]
+                            }
+                        ]
+                    },
+                ]
             }
-          ],
-        pro_cat:'',
-        pro_mpd:'',
-        product_model:'',
-        product_size:'',
-        branchProd:[],
+        ],
+        pro_cat: '',
+        pro_mpd: '',
+        product_model: '',
+        product_size: '',
+        branchProd: [],
         models: [],
-        sizes:[],
+        sizes: [],
         orderList: [],
         informal_orderList: [],
         formal_orderList: [],
@@ -853,14 +932,14 @@ var app = new Vue({
         product_cat: '',
         product_branch: '',
         Branchname: [
-           {id: 2, name:"Challenge"} ,
-           {id: 3, name:"Dugbe"},
-           {id: 4, name: "Iwo-Road"},
-           {id: 6, name:"Bodija"},
-           {id: 5, name:"Agodi-Gate"},
-           {id: 8, name: "Life-Style Bodija"},
-           {id: 9, name: "Apata"},
-           {id: 11, name:"Life-Style Iwo-Road"}
+            { id: 2, name: "Challenge" },
+            { id: 3, name: "Dugbe" },
+            { id: 4, name: "Iwo-Road" },
+            { id: 6, name: "Bodija" },
+            { id: 5, name: "Agodi-Gate" },
+            { id: 8, name: "Life-Style Bodija" },
+            { id: 9, name: "Apata" },
+            { id: 11, name: "Life-Style Iwo-Road" }
         ],
         Bank: [
             "Access Bank",
@@ -920,14 +999,14 @@ var app = new Vue({
             })
         },
 
-        product_model:function(){
+        product_model: function () {
             var that = this;
             this.product_cat
             console.log(this.product_model);
             app.sizes = this.product_model.sizes;
-            app.branchProd.forEach(function(obj){
-                if(obj.id == that.product_cat){
-                    app.sizes= obj.models[that.product_model].sizes
+            app.branchProd.forEach(function (obj) {
+                if (obj.id == that.product_cat) {
+                    app.sizes = obj.models[that.product_model].sizes
                     app.pro_mpd = obj.models[that.product_model].name;
                     console.log(app.pro_mpd);
                 }
@@ -1053,7 +1132,7 @@ var app = new Vue({
 
                         } else {
                             app.firstpurchase = true;
-                            app.Repay(app.purchase.p_reciept, app.purchase.p_date);
+                            app.Repay(app.purchase.p_reciept, app.purchase.p_date,orderTp);
                             app.updateStore(app.purchase.product_sku, app.purchase.p_date, app.purchase.sales_agent);
                             app.successMessage = response.data.message;
 
@@ -1134,9 +1213,9 @@ var app = new Vue({
         },
 
         ProductLog: function () {
-            app.product.pname =  app.product_size + ' ' + app.pro_mpd + ' ' + app.pro_cat;
-            app.product.p_cat=app.product_cat;
-            app.product.pdesc=app.product_size;
+            app.product.pname = app.product_size + ' ' + app.pro_mpd + ' ' + app.pro_cat;
+            app.product.p_cat = app.product_cat;
+            app.product.pdesc = app.product_size;
             if (app.product.psku != '' &&
                 app.product.pname != '' &&
                 app.product.pdesc != '' &&
@@ -1178,7 +1257,7 @@ var app = new Vue({
             else app.errorMessage = 'All field must be filled';
         },
 
-        Repay: function (id, paydate) {
+        Repay: function (id, paydate, orderTp) {
             var api_link;
             var nextdate;
             var date = new Date(paydate);
@@ -1196,13 +1275,15 @@ var app = new Vue({
                 pay_bank = app.pay_bank
             }
 
-            if (app.bank_draft == true && app.empStatus == 'formal') {
+            if (orderTp == 'formal') {
+                console.log('Formal Order repay')
                 nextdate = app.formatDate(app.addDays(date, 28));
                 api_link = "https://altara-api.herokuapp.com/api.php?action=formal_repay"
                 // api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_repay"
             }
 
             else {
+                console.log('InFormal Order repay')
                 nextdate = app.formatDate(app.addDays(date, 14));
                 api_link = "https://altara-api.herokuapp.com/api.php?action=informal_repay"
                 // api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=informal_repay"
@@ -1530,19 +1611,10 @@ var app = new Vue({
         CustomerOrders: function () {
 
             console.log(app.empStatus);
-            // var api_link;
-            // if (app.bank_draft == true && app.empStatus == 'formal') {
 
-            //     api_link = "https://altara-api.herokuapp.com/api.php?action=formal_orders"
-            //     //    api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_orders"
-            // }
-            // else {
-            //     api_link = "https://altara-api.herokuapp.com/api.php?action=informal_orders"
-            //     //    api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=informal_orders"
-            // }
             // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=orders", {   
-                axios.post("https://altara-api.herokuapp.com/api.php?action=orders", {           
-            // axios.post(api_link, {
+            axios.post("https://altara-api.herokuapp.com/api.php?action=orders", {
+                // axios.post(api_link, {
                 Customer_id: app.Customer_id
             })
                 .then(function (response) {
@@ -1558,12 +1630,15 @@ var app = new Vue({
                                 var policyDate = new Date('2019-07-07');
                                 var orderDat = new Date(element.order_date);
                                 if ((element.employment_status == 'formal' && orderDat > policyDate) || element.employment_status == 'informal(business)') {
-                                   app.informal_orderList.push(element);
+                                    app.informal_orderList.push(element);
                                 }
                                 else {
                                     app.formal_orderList.push(element)
                                 }
+
                             });
+                            console.log(app.informal_orderList)
+                            console.log(app.formal_orderList)
                         }
                     }
                 });
@@ -1631,73 +1706,120 @@ var app = new Vue({
 
         },
 
-        pushToRepay: function (selectedOrder) {
-
+        pushToRepay: function (selectedOrder, to) {
+            var rep;
             app.repay_date = [];
-            console.log(app.repay_date);
-            app.selected_order = selectedOrder;
             app.orderDate = selectedOrder.order_date;
             app.repay_amt = selectedOrder.repayment_amount;
+            var date = new Date(app.orderDate);
+            var a;
 
             // if (app.orderDate >) 
 
-            if (app.bank_draft == true && app.empStatus == 'formal') {
-                app.repaydata = [
-                    { period: '1st', status: selectedOrder.first },
-                    { period: '2nd', status: selectedOrder.second },
-                    { period: '3rd', status: selectedOrder.third },
-                    { period: '4th', status: selectedOrder.fourth },
-                    { period: '5th', status: selectedOrder.fifth },
-                    { period: '6th', status: selectedOrder.sixth },
-                ]
+            // var api_link;
+            // if (app.bank_draft == true && app.empStatus == 'formal') {
+
+            //     api_link = "https://altara-api.herokuapp.com/api.php?action=formal_orders"
+            //     //    api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_orders"
+            // }
+            // else {
+            //     api_link = "https://altara-api.herokuapp.com/api.php?action=informal_orders"
+            //     //    api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=informal_orders"
+            // }
+
+
+            if (to == 'formal') {
+                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=formal_orders", {
+                    Order_id: selectedOrder.id
+                })
+                    .then(function (response) {
+                        console.log(response);
+                        if (response.data.error) {
+                            app.errorMessage = response.data.message;
+                        } else {
+                            console.log(response.data.orders);
+                            rep = response.data.orders[0];
+                            app.selected_order = Object.assign(selectedOrder, rep);
+                            app.repaydata = [
+                                { period: '1st', status: rep.first },
+                                { period: '2nd', status: rep.second },
+                                { period: '3rd', status: rep.third },
+                                { period: '4th', status: rep.fourth },
+                                { period: '5th', status: rep.fifth },
+                                { period: '6th', status: rep.sixth },
+                            ]
+                            a = [28, 56, 84, 112, 140, 168];
+                            for (i = 0; i <= 5; i++) {
+                                var ans = app.formatDate(app.addDays(date, a[i]));
+                                app.repay_date.push(ans);
+                            }
+
+                            for (i = 0; i < app.repay_date.length; i++) {
+                                app.repaydata.forEach(element => {
+                                    if (app.repaydata.indexOf(element) == i) {
+                                        element.date = app.repay_date[i]
+                                    }
+                                });
+                            }
+                
+                            app.repaydata = app.repaydata.filter(function (el) {
+                                return el.status == null;
+                            });
+                        }
+                    });
+
+
             }
             else {
-                app.repaydata = [
-                    { period: '1st', status: selectedOrder.first },
-                    { period: '2nd', status: selectedOrder.second },
-                    { period: '3rd', status: selectedOrder.third },
-                    { period: '4th', status: selectedOrder.fourth },
-                    { period: '5th', status: selectedOrder.fifth },
-                    { period: '6th', status: selectedOrder.sixth },
-                    { period: '7th', status: selectedOrder.seventh },
-                    { period: '8th', status: selectedOrder.eight },
-                    { period: '9th', status: selectedOrder.nineth },
-                    { period: '10th', status: selectedOrder.tenth },
-                    { period: '11th', status: selectedOrder.eleventh },
-                    { period: '12th', status: selectedOrder.twelveth }
-                ]
-            }
-            console.log(app.repaydata);
-            console.log(app.orderDate);
-            var date = new Date(app.orderDate);
-            var a;
-            if (app.bank_draft == true && app.empStatus == 'formal') {
-                a = [28, 56, 84, 112, 140, 168];
-                for (i = 0; i <= 5; i++) {
-                    var ans = app.formatDate(app.addDays(date, a[i]));
-                    app.repay_date.push(ans);
-                }
-            }
-            else {
-                a = [14, 28, 42, 56, 70, 84, 98, 112, 126, 140, 154, 168];
-                for (i = 0; i <= 11; i++) {
-                    var ans = app.formatDate(app.addDays(date, a[i]));
-                    app.repay_date.push(ans);
-                }
-            }
 
-            for (i = 0; i < app.repay_date.length; i++) {
-                app.repaydata.forEach(element => {
-                    if (app.repaydata.indexOf(element) == i) {
-                        element.date = app.repay_date[i]
-                    }
-                });
+                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=informal_orders", {
+                    Order_id: selectedOrder.id
+                })
+                    .then(function (response) {
+                        console.log(response);
+                        if (response.data.error) {
+                            app.errorMessage = response.data.message;
+                        } else {
+                            console.log(response.data.orders[0]);
+                            rep = response.data.orders[0];
+                            app.selected_order = Object.assign(selectedOrder, rep);
+
+                            app.repaydata = [
+                                { period: '1st', status: rep.first },
+                                { period: '2nd', status: rep.second },
+                                { period: '3rd', status: rep.third },
+                                { period: '4th', status: rep.fourth },
+                                { period: '5th', status: rep.fifth },
+                                { period: '6th', status: rep.sixth },
+                                { period: '7th', status: rep.seventh },
+                                { period: '8th', status: rep.eight },
+                                { period: '9th', status: rep.nineth },
+                                { period: '10th', status: rep.tenth },
+                                { period: '11th', status: rep.eleventh },
+                                { period: '12th', status: rep.twelveth }
+                            ]
+                            a = [14, 28, 42, 56, 70, 84, 98, 112, 126, 140, 154, 168];
+                            for (i = 0; i <= 11; i++) {
+                                var ans = app.formatDate(app.addDays(date, a[i]));
+                                app.repay_date.push(ans);
+                            }
+
+                            for (i = 0; i < app.repay_date.length; i++) {
+                                app.repaydata.forEach(element => {
+                                    if (app.repaydata.indexOf(element) == i) {
+                                        element.date = app.repay_date[i]
+                                    }
+                                });
+                            }
+                
+                            app.repaydata = app.repaydata.filter(function (el) {
+                                return el.status == null;
+                            });
+
+                        }
+                    });
             }
-
-            app.repaydata = app.repaydata.filter(function (el) {
-                return el.status == null;
-            });
-
+            console.log(app.repay_date)
             console.log(app.repaydata);
         },
 

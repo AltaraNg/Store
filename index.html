@@ -161,7 +161,7 @@
                                             <th>Repayment Plans</th>
                                         </tr>
 
-                                        <tr v-for="(list_order , index) in orderList" style="font-size:12px">
+                                        <tr v-for="(list_order , index) in formal_orderList" style="font-size:12px">
                                             <td>{{index + 1}}</td>
                                             <td>{{list_order.order_date}}</td>
                                             <td>{{list_order.id}}</td>
@@ -170,8 +170,25 @@
                                             <td>{{list_order.name}}</td>
                                             <td>N{{list_order.down_payment}}</td>
                                             <td>
-                                                <button  v-if="empStatus == 'Salaried' || empStatus == 'formal'" class=" btn btn-success" data-toggle="modal" data-target="#myModal5" @click="pushToRepay(list_order)">View Plans</button>
-                                                <button v-else class=" btn btn-success" data-toggle="modal" data-target="#myModal3" @click="pushToRepay(list_order)">View Plans</button>
+                                                <button class=" btn btn-success" data-toggle="modal" data-target="#myModal5" @click="pushToRepay(list_order, 'formal')">View Plans</button>
+                                                <!-- <button v-else class=" btn btn-success" data-toggle="modal" data-target="#myModal3" @click="pushToRepay(list_order)">View Plans</button> -->
+                                               
+
+                                            </td>
+
+                                        </tr>
+
+                                        <tr v-for="(list_order , index) in informal_orderList" style="font-size:12px">
+                                            <td>{{index + 1}}</td>
+                                            <td>{{list_order.order_date}}</td>
+                                            <td>{{list_order.id}}</td>
+                                            <td>{{list_order.product_desc}} {{list_order.product_name}} {{list_order.product_category}}</td>
+                                            <td>{{list_order.product_price}}</td>
+                                            <td>{{list_order.name}}</td>
+                                            <td>N{{list_order.down_payment}}</td>
+                                            <td>
+                                                <!-- <button  v-if="empStatus == 'Salaried' || empStatus == 'formal'" class=" btn btn-success" data-toggle="modal" data-target="#myModal5" @click="pushToRepay(list_order)">View Plans</button> -->
+                                                <button  class=" btn btn-success" data-toggle="modal" data-target="#myModal3" @click="pushToRepay(list_order, 'informal')">View Plans</button>
                                                
 
                                             </td>
@@ -181,7 +198,7 @@
                                     </table>
                                 </div>
 
-                                <div v-if="empStatus != 'Salaried' || empStatus != 'formal'"  id="myModal3" class="modal fade" role="dialog">
+                                <div id="myModal3" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
@@ -448,7 +465,7 @@
                                                                             </tr>
                                                                         </table>
                     
-                                                                        <button type="button" :disabled="payDate =='' || amtPay=='' " @click="Repay(selected_order.id,repaydata[0].date);" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
+                                                                        <button type="button" :disabled="payDate =='' || amtPay=='' " @click="Repay(selected_order.id,repaydata[0].date, 'informal');" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
                                                                         <br>
                                                                     </div>
                                                                 </div>
@@ -466,19 +483,19 @@
                                     </div>
                                 </div>
 
-                                <div v-if="empStatus == 'Salaried' || empStatus == 'formal'"  id="myModal5" class="modal fade" role="dialog">
+                                <div  id="myModal5" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
                                             <div class="panel-heading" style="background-color: #00264d;">
-                                                <h4 class="modal-title" style="color:white">Repayment Plan</h4>
+                                                <h4 class="modal-title" style="color:white">Repayment Plan1</h4>
                                             </div>
                                             <div class="panel-body">
                                                 <div class="form-group table-responsive" style="width:95%;margin:0 auto;margin-top:50px;">
                                                     <table class=" table table-bordered list">
                                                         <tr style="font-size:14px">
                                                             <th></th>
-                                                            <th colspan="12" style="text-align:center">Repayment Plans</th>
+                                                            <th colspan="12" style="text-align:center">Repayment Plans1</th>
                                                         </tr>
 
                                                         <tr style="font-size:12px">
@@ -660,7 +677,7 @@
                                                                             </tr>
                                                                         </table>
                     
-                                                                        <button type="button" :disabled="payDate =='' || amtPay=='' " @click="Repay(selected_order.id,repaydata[0].date);" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
+                                                                        <button type="button" :disabled="payDate =='' || amtPay=='' " @click="Repay(selected_order.id,repaydata[0].date, 'formal');" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Make {{repaydata[0].period}} Repayment</button>
                                                                         <br>
                                                                     </div>
                                                                 </div>
@@ -679,7 +696,7 @@
                                 </div>
                                
                                
-                                <button type="button" @click="idchecked = false; orderList=[];" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">New Customer</button>
+                                <button type="button" @click="idchecked = false; informal_orderList= []; formal_orderList= [];" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">New Customer</button>
                             </div>
                         </div>
                     </div>
