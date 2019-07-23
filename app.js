@@ -1132,7 +1132,14 @@ var app = new Vue({
 
                         } else {
                             app.firstpurchase = true;
-                            app.Repay(app.purchase.p_reciept, app.purchase.p_date,orderTp);
+                            if (app.bank_draft == false){
+                                app.Repay(app.purchase.p_reciept, app.purchase.p_date,'informal');
+                            }
+
+                            else {
+                                app.Repay(app.purchase.p_reciept, app.purchase.p_date,'formal');
+                            }
+                            
                             app.updateStore(app.purchase.product_sku, app.purchase.p_date, app.purchase.sales_agent);
                             app.successMessage = response.data.message;
 
