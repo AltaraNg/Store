@@ -1736,7 +1736,7 @@ var app = new Vue({
 
 
             if (to == 'formal') {
-                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=formal_orders", {
+                axios.post("https://altara-api.herokuapp.com/api.php?action=formal_orders", {
                     Order_id: selectedOrder.id
                 })
                     .then(function (response) {
@@ -1779,7 +1779,7 @@ var app = new Vue({
             }
             else {
 
-                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=informal_orders", {
+                axios.post("https://altara-api.herokuapp.com/api.php?action=informal_orders", {
                     Order_id: selectedOrder.id
                 })
                     .then(function (response) {
@@ -1891,6 +1891,43 @@ var app = new Vue({
         //     }
         // },
 
+
+        payWithPaystack(){
+            var handler = PaystackPop.setup({
+              key: 'pk_test_4b67cfcd71b58e10dad507eba24169eeb15863ee',
+              email: 'poluyege@altaracredit.com',
+              amount: 10000,
+              currency: "NGN",
+              ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+              metadata: {
+                 custom_fields: [
+                    {
+                        display_name: "Paul Oluyege",
+                        variable_name: "08068492563",
+                        value: "+2348068492563"
+                    }
+                 ]
+              },
+              callback: function(response){
+                axios.get("https://api.paystack.co/transaction/verify/"+ response.reference +"")
+                .then(function (response2) {
+
+                    console.log(response2);
+                    // if (response2.status == 200) {
+
+                    // } else {
+                    //     app.errorMessage = "Error Sending Message, Contact Support";
+                    // }
+                });
+                console.log(response);
+                  alert('success. transaction ref is ' + response.reference);
+              },
+              onClose: function(){
+                  alert('window closed');
+              }
+            });
+            handler.openIframe();
+          },
         sendNotification(name, telnumber) {
             telnumber = telnumber.substr(1);
             let message = "Dear " + name + ", Welcome to Altara Credit Limited. You are required to bring the following documents. 1. Proof of ID, 2. Passport Photo (2), 3. Utility bill(Nepa, Not later than 3 months), 4. Six Months Bank Statement till date,  5. Gurantor's cheque.";

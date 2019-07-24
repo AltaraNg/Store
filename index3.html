@@ -6,7 +6,7 @@
   <script>
     function payWithPaystack(){
       var handler = PaystackPop.setup({
-        key: 'pk_test_86d32aa1nV4l1da7120ce530f0b221c3cb97cbcc',
+        key: 'pk_test_4b67cfcd71b58e10dad507eba24169eeb15863ee',
         email: 'poluyege@altaracredit.com',
         amount: 10000,
         currency: "NGN",
@@ -21,6 +21,7 @@
            ]
         },
         callback: function(response){
+          console.log(response);
             alert('success. transaction ref is ' + response.reference);
         },
         onClose: function(){

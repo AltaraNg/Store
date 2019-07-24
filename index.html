@@ -744,19 +744,17 @@
 
                             <div v-if="access_granted2" class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
                                 <div style=" padding-right:5px;padding-left:5px;">
-
-
                                         <div class="container-fluid">
+                                                <form >
+                                                        <button type="button" @click="payWithPaystack()"> Pay </button> 
+                                                      </form>
                                                 <div class="row">
-                                                      
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">InvoiceRef Number</label>
                                                             <input class="col-md-9" type="text" v-model="purchase.p_reciept" required/>
                                                         </div>
                                                     </div>
-                                                    
-
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">Customer Id</label>
@@ -1066,6 +1064,8 @@
 
 
     <script type="text/javascript" src="axios.js">
+    </script>
+    <script src="https://js.paystack.co/v1/inline.js">
     </script>
     <script type="text/javascript" src="https://unpkg.com/vue@2.5.2">
     </script>
