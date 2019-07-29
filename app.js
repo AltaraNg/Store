@@ -431,7 +431,8 @@ var app = new Vue({
                                     "Hot 7-2gb",
                                     "Hot 7 pro-2gb",
                                     "Smart 2",
-                                    "Smart 2 pro"
+                                    "Smart 2 pro",
+                                    "S4 (3GB)"
                                 ]
                             },
                             {
@@ -452,7 +453,8 @@ var app = new Vue({
                                     "pouvoir LA7-3gb",
                                     "pouvoir LA7 pro-3gb",
                                     "pouvoir LB6-1gb",
-                                    "pop 2"
+                                    "pop 2",
+                                    "Spark 3"
                                 ]
                             },
                             {
@@ -664,7 +666,8 @@ var app = new Vue({
                                     "6*7*12",
                                     "6*6*16",
                                     "6*7*8",
-                                    "6*6*8"
+                                    "6*6*8",
+                                    "6*7"
                                 ]
                             }
                         ]
@@ -818,12 +821,14 @@ var app = new Vue({
                                     "Hot 7-2gb",
                                     "Hot 7 pro-2gb",
                                     "Smart 2",
-                                    "Smart 2 pro"
+                                    "Smart 2 pro",
+                                    "S4 (3GB)"
                                 ]
                             },
                             {
                                 name: "Tecno", sizes: [
                                     "K7 SPARK 16gb, 1gb",
+                                    "Spark 3",
                                     "K9 PLUS 1gb",
                                     "POVOIR 2(LA7) 16gb,2gb",
                                     "7D",
@@ -870,6 +875,53 @@ var app = new Vue({
                                     "J7 pro",
                                     "J2 chore",
                                     "J4 chore"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 16,
+                        prodType: "Bed Frame",
+                        models: [
+                            {
+                                name: "Local", sizes: [
+                                    "6*7"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 17,
+                        prodType: "Set of Pots",
+                        models: [
+                            {
+                                name: "Aluminium", sizes: [
+                                    "7 Pieces"
+                                ]
+                                
+                            },
+                            {
+                                name: "Ghana", sizes: [
+                                    "7 Pieces"
+                                ]
+                                
+                            },
+                            {
+                                name: "Non- Stick", sizes: [
+                                    "4 Pieces",
+                                    "3 Pieces"
+                                ]
+                                
+                            }
+                        ]
+                    },
+                    {
+                        id: 18,
+                        prodType: "Set of Coolers",
+                        models: [
+                            {
+                                name: "Local", sizes: [
+                                    "4 Pieces",
                                 ]
                             }
                         ]
