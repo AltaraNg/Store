@@ -63,12 +63,14 @@ var app = new Vue({
         selected_order: [],
         list_employees: [],
         Sale_Category: [{ id: 1, name: "normal -0%", percent: 0 },
-        { id: 2, name: "sala-promo -0%", percent: 0 },
-        { id: 3, name: "group5 -5%", percent: 5 },
-        { id: 4, name: "group10 -10%", percent: 10 },
-        { id: 5, name: "xmas-promo -0%", percent: 0 },
+        // { id: 2, name: "sala-promo -0%", percent: 0 },
+        // { id: 3, name: "group5 -5%", percent: 5 },
+        // { id: 4, name: "group10 -10%", percent: 10 },
+        // { id: 5, name: "xmas-promo -0%", percent: 0 },
         { id: 6, name: "renewal -5%", percent: 5 },
-        { id: 7, name: "family-friend -5%", percent: 5 }
+        // { id: 7, name: "family-friend -5%", percent: 5 },
+        { id: 8, name: "Post-dated/direct-debit -5%", percent: 5 },
+        { id: 9, name: "Opening-sales -10%", percent: 10 }
         ],
 
         sales_t: [{ id: 1, name: "6 month plan 0%", percent: 0 },
@@ -430,6 +432,7 @@ var app = new Vue({
                                     "Hot 6 pro-3gb",
                                     "Hot 7-2gb",
                                     "Hot 7 pro-2gb",
+                                    "Hot 7 pro-3gb",
                                     "Smart 2",
                                     "Smart 2 pro",
                                     "S4 (3GB)"
@@ -820,6 +823,7 @@ var app = new Vue({
                                     "Hot 6 pro-3gb",
                                     "Hot 7-2gb",
                                     "Hot 7 pro-2gb",
+                                    "Hot 7 pro-3gb",
                                     "Smart 2",
                                     "Smart 2 pro",
                                     "S4 (3GB)"
@@ -993,7 +997,8 @@ var app = new Vue({
             { id: 5, name: "Agodi-Gate" },
             { id: 8, name: "Life-Style Bodija" },
             { id: 9, name: "Apata" },
-            { id: 11, name: "Life-Style Iwo-Road" }
+            { id: 11, name: "Life-Style Iwo-Road" },
+            { id: 12, name: "Taiwo-Road" }
         ],
         Bank: [
             "Access Bank",
@@ -1733,30 +1738,70 @@ var app = new Vue({
             let int;
             console.log(mPrice);
             let margin = 0.25;
+
+            if (mPrice <= 25000){
+                mPrice = (mPrice * margin) + Number(mPrice);
+                 Math.ceil(mPrice);
+                 console.log(mPrice) ;
+                int = (plan == 0) ? 3.3 : 3;
+                dPrice = (plan == 0) ? 0 : mPrice * (plan / 100);
+                Math.ceil(dPrice / 100) * 100;
+                console.log(dPrice) ;
+                rPrice = mPrice - dPrice;
+                Math.ceil(rPrice / 100) * 100;
+                console.log(rPrice) ;
+                afInt = (rPrice * (int / 100)) * 12;
+                Math.ceil(afInt / 100) * 100;
+                console.log(afInt); 
+                pInt = afInt + dPrice + rPrice;
+                Math.ceil(pInt / 100) * 100;
+                console.log(pInt);  
+                aTax = ((0.05 * pInt) + pInt);
+                Math.ceil(aTax / 100) * 100;
+                console.log(aTax);
+                upFront = (plan == 0) ? 0 : aTax * (plan / 100);
+                Math.ceil(upFront / 100) * 100;
+                console.log(upFront);  
+                rePay = aTax - upFront;
+                Math.ceil(rePay / 100) * 100;
+                console.log(pInt); 
+                mRepay = (bank_draft == true) ? rePay / 6 : rePay / 12;
+                Math.ceil(mRepay / 100) * 100;
+                console.log(mRepay); 
+
+
+                app.purchase.down_pay = Math.ceil(upFront / 100) * 100;
+                app.purchase.repaymt = Math.ceil(mRepay / 100) * 100;
+                app.purchase.product_price = (bank_draft == true) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
+            
+            }
+            else {
             mPrice = (mPrice * margin) + Number(mPrice);
             console.log(mPrice)
             int = (plan == 0) ? 3.3 : 3;
             dPrice = (plan == 0) ? 0 : mPrice * (plan / 100);
-            // console.log(dPrice)
+            console.log(dPrice)
             rPrice = mPrice - dPrice;
-            // console.log(rPrice)
+            console.log(rPrice)
             afInt = (rPrice * (int / 100)) * 12;
-            // console.log(afInt);
+            console.log(afInt);
             pInt = afInt + dPrice + rPrice;
-            // console.log(pInt);
+            console.log(pInt);
             aTax = ((0.05 * pInt) + pInt);
             upFront = (plan == 0) ? 0 : aTax * (plan / 100);
             rePay = aTax - upFront;
             mRepay = (bank_draft == true) ? rePay / 6 : rePay / 12;
 
-
-
-            // app.purchase.product_price = Math.floor(aTax / 100) * 100
-
             app.purchase.down_pay = Math.floor(upFront / 100) * 100
             app.purchase.repaymt = Math.floor(mRepay / 100) * 100
             app.purchase.product_price = (bank_draft == true) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
+        
 
+            }
+
+            // app.purchase.product_price = Math.floor(aTax / 100) * 100
+
+ 
             console.log('Total Price = ' + aTax);
             console.log('UpFront = ' + upFront);
             console.log('Montly Repayment = ' + mRepay);
@@ -1963,7 +2008,8 @@ var app = new Vue({
                  ]
               },
               callback: function(response){
-                axios.get("https://api.paystack.co/transaction/verify/"+ response.reference +"")
+                let tokenStr = 'sk_test_bb1ea0ac61e6899e972d53bd530bed6aa6e325ee';
+                axios.get("https://api.paystack.co/transaction/verify/"+ response.reference +"", { headers: {"Authorization" : `Bearer ${tokenStr}`} })
                 .then(function (response2) {
 
                     console.log(response2);
