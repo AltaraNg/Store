@@ -168,7 +168,8 @@ var app = new Vue({
                             },
                             {
                                 name: "Hisence", sizes: [
-                                    "46l"
+                                    "46l",
+                                    "100l"
                                 ]
                             }
                         ]
@@ -537,6 +538,11 @@ var app = new Vue({
                                 name: "Polyster", sizes: [
                                     "HT520",
                                     "VT607"
+                                ]
+                            },
+                            {
+                                name: "LG", sizes: [
+                                    "300W"
                                 ]
                             }
                         ]
