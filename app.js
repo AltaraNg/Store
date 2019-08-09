@@ -1286,8 +1286,8 @@ var app = new Vue({
 
         ProductLog: function () {
             app.product.pname = app.product_size + ' ' + app.pro_mpd + ' ' + app.pro_cat;
-            app.product.p_cat = app.product_cat;
-            app.product.pdesc = app.product_size;
+            app.product.p_cat = app.pro_cat.toUpperCase();
+            app.product.pdesc = app.product_size.toUpperCase();
             if (app.product.psku != '' &&
                 app.product.pname != '' &&
                 app.product.pdesc != '' &&
