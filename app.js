@@ -290,6 +290,11 @@ var app = new Vue({
                                 name: "QASA", sizes: [
                                     "3 GAS BUNNER, 1 ELECTRIC"
                                 ]
+                            },
+                            {
+                                name: "Maxi", sizes: [
+                                    "3 GAS BUNNER, 1 ELECTRIC"
+                                ]
                             }
                         ]
                     },
