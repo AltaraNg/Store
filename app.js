@@ -941,6 +941,17 @@ var app = new Vue({
                             }
                         ]
                     },
+                    {
+                        id: 19,
+                        prodType: "Grinding Machine",
+                        models: [
+                            {
+                                name: "LOC", sizes: [
+                                    "3.6L"
+                                ]
+                            }
+                        ]
+                    },
                 ]
             }
         ],
