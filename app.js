@@ -169,7 +169,8 @@ var app = new Vue({
                             {
                                 name: "Hisence", sizes: [
                                     "46l",
-                                    "100l"
+                                    "100l",
+                                    "165L"
                                 ]
                             }
                         ]
