@@ -267,6 +267,7 @@ var app = new Vue({
                             {
                                 name: "OX", sizes: [
                                     "20 inch",
+                                    "26 inch"
                                 ]
                             }
                         ]
