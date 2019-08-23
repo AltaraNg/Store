@@ -340,7 +340,8 @@ var app = new Vue({
                         models: [
                             {
                                 name: "Buddyfly", sizes: [
-                                    "Domestic"
+                                    "Domestic",
+                                    "Manual"
                                 ]
                             },
                             {
@@ -362,11 +363,16 @@ var app = new Vue({
                     },
                     {
                         id: 11,
-                        prodType: "Industrial Weaving Machine",
+                        prodType: "Weaving Machine",
                         models: [
                             {
                                 name: "Huldong", sizes: [
-                                    "3 Threads"
+                                    " Industrial, 3 Threads"
+                                ]
+                            },
+                            {
+                                name: "Two lion", sizes: [
+                                    " Over-lock, 5 Threads"
                                 ]
                             }
                         ]
@@ -950,6 +956,17 @@ var app = new Vue({
                             {
                                 name: "LOC", sizes: [
                                     "3.6L"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 20,
+                        prodType: "Office Table",
+                        models: [
+                            {
+                                name: "Local", sizes: [
+                                    "Brown"
                                 ]
                             }
                         ]
@@ -1794,8 +1811,8 @@ var app = new Vue({
                 console.log(mRepay); 
 
 
-                app.purchase.down_pay = Math.ceil(upFront / 100) * 100;
-                app.purchase.repaymt = Math.ceil(mRepay / 100) * 100;
+                app.purchase.down_pay = (Math.ceil(upFront / 100) * 100)- 100;
+                app.purchase.repaymt = (Math.ceil(mRepay / 100) * 100)- 100;
                 app.purchase.product_price = (bank_draft == true) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
             
             }
