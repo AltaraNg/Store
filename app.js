@@ -1495,8 +1495,8 @@ var app = new Vue({
             }
             var formData = app.toFormData(dat);
             console.log()
-            // axios.post("https://altara-api.herokuapp.com/api.php?action=aknowledge", formData)
-                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=login", formData)
+            axios.post("https://altara-api.herokuapp.com/api.php?action=login", formData)
+                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=login", formData)
                 .then(function (response) {
                     app.dataloaded = false;
                     console.log(response);
