@@ -310,6 +310,11 @@ var app = new Vue({
                                     "1hp",
                                     "2hp"
                                 ]
+                            },
+                            {
+                                name: "Hisense", sizes: [
+                                    "1.5hp",
+                                ]
                             }
                         ]
                     },
@@ -449,7 +454,8 @@ var app = new Vue({
                                     "Hot 7 pro-3gb",
                                     "Smart 2",
                                     "Smart 2 pro",
-                                    "S4 (3GB)"
+                                    "S4 (3GB)",
+                                    "Smart 3 1gb",
                                 ]
                             },
                             {
@@ -471,7 +477,9 @@ var app = new Vue({
                                     "pouvoir LA7 pro-3gb",
                                     "pouvoir LB6-1gb",
                                     "pop 2",
-                                    "Spark 3"
+                                    "Spark 3 2gb",
+                                    "Spark Youth 1gb ",
+                                    "pouvoir 3 Air 1gb",
                                 ]
                             },
                             {
@@ -1472,23 +1480,23 @@ var app = new Vue({
             app.submitted = true;
             var emp = app.Employee_id;
 
-            if (!isNaN(emp.charAt(4))) {
-                emp.slice(4);
-                emp.slice(0, -3)
-            } else if ((!isNaN(emp.charAt(5)))) {
-                emp.slice(5);
-                emp.slice(0, -3)
-            } else {
+            // if (!isNaN(emp.charAt(4))) {
+            //     emp.slice(4);
+            //     emp.slice(0, -3)
+            // } else if ((!isNaN(emp.charAt(5)))) {
+            //     emp.slice(5);
+            //     emp.slice(0, -3)
+            // } else {
 
-            }
+            // }
             var dat = {
                 Employee_id: emp,
                 Access_code: app.Access_code
             }
             var formData = app.toFormData(dat);
             console.log()
-            axios.post("https://altara-api.herokuapp.com/api.php?action=aknowledge", formData)
-                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=aknowledge", formData)
+            // axios.post("https://altara-api.herokuapp.com/api.php?action=aknowledge", formData)
+                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=login", formData)
                 .then(function (response) {
                     app.dataloaded = false;
                     console.log(response);
@@ -1500,84 +1508,45 @@ var app = new Vue({
                         }, 2000);
 
                     } else {
-                        if (response.data.data.length != 0) {
                             if (feature == 'lookup') {
-                                if (response.data.data[0].Employee_Role_id == 9 || response.data.data[0].Employee_Role_id == 8 || response.data.data[0].Employee_Role_id == 1 || response.data.data[0].Employee_Role_id == 5 || response.data.data[0].Employee_Role_id == 6) {
-                                    app.access_granted = true;
+                                  app.access_granted = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
                                     setTimeout(function () {
                                         app.successMessage = '';
                                     }, 2000);
-                                } else {
-                                    app.errorMessage = "Access Denied, Wrong Login Details";
-
-                                    setTimeout(function () {
-                                        app.errorMessage = '';
-                                    }, 2000);
-                                }
+                                
                             }
 
                             if (feature == 'purchaselog') {
-                                if (response.data.data[0].Employee_Role_id == 9 || response.data.data[0].Employee_Role_id == 8 || response.data.data[0].Employee_Role_id == 1 || response.data.data[0].Employee_Role_id == 5 || response.data.data[0].Employee_Role_id == 6) {
-                                    app.access_granted2 = true;
+                                 app.access_granted2 = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
                                     setTimeout(function () {
                                         app.successMessage = '';
                                     }, 2000);
-                                } else {
-                                    app.errorMessage = "Access Denied, Wrong Login Details";
-
-                                    setTimeout(function () {
-                                        app.errorMessage = '';
-                                    }, 2000);
-                                }
+                              
                             }
                             if (feature == 'repaymentlog') {
                                 console.log('Yes Ok')
                                 console.log(app.repaydata);
-                                if (response.data.data[0].Employee_Role_id == 9 || response.data.data[0].Employee_Role_id == 8 || response.data.data[0].Employee_Role_id == 1 || response.data.data[0].Employee_Role_id == 5 || response.data.data[0].Employee_Role_id == 6) {
-                                    app.access_granted3 = true;
+                                   app.access_granted3 = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
                                     setTimeout(function () {
                                         app.successMessage = '';
                                     }, 2000);
-                                } else {
-                                    app.errorMessage = "Access Denied, Wrong Login Details";
-
-                                    setTimeout(function () {
-                                        app.errorMessage = '';
-                                    }, 2000);
-                                }
                             }
 
                             if (feature == 'productlog') {
-                                if (response.data.data[0].Employee_Role_id == 9 || response.data.data[0].Employee_Role_id == 8 || response.data.data[0].Employee_Role_id == 1 || response.data.data[0].Employee_Role_id == 5 || response.data.data[0].Employee_Role_id == 6) {
                                     app.access_granted4 = true;
                                     app.successMessage = "Access Granted!, Enter Customer ID below";
 
                                     setTimeout(function () {
                                         app.successMessage = '';
                                     }, 2000);
-                                } else {
-                                    app.errorMessage = "Access Denied, Wrong Login Details";
-
-                                    setTimeout(function () {
-                                        app.errorMessage = '';
-                                    }, 2000);
-                                }
                             }
 
-                        } else {
-
-                            app.errorMessage = "Access Denied, Wrong Login Details";
-
-                            setTimeout(function () {
-                                app.errorMessage = '';
-                            }, 2000);
-                        }
 
                     }
                 });
