@@ -703,6 +703,16 @@ var app = new Vue({
                             {
                                 name: "Winco", sizes: [
                                     "6*4*8",
+                                    "6*4.5.8",
+                                    "6*4.5.10",
+                                    "6*4.5*12",
+                                    "6*4.5*16",
+                                    "6*4.5*18",
+                                    "6*6*8",
+                                    "6*6*10",
+                                    "6*6*12",
+                                    "6*6*14",
+                                    "6*6*16"
                                 ]
                             }
                         ]
@@ -934,20 +944,20 @@ var app = new Vue({
                                 name: "Aluminium", sizes: [
                                     "7 Pieces"
                                 ]
-                                
+
                             },
                             {
                                 name: "Ghana", sizes: [
                                     "7 Pieces"
                                 ]
-                                
+
                             },
                             {
                                 name: "Non- Stick", sizes: [
                                     "4 Pieces",
                                     "3 Pieces"
                                 ]
-                                
+
                             }
                         ]
                     },
@@ -1245,14 +1255,14 @@ var app = new Vue({
 
                         } else {
                             app.firstpurchase = true;
-                            if (app.bank_draft == false){
-                                app.Repay(app.purchase.p_reciept, app.purchase.p_date,'informal');
+                            if (app.bank_draft == false) {
+                                app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'informal');
                             }
 
                             else {
-                                app.Repay(app.purchase.p_reciept, app.purchase.p_date,'formal');
+                                app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'formal');
                             }
-                            
+
                             app.updateStore(app.purchase.product_sku, app.purchase.p_date, app.purchase.sales_agent);
                             app.successMessage = response.data.message;
 
@@ -1508,44 +1518,44 @@ var app = new Vue({
                         }, 2000);
 
                     } else {
-                            if (feature == 'lookup') {
-                                  app.access_granted = true;
-                                    app.successMessage = "Access Granted!, Enter Customer ID below";
+                        if (feature == 'lookup') {
+                            app.access_granted = true;
+                            app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function () {
-                                        app.successMessage = '';
-                                    }, 2000);
-                                
-                            }
+                            setTimeout(function () {
+                                app.successMessage = '';
+                            }, 2000);
 
-                            if (feature == 'purchaselog') {
-                                 app.access_granted2 = true;
-                                    app.successMessage = "Access Granted!, Enter Customer ID below";
+                        }
 
-                                    setTimeout(function () {
-                                        app.successMessage = '';
-                                    }, 2000);
-                              
-                            }
-                            if (feature == 'repaymentlog') {
-                                console.log('Yes Ok')
-                                console.log(app.repaydata);
-                                   app.access_granted3 = true;
-                                    app.successMessage = "Access Granted!, Enter Customer ID below";
+                        if (feature == 'purchaselog') {
+                            app.access_granted2 = true;
+                            app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function () {
-                                        app.successMessage = '';
-                                    }, 2000);
-                            }
+                            setTimeout(function () {
+                                app.successMessage = '';
+                            }, 2000);
 
-                            if (feature == 'productlog') {
-                                    app.access_granted4 = true;
-                                    app.successMessage = "Access Granted!, Enter Customer ID below";
+                        }
+                        if (feature == 'repaymentlog') {
+                            console.log('Yes Ok')
+                            console.log(app.repaydata);
+                            app.access_granted3 = true;
+                            app.successMessage = "Access Granted!, Enter Customer ID below";
 
-                                    setTimeout(function () {
-                                        app.successMessage = '';
-                                    }, 2000);
-                            }
+                            setTimeout(function () {
+                                app.successMessage = '';
+                            }, 2000);
+                        }
+
+                        if (feature == 'productlog') {
+                            app.access_granted4 = true;
+                            app.successMessage = "Access Granted!, Enter Customer ID below";
+
+                            setTimeout(function () {
+                                app.successMessage = '';
+                            }, 2000);
+                        }
 
 
                     }
@@ -1754,69 +1764,69 @@ var app = new Vue({
             console.log(mPrice);
             let margin = 0.25;
 
-            if (mPrice <= 25000){
+            if (mPrice <= 25000) {
                 mPrice = (mPrice * margin) + Number(mPrice);
-                 Math.ceil(mPrice);
-                 console.log(mPrice) ;
+                Math.ceil(mPrice);
+                console.log(mPrice);
                 int = (plan == 0) ? 3.3 : 3;
                 dPrice = (plan == 0) ? 0 : mPrice * (plan / 100);
                 Math.ceil(dPrice / 100) * 100;
-                console.log(dPrice) ;
+                console.log(dPrice);
                 rPrice = mPrice - dPrice;
                 Math.ceil(rPrice / 100) * 100;
-                console.log(rPrice) ;
+                console.log(rPrice);
                 afInt = (rPrice * (int / 100)) * 12;
                 Math.ceil(afInt / 100) * 100;
-                console.log(afInt); 
+                console.log(afInt);
                 pInt = afInt + dPrice + rPrice;
                 Math.ceil(pInt / 100) * 100;
-                console.log(pInt);  
+                console.log(pInt);
                 aTax = ((0.05 * pInt) + pInt);
                 Math.ceil(aTax / 100) * 100;
                 console.log(aTax);
                 upFront = (plan == 0) ? 0 : aTax * (plan / 100);
                 Math.ceil(upFront / 100) * 100;
-                console.log(upFront);  
+                console.log(upFront);
                 rePay = aTax - upFront;
                 Math.ceil(rePay / 100) * 100;
-                console.log(pInt); 
+                console.log(pInt);
                 mRepay = (bank_draft == true) ? rePay / 6 : rePay / 12;
                 Math.ceil(mRepay / 100) * 100;
-                console.log(mRepay); 
+                console.log(mRepay);
 
 
-                app.purchase.down_pay = (Math.ceil(upFront / 100) * 100)- 100;
-                app.purchase.repaymt = (Math.ceil(mRepay / 100) * 100)- 100;
+                app.purchase.down_pay = (Math.ceil(upFront / 100) * 100) - 100;
+                app.purchase.repaymt = (Math.ceil(mRepay / 100) * 100) - 100;
                 app.purchase.product_price = (bank_draft == true) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
-            
+
             }
             else {
-            mPrice = (mPrice * margin) + Number(mPrice);
-            console.log(mPrice)
-            int = (plan == 0) ? 3.3 : 3;
-            dPrice = (plan == 0) ? 0 : mPrice * (plan / 100);
-            console.log(dPrice)
-            rPrice = mPrice - dPrice;
-            console.log(rPrice)
-            afInt = (rPrice * (int / 100)) * 12;
-            console.log(afInt);
-            pInt = afInt + dPrice + rPrice;
-            console.log(pInt);
-            aTax = ((0.05 * pInt) + pInt);
-            upFront = (plan == 0) ? 0 : aTax * (plan / 100);
-            rePay = aTax - upFront;
-            mRepay = (bank_draft == true) ? rePay / 6 : rePay / 12;
+                mPrice = (mPrice * margin) + Number(mPrice);
+                console.log(mPrice)
+                int = (plan == 0) ? 3.3 : 3;
+                dPrice = (plan == 0) ? 0 : mPrice * (plan / 100);
+                console.log(dPrice)
+                rPrice = mPrice - dPrice;
+                console.log(rPrice)
+                afInt = (rPrice * (int / 100)) * 12;
+                console.log(afInt);
+                pInt = afInt + dPrice + rPrice;
+                console.log(pInt);
+                aTax = ((0.05 * pInt) + pInt);
+                upFront = (plan == 0) ? 0 : aTax * (plan / 100);
+                rePay = aTax - upFront;
+                mRepay = (bank_draft == true) ? rePay / 6 : rePay / 12;
 
-            app.purchase.down_pay = Math.floor(upFront / 100) * 100
-            app.purchase.repaymt = Math.floor(mRepay / 100) * 100
-            app.purchase.product_price = (bank_draft == true) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
-        
+                app.purchase.down_pay = Math.floor(upFront / 100) * 100
+                app.purchase.repaymt = Math.floor(mRepay / 100) * 100
+                app.purchase.product_price = (bank_draft == true) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
+
 
             }
 
             // app.purchase.product_price = Math.floor(aTax / 100) * 100
 
- 
+
             console.log('Total Price = ' + aTax);
             console.log('UpFront = ' + upFront);
             console.log('Montly Repayment = ' + mRepay);
@@ -1882,7 +1892,7 @@ var app = new Vue({
                                     }
                                 });
                             }
-                
+
                             app.repaydata = app.repaydata.filter(function (el) {
                                 return el.status == null;
                             });
@@ -1932,7 +1942,7 @@ var app = new Vue({
                                     }
                                 });
                             }
-                
+
                             app.repaydata = app.repaydata.filter(function (el) {
                                 return el.status == null;
                             });
@@ -2006,43 +2016,43 @@ var app = new Vue({
         // },
 
 
-        payWithPaystack(){
+        payWithPaystack() {
             var handler = PaystackPop.setup({
-              key: 'pk_test_4b67cfcd71b58e10dad507eba24169eeb15863ee',
-              email: 'poluyege@altaracredit.com',
-              amount: 10000,
-              currency: "NGN",
-              ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-              metadata: {
-                 custom_fields: [
-                    {
-                        display_name: "Paul Oluyege",
-                        variable_name: "08068492563",
-                        value: "+2348068492563"
-                    }
-                 ]
-              },
-              callback: function(response){
-                let tokenStr = 'sk_test_bb1ea0ac61e6899e972d53bd530bed6aa6e325ee';
-                axios.get("https://api.paystack.co/transaction/verify/"+ response.reference +"", { headers: {"Authorization" : `Bearer ${tokenStr}`} })
-                .then(function (response2) {
+                key: 'pk_test_4b67cfcd71b58e10dad507eba24169eeb15863ee',
+                email: 'poluyege@altaracredit.com',
+                amount: 10000,
+                currency: "NGN",
+                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Paul Oluyege",
+                            variable_name: "08068492563",
+                            value: "+2348068492563"
+                        }
+                    ]
+                },
+                callback: function (response) {
+                    let tokenStr = 'sk_test_bb1ea0ac61e6899e972d53bd530bed6aa6e325ee';
+                    axios.get("https://api.paystack.co/transaction/verify/" + response.reference + "", { headers: { "Authorization": `Bearer ${tokenStr}` } })
+                        .then(function (response2) {
 
-                    console.log(response2);
-                    // if (response2.status == 200) {
+                            console.log(response2);
+                            // if (response2.status == 200) {
 
-                    // } else {
-                    //     app.errorMessage = "Error Sending Message, Contact Support";
-                    // }
-                });
-                console.log(response);
-                  alert('success. transaction ref is ' + response.reference);
-              },
-              onClose: function(){
-                  alert('window closed');
-              }
+                            // } else {
+                            //     app.errorMessage = "Error Sending Message, Contact Support";
+                            // }
+                        });
+                    console.log(response);
+                    alert('success. transaction ref is ' + response.reference);
+                },
+                onClose: function () {
+                    alert('window closed');
+                }
             });
             handler.openIframe();
-          },
+        },
         sendNotification(name, telnumber) {
             telnumber = telnumber.substr(1);
             let message = "Dear " + name + ", Welcome to Altara Credit Limited. You are required to bring the following documents. 1. Proof of ID, 2. Passport Photo (2), 3. Utility bill(Nepa, Not later than 3 months), 4. Six Months Bank Statement till date,  5. Gurantor's cheque.";
