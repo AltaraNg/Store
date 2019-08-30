@@ -116,7 +116,7 @@ var app = new Vue({
                                 ]
                             },
                             {
-                                name: "Hisence", sizes: [
+                                name: "Hisense", sizes: [
                                     "310l",
                                     "250l",
                                     "205l",
@@ -167,10 +167,11 @@ var app = new Vue({
                                 ]
                             },
                             {
-                                name: "Hisence", sizes: [
+                                name: "Hisense", sizes: [
                                     "46l",
                                     "100l",
-                                    "165L"
+                                    "165l",
+                                    "250l"
                                 ]
                             }
                         ]
@@ -199,6 +200,11 @@ var app = new Vue({
                                     "8.2kg",
                                     "10.2kg",
                                     "5kg"
+                                ]
+                            },
+                            {
+                                name: "Hisense", sizes: [
+                                    " Front loader 6kg",
                                 ]
                             }
                         ]
@@ -313,7 +319,8 @@ var app = new Vue({
                             },
                             {
                                 name: "Hisense", sizes: [
-                                    "1.5hp",
+                                    "1hp",
+                                    "1.5hp"
                                 ]
                             }
                         ]
@@ -409,7 +416,7 @@ var app = new Vue({
                                 ]
                             },
                             {
-                                name: "Hisence", sizes: [
+                                name: "Hisense", sizes: [
                                     "24 inches smart",
                                     "32 inches LED",
                                     "40 inches LED",
