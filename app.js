@@ -617,6 +617,22 @@ var app = new Vue({
                                 ]
                             }
                         ]
+                    },
+                     {
+                        id: 20,
+                        prodType: "Combined",
+                        models: [
+                            {
+                                name: "Fan - Stabilzer", sizes: [
+                                    "20 INCHES OX FAN + 2000KVA EVERGREEN STABLIZER",
+                                ]
+                            },
+                            {
+                                name: "Phone - Gotv", sizes: [
+                                    "TECNO POUVOIR LA7-3GBRAM +GOTV DECODER",
+                                ]
+                            }
+                        ]
                     }
                 ]
             },
@@ -2045,11 +2061,6 @@ var app = new Vue({
                         .then(function (response2) {
 
                             console.log(response2);
-                            // if (response2.status == 200) {
-
-                            // } else {
-                            //     app.errorMessage = "Error Sending Message, Contact Support";
-                            // }
                         });
                     console.log(response);
                     alert('success. transaction ref is ' + response.reference);
