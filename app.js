@@ -631,7 +631,12 @@ var app = new Vue({
                                 name: "Phone - Gotv", sizes: [
                                     "TECNO POUVOIR LA7-3GBRAM +GOTV DECODER",
                                 ]
-                            }
+                            },
+                            {
+                                name: "Tv - GoTv", sizes: [
+                                    "TV + +GOTV DECODER",
+                                ]
+                            },
                         ]
                     }
                 ]
