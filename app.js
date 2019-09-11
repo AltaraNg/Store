@@ -353,7 +353,8 @@ var app = new Vue({
                             {
                                 name: "Buddyfly", sizes: [
                                     "Domestic",
-                                    "Manual"
+                                    "Manual",
+                                    "Black"
                                 ]
                             },
                             {
@@ -923,7 +924,8 @@ var app = new Vue({
                                     "pouvoir LA7-3gb",
                                     "pouvoir LA7 pro-3gb",
                                     "pouvoir LB6-1gb",
-                                    "pop 2"
+                                    "pop 2",
+                                    "pouvoir 3-3gb Plus",
                                 ]
                             },
                             {
