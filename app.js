@@ -488,6 +488,8 @@ var app = new Vue({
                                     "Spark 3 2gb",
                                     "Spark Youth 1gb ",
                                     "pouvoir 3 Air 1gb",
+                                    "pouvoir LB7 3 - 2gb",
+                                    "pouvoir 3 Plus - 3gb"
                                 ]
                             },
                             {
@@ -872,90 +874,6 @@ var app = new Vue({
                             {
                                 name: "Fib", sizes: [
                                     "--"
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        id: 15,
-                        prodType: "Mobile Phone",
-                        models: [
-                            {
-                                name: "Infinix", sizes: [
-                                    "Zero 4 32gb, 3gb",
-                                    "Hot 5 16gb, 2gb",
-                                    "Hot 5 16gb, 1gb",
-                                    "Hot 6 16gb,2gb",
-                                    "Note 4 16gb, 2gb",
-                                    "S4-2gb",
-                                    "S3-3gb",
-                                    "Note 4-3gb",
-                                    "Note 5-4gb",
-                                    "Note 4 pro-2gb",
-                                    "Hot 6X-2gb",
-                                    "Hot 6-3gb",
-                                    "Hot 6X-3gb",
-                                    "Hot 6 pro-2gb",
-                                    "Hot 6 pro-3gb",
-                                    "Hot 7-2gb",
-                                    "Hot 7 pro-2gb",
-                                    "Hot 7 pro-3gb",
-                                    "Smart 2",
-                                    "Smart 2 pro",
-                                    "S4 (3GB)"
-                                ]
-                            },
-                            {
-                                name: "Tecno", sizes: [
-                                    "K7 SPARK 16gb, 1gb",
-                                    "Spark 3",
-                                    "K9 PLUS 1gb",
-                                    "POVOIR 2(LA7) 16gb,2gb",
-                                    "7D",
-                                    "10D",
-                                    "camon X",
-                                    "camon CM",
-                                    "camon CX",
-                                    "camon 11-4gb",
-                                    "camon 11-3gb",
-                                    "KA7-1gb",
-                                    "KA7 spark-2gb",
-                                    "KA70-2gb",
-                                    "pouvoir LA7-3gb",
-                                    "pouvoir LA7 pro-3gb",
-                                    "pouvoir LB6-1gb",
-                                    "pop 2",
-                                    "pouvoir 3-3gb Plus",
-                                ]
-                            },
-                            {
-                                name: "Gionee", sizes: [
-                                    "P5 MINI 8gb, 1gb",
-                                    "S8S",
-                                    "F20FLite"
-                                ]
-                            },
-                            {
-                                name: "Itel", sizes: [
-                                    "S12 8gb, 1gb",
-                                    "S13",
-                                    "P32",
-                                    "S32",
-                                    "S33",
-                                    "P33"
-                                ]
-                            },
-                            {
-                                name: "Nokia", sizes: [
-                                    "2.1",
-                                    "3.1"
-                                ]
-                            },
-                            {
-                                name: "Samsung", sizes: [
-                                    "J7 pro",
-                                    "J2 chore",
-                                    "J4 chore"
                                 ]
                             }
                         ]
