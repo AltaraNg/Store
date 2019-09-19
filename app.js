@@ -171,7 +171,8 @@ var app = new Vue({
                                     "46l",
                                     "100l",
                                     "165l",
-                                    "250l"
+                                    "250l",
+                                    "150L"
                                 ]
                             }
                         ]
@@ -205,6 +206,8 @@ var app = new Vue({
                             {
                                 name: "Hisense", sizes: [
                                     " Front loader 6kg",
+                                     "Front loader 7.2kg",
+                                     "Front loader 5kg"
                                 ]
                             }
                         ]
@@ -421,7 +424,8 @@ var app = new Vue({
                                     "24 inches smart",
                                     "32 inches LED",
                                     "40 inches LED",
-                                    "43 inches LED"
+                                    "43 inches LED",
+                                    "49 inches LED",
                                 ]
                             },
                             {
@@ -558,6 +562,11 @@ var app = new Vue({
                                 name: "Century", sizes: [
                                     "2 TAPS"
                                 ]
+                            },
+                            {
+                                name: "Maxi", sizes: [
+                                    "2 TAPS"
+                                ]
                             }
                         ]
                     },
@@ -573,7 +582,8 @@ var app = new Vue({
                             },
                             {
                                 name: "LG", sizes: [
-                                    "300W"
+                                    "300W",
+                                    "5 satellite speakers"
                                 ]
                             }
                         ]
