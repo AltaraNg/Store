@@ -299,7 +299,8 @@ var app = new Vue({
                             },
                             {
                                 name: "QASA", sizes: [
-                                    "3 GAS BUNNER, 1 ELECTRIC"
+                                    "3 GAS BUNNER, 1 ELECTRIC",
+                                    "2 GAS BUNNER, 2 ELECTRIC"
                                 ]
                             },
                             {
