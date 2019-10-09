@@ -749,6 +749,12 @@
                                                         <button type="button" @click="payWithPaystack()"> Pay </button> 
                                                       </form>
                                                 <div class="row">
+                                                        <div class="form-group">
+                                                                <div class="row">
+                                                                    <label class="col-md-3 control-label">Date</label>
+                                                                    <input class="col-md-9" type="date" v-model="purchase.p_date" required/>
+                                                                </div>
+                                                        </div>
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">InvoiceRef Number</label>
@@ -797,7 +803,7 @@
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">Product Sku</label>
-                                                            <input class="col-md-9" :disabled="purchase.sale_type == ''" type="text" v-model="product_sku" required/>
+                                                            <input class="col-md-9" :disabled="purchase.sale_type == '' || purchase.p_date== ''" type="text" v-model="product_sku" required/>
                                                         </div>
                                                     </div>
 
@@ -861,12 +867,7 @@
                                                             <input class="col-md-9" type="text" placeholder="Customer 1D" v-model="purchase.referrer_id"/>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                            <div class="row">
-                                                                <label class="col-md-3 control-label">Date</label>
-                                                                <input class="col-md-9" type="date" v-model="purchase.p_date" required/>
-                                                            </div>
-                                                    </div>
+                                                    
                                                     
                                                 </div>
                                             </div>

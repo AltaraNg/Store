@@ -470,6 +470,7 @@ var app = new Vue({
                                     "Smart 2 pro",
                                     "S4 (3GB)",
                                     "Smart 3 1gb",
+                                    "Smart 3 Plus 2gb"
                                 ]
                             },
                             {
@@ -1132,7 +1133,7 @@ var app = new Vue({
                             })
 
                             if (response.data.users.length > 0) {
-                                app.priceCal(response.data.users[0].pc_pprice, app.sale_t, app.bank_draft)
+                                app.priceCal(response.data.users[0].pc_pprice, app.sale_t, app.bank_draft, app.purchase.p_date)
                                 if (app.discount_t != 0) {
                                     app.computed_discount = app.purchase.product_price * (app.discount_t / 100)
                                 }
@@ -1222,7 +1223,10 @@ var app = new Vue({
 
                         } else {
                             app.firstpurchase = true;
-                            if (app.bank_draft == false) {
+                            if (app.purchase.p_date < '2019-07-07' && app.empStatus=='formal' && app.bank_draft == false){
+                                app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'formal');
+                            }
+                            else if (app.bank_draft == false) {
                                 app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'informal');
                             }
 
@@ -1718,7 +1722,7 @@ var app = new Vue({
                 });
         },
 
-        priceCal(mPrice, plan, bank_draft) {
+        priceCal(mPrice, plan, bank_draft, date) {
             let dPrice;
             let rPrice;
             let afInt;
@@ -1757,14 +1761,14 @@ var app = new Vue({
                 rePay = aTax - upFront;
                 Math.ceil(rePay / 100) * 100;
                 console.log(pInt);
-                mRepay = (bank_draft == true) ? rePay / 6 : rePay / 12;
+                mRepay = (bank_draft == true || (date < '2019-07-07' && app.empStatus=='formal')) ? rePay / 6 : rePay / 12;
                 Math.ceil(mRepay / 100) * 100;
                 console.log(mRepay);
 
 
                 app.purchase.down_pay = (Math.ceil(upFront / 100) * 100) - 100;
                 app.purchase.repaymt = (Math.ceil(mRepay / 100) * 100) - 100;
-                app.purchase.product_price = (bank_draft == true) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
+                app.purchase.product_price =  (bank_draft == true || (date < '2019-07-07' && app.empStatus=='formal')) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
 
             }
             else {
@@ -1782,11 +1786,11 @@ var app = new Vue({
                 aTax = ((0.05 * pInt) + pInt);
                 upFront = (plan == 0) ? 0 : aTax * (plan / 100);
                 rePay = aTax - upFront;
-                mRepay = (bank_draft == true) ? rePay / 6 : rePay / 12;
+                mRepay =  (bank_draft == true || (date < '2019-07-07' && app.empStatus=='formal')) ? rePay / 6 : rePay / 12;
 
                 app.purchase.down_pay = Math.floor(upFront / 100) * 100
                 app.purchase.repaymt = Math.floor(mRepay / 100) * 100
-                app.purchase.product_price = (bank_draft == true) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
+                app.purchase.product_price =  (bank_draft == true || (date < '2019-07-07' && app.empStatus=='formal'))? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
 
 
             }
