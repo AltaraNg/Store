@@ -525,7 +525,8 @@ var app = new Vue({
                                 name: "Samsung", sizes: [
                                     "J7 pro",
                                     "J2 chore",
-                                    "J4 chore"
+                                    "J4 chore",
+                                    "A20"
                                 ]
                             }
                         ]
@@ -585,7 +586,8 @@ var app = new Vue({
                             {
                                 name: "LG", sizes: [
                                     "300W",
-                                    "5 satellite speakers"
+                                    "5 satellite speakers",
+                                    "480W Xboom"
                                 ]
                             }
                         ]
