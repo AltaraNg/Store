@@ -1119,7 +1119,7 @@ var app = new Vue({
 
                             app.Customer_id = app.purchase.custp_id;
                             app.PurchaseidCheck();
-                            app.checkEmpStatus(app.Customer_id);
+                            
 
                             app.sales_t.forEach(function (obj) {
                                 if (obj.id == app.purchase.sale_type) {
@@ -1132,8 +1132,8 @@ var app = new Vue({
                                 }
                             })
 
-                            if (response.data.users.length > 0) {
-                                app.priceCal(response.data.users[0].pc_pprice, app.sale_t, app.bank_draft, app.purchase.p_date)
+                            if (response.data.users.length > 0 ) {
+                                app.checkEmpStatus(app.Customer_id,response.data.users[0].pc_pprice);
                                 if (app.discount_t != 0) {
                                     app.computed_discount = app.purchase.product_price * (app.discount_t / 100)
                                 }
@@ -1202,6 +1202,7 @@ var app = new Vue({
             app.purchase.product_name = app.product_name;
             app.purchase.product_gty = 1;
             var formData = app.toFormData(app.purchase);
+            app.purchase.return = 0;
             console.log(app.purchase);
             if (
                 // app.purchase.dep_to != '' &&
@@ -1223,15 +1224,14 @@ var app = new Vue({
 
                         } else {
                             app.firstpurchase = true;
-                            if (app.purchase.p_date < '2019-07-07' && app.empStatus=='formal' && app.bank_draft == false){
-                                app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'formal');
+                            console.log(app.purchase.p_date);
+                            if (app.purchase.p_date < '2019-07-07' && app.empStatus=='formal'){
+                             console.log('old formal')
+                                app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'old-formal');
                             }
-                            else if (app.bank_draft == false) {
+                            else  {
+                                console.log('new formal')
                                 app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'informal');
-                            }
-
-                            else {
-                                app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'formal');
                             }
 
                             app.updateStore(app.purchase.product_sku, app.purchase.p_date, app.purchase.sales_agent);
@@ -1297,8 +1297,8 @@ var app = new Vue({
                 });
         },
 
-        checkEmpStatus: function (id) {
-            axios.post("https://altara-api.herokuapp.com/api.php?action=emptSta", {
+        checkEmpStatus: function (id,pc_pprice) {
+            axios.post("https://altara-api.herokuapp.com/api.php?action=empSta", {
                 // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=empSta",{
                 Customer_id: id
             })
@@ -1308,7 +1308,8 @@ var app = new Vue({
                         app.errorMessage = response.data.message;
                     } else {
                         app.empStatus = response.data.checklist[0].empstatus;
-                        console.log(app.empStatus);
+                        app.priceCal(pc_pprice, app.sale_t, app.bank_draft, app.purchase.p_date)
+                        
                     }
                 });
         },
@@ -1376,13 +1377,13 @@ var app = new Vue({
                 pay_bank = app.pay_bank
             }
 
-            if (orderTp == 'formal') {
-                console.log('Formal Order repay')
+            if (orderTp == 'old-formal') {
+                console.log('Old Formal Order repay')
                 nextdate = app.formatDate(app.addDays(date, 28));
                 api_link = "https://altara-api.herokuapp.com/api.php?action=formal_repay"
                 // api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_repay"
             }
-
+           
             else {
                 console.log('InFormal Order repay')
                 nextdate = app.formatDate(app.addDays(date, 14));
@@ -1723,6 +1724,7 @@ var app = new Vue({
         },
 
         priceCal(mPrice, plan, bank_draft, date) {
+            console.log(app.empStatus + date);
             let dPrice;
             let rPrice;
             let afInt;
