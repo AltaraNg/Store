@@ -657,7 +657,7 @@ var app = new Vue({
                             },
                             {
                                 name: "Tv - Stabilzer", sizes: [
-                                    "TECNO POP 2F-1GBRAM 16GB ROM +GOTV DECODER",,
+                                    "Century Tv, 2KVa Stabilizer",
                                 ]
                             },
                         ]
