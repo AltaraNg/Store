@@ -470,7 +470,8 @@ var app = new Vue({
                                     "Smart 2 pro",
                                     "S4 (3GB)",
                                     "Smart 3 1gb",
-                                    "Smart 3 Plus 2gb"
+                                    "Smart 3 Plus 2gb",
+                                    "Hot 8 32gb,2gb",
                                 ]
                             },
                             {
