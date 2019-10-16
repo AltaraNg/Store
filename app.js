@@ -305,7 +305,8 @@ var app = new Vue({
                             },
                             {
                                 name: "Maxi", sizes: [
-                                    "3 GAS BUNNER, 1 ELECTRIC"
+                                    "3 GAS BUNNER, 1 ELECTRIC",
+                                    "4 GAS BUNNER"
                                 ]
                             }
                         ]
