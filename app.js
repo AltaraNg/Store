@@ -294,7 +294,8 @@ var app = new Vue({
                             {
                                 name: "Century", sizes: [
                                     "3 GAS BUNNER, 1 ELECTRIC",
-                                    "4 GAS BURNNER"
+                                    "4 GAS BURNNER",
+                                    "4 GAS BUNNER, 2 ELECTRIC",
                                 ]
                             },
                             {
