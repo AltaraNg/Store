@@ -221,6 +221,7 @@ var app = new Vue({
                                     "4kva",
                                     "3.5kva",
                                     "2.2kva",
+                                    "2.5kva",
                                     "4.5kva"
                                 ]
                             },
