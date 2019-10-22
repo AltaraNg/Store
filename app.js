@@ -967,6 +967,28 @@ var app = new Vue({
                             }
                         ]
                     },
+                    {
+                        id: 21,
+                        prodType: "Office Chair",
+                        models: [
+                            {
+                                name: "Local", sizes: [
+                                    "Brown"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 22,
+                        prodType: "Industrial Gas cooker",
+                        models: [
+                            {
+                                name: "Local(Fabricated)", sizes: [
+                                    "2 Burner"
+                                ]
+                            }
+                        ]
+                    },
                 ]
             }
         ],
