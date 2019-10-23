@@ -443,6 +443,11 @@ var app = new Vue({
                                 name: "LG", sizes: [
                                     "32 inches LED"
                                 ]
+                            },
+                            {
+                                name: "Maxi", sizes: [
+                                    "32 inches"
+                                ]
                             }
                         ]
                     },
