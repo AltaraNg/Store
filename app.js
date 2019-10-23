@@ -593,7 +593,8 @@ var app = new Vue({
                                 name: "LG", sizes: [
                                     "300W",
                                     "5 satellite speakers",
-                                    "480W Xboom"
+                                    "480W Xboom",
+                                    "330W"
                                 ]
                             }
                         ]
