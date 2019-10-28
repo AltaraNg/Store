@@ -671,6 +671,11 @@ var app = new Vue({
                                     "Century Tv, 2KVa Stabilizer",
                                 ]
                             },
+                            {
+                                name: "Phone - Stabilzer", sizes: [
+                                    "any Phone, any Stabilizer",
+                                ]
+                            },
                         ]
                     }
                 ]
