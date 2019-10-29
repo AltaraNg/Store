@@ -431,6 +431,7 @@ var app = new Vue({
                                     "40 inches LED",
                                     "43 inches LED",
                                     "49 inches LED",
+                                    "40 inches smart",
                                 ]
                             },
                             {
