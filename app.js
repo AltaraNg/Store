@@ -482,6 +482,7 @@ var app = new Vue({
                                     "Smart 3 1gb",
                                     "Smart 3 Plus 2gb",
                                     "Hot 8 32gb,2gb",
+                                    "Smart 3 Plus 3gb",
                                 ]
                             },
                             {
