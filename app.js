@@ -508,7 +508,8 @@ var app = new Vue({
                                     "Spark Youth 1gb ",
                                     "pouvoir 3 Air 1gb",
                                     "pouvoir LB7 3 - 2gb",
-                                    "pouvoir 3 Plus - 3gb"
+                                    "pouvoir 3 Plus - 3gb",
+                                    "Spark 4 2gb",
                                 ]
                             },
                             {
