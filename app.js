@@ -1243,7 +1243,7 @@ var app = new Vue({
             app.purchase.product_name = app.product_name;
             app.purchase.product_gty = 1;
             var formData = app.toFormData(app.purchase);
-            app.purchase.return = 0;
+            app.purchase.return = 1;
             console.log(app.purchase);
             if (
                 // app.purchase.dep_to != '' &&
@@ -1834,7 +1834,6 @@ var app = new Vue({
                 app.purchase.down_pay = Math.floor(upFront / 100) * 100
                 app.purchase.repaymt = Math.floor(mRepay / 100) * 100
                 app.purchase.product_price =  (bank_draft == true || (date < '2019-07-07' && app.empStatus=='formal'))? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
-
 
             }
 
