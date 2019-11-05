@@ -1776,8 +1776,9 @@ var app = new Vue({
             let mRepay;
             let int;
             console.log(mPrice);
-            let margin = 0.25;
-
+            // let margin = 0.25;
+            let margin = (plan == 0) ? 0.33 : (plan == 20) ? 0.28 : (plan == 40) ? 0.27 : (plan == 60) ? 0.31 : (plan == 80) ? 0.30 : null;
+        
             if (mPrice <= 25000) {
                 mPrice = (mPrice * margin) + Number(mPrice);
                 Math.ceil(mPrice);
