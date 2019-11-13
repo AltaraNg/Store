@@ -510,6 +510,8 @@ var app = new Vue({
                                     "pouvoir LB7 3 - 2gb",
                                     "pouvoir 3 Plus - 3gb",
                                     "Spark 4 2gb",
+                                    "Droidpad 7F",
+                                    "Spark 3 1gb"
                                 ]
                             },
                             {
@@ -602,7 +604,8 @@ var app = new Vue({
                                     "300W",
                                     "5 satellite speakers",
                                     "480W Xboom",
-                                    "330W"
+                                    "330W",
+                                    "720W Xboom",
                                 ]
                             }
                         ]
