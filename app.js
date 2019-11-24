@@ -63,12 +63,12 @@ var app = new Vue({
         selected_order: [],
         list_employees: [],
         Sale_Category: [{ id: 1, name: "normal -0%", percent: 0 },
-        // { id: 2, name: "sala-promo -0%", percent: 0 },
-        // { id: 3, name: "group5 -5%", percent: 5 },
-        // { id: 4, name: "group10 -10%", percent: 10 },
-        // { id: 5, name: "xmas-promo -0%", percent: 0 },
+        { id: 2, name: "sala-promo -0%", percent: 0 },
+        { id: 3, name: "group5 -5%", percent: 5 },
+        { id: 4, name: "group10 -10%", percent: 10 },
+        { id: 5, name: "xmas-promo -0%", percent: 0 },
         { id: 6, name: "renewal -5%", percent: 5 },
-        // { id: 7, name: "family-friend -5%", percent: 5 },
+        { id: 7, name: "family-friend -5%", percent: 5 },
         { id: 8, name: "Post-dated/direct-debit -5%", percent: 5 },
         { id: 9, name: "Opening-sales -10%", percent: 10 }
         ],
@@ -1097,7 +1097,8 @@ var app = new Vue({
             "Wema Bank",
             "Zenith Bank"
         ],
-
+        sales_record:'new',
+        old_product_sku:'',
         payDate: '',
         amtPay: '',
         cat_label: '',
@@ -1153,8 +1154,8 @@ var app = new Vue({
             console.log(this.product_sku.toUpperCase());
             if (this.product_sku.length > 5) {
                 console.log("call change");
-                axios.post("https://altara-api.herokuapp.com/api.php?action=checkprod", { product_sku: this.product_sku })
-                    // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkprod", { product_sku: this.product_sku })
+                // axios.post("https://altara-api.herokuapp.com/api.php?action=checkprod", { product_sku: this.product_sku })
+                    axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkprod", { product_sku: this.product_sku })
                     .then(function (response) {
                         app.dataloaded = false;
                         console.log(response);
@@ -1257,9 +1258,11 @@ var app = new Vue({
                 // app.purchase.referrer_id != '' &&
                 // app.purchase.return != '' &&
                 app.purchase.sale_type != ''
-            ) {
-                axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
-                    // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=purchase", formData)
+            ) 
+            {
+                console.log(app.purchase);
+                // axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
+                    axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=purchase", formData)
                     .then(function (response) {
                         console.log(response);
                         if (typeof response.data !== 'object') {
@@ -1311,9 +1314,80 @@ var app = new Vue({
             }
         },
 
+        oldPurchase:function(){
+            console.log(app.purchase.referrer_id)
+            app.purchase.product_sku = app.old_product_sku.toUpperCase();
+            app.purchase.product_name = app.product_name;
+            app.purchase.product_gty = 1;
+            app.purchase.cate_gory = 1;
+            var formData = app.toFormData(app.purchase);
+            app.purchase.return = 1;
+            console.log(app.purchase);
+            if (
+                app.purchase.p_reciept != '' &&
+                app.purchase.pay_mtd != '' &&
+                app.purchase.sale_type != ''
+            ) 
+            {
+                app.oldProductLog();
+                console.log(app.purchase);
+                // axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
+                    axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=purchase", formData)
+                    .then(function (response) {
+                        console.log(response);
+                        if (typeof response.data !== 'object') {
+                            app.errorMessage = "Record already Exist"; setTimeout(function () {
+                                app.errorMessage = '';
+                            }, 2000);
+
+                        } else {
+                            app.firstpurchase = true;
+                            console.log(app.purchase.p_date);
+                            if (app.purchase.p_date < '2019-07-07' && app.empStatus=='formal'){
+                             console.log('old formal')
+                                app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'old-formal');
+                            }
+                            else  {
+                                console.log('new formal')
+                                app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'informal');
+                            }
+
+                            app.updateStore(app.purchase.product_sku, app.purchase.p_date, app.purchase.sales_agent);
+                            app.successMessage = response.data.message;
+
+                            console.log('Ok')
+                            app.purchase.p_reciept = '';
+                            app.purchase.p_date = '';
+                            app.purchase.cate_gory = '';
+                            app.purchase.custp_id = '';
+                            app.purchase.product_sku = '';
+                            app.purchase.product_price = '';
+                            app.purchase.down_pay = '';
+                            app.purchase.sales_agent = '';
+                            app.purchase.product_name = '';
+                            app.purchase.product_gty = '';
+                            app.purchase.sale_type = '';
+                            app.purchase.discount = '';
+                            app.purchase.repaymt = '';
+                            app.purchase.pay_mtd = '';
+                            app.purchase.dep_to = '';
+                            app.purchase.referrer_id = '';
+                            app.product_name = '';
+                            app.product_sku = '';
+                        }
+                    });
+            }
+            else {
+                app.errorMessage = 'All field must be filled'; setTimeout(function () {
+                    app.errorMessage = '';
+                }, 2000);
+            }
+
+        },
+
         ListEmployees: function () {
-            axios.get("https://altara-api.herokuapp.com/api.php?action=listsalesemp")
-                // axios.get("http://localhost/AltaraCredit/altara_api/api.php?action=listsalesemp")
+            // axios.get("https://altara-api.herokuapp.com/api.php?action=listsalesemp")
+                axios.get("http://localhost/AltaraCredit/altara_api/api.php?action=listsalesemp")
                 .then(function (response) {
                     console.log(response);
                     if (response.data.error) {
@@ -1326,8 +1400,8 @@ var app = new Vue({
         },
 
         CountOrders: function () {
-            axios.post("https://altara-api.herokuapp.com/api.php?action=orderCount", {
-                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=orderCount",{
+            // axios.post("https://altara-api.herokuapp.com/api.php?action=orderCount", {
+                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=orderCount",{
                 Customer_id: app.purchase.custp_id
             })
                 .then(function (response) {
@@ -1343,8 +1417,8 @@ var app = new Vue({
         },
 
         checkEmpStatus: function (id,pc_pprice) {
-            axios.post("https://altara-api.herokuapp.com/api.php?action=empSta", {
-                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=empSta",{
+            // axios.post("https://altara-api.herokuapp.com/api.php?action=empSta", {
+                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=empSta",{
                 Customer_id: id
             })
                 .then(function (response) {
@@ -1363,6 +1437,7 @@ var app = new Vue({
             app.product.pname = app.product_size + ' ' + app.pro_mpd + ' ' + app.pro_cat;
             app.product.p_cat = app.pro_cat.toUpperCase();
             app.product.pdesc = app.product_size.toUpperCase();
+            console.log(app.product);
             if (app.product.psku != '' &&
                 app.product.pname != '' &&
                 app.product.pdesc != '' &&
@@ -1378,8 +1453,61 @@ var app = new Vue({
                 app.product.pname = app.product.pname.toUpperCase();
                 console.log(app.product);
                 var formData = app.toFormData(app.product);
-                axios.post("https://altara-api.herokuapp.com/api.php?action=newproduct", formData)
-                    // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=newproduct", formData)
+
+                // axios.post("https://altara-api.herokuapp.com/api.php?action=newproduct", formData)
+                    axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=newproduct", formData)
+                    .then(function (response) {
+                        console.log(response);
+                        if (typeof response.data !== 'object') {
+                            app.errorMessage = "Record already Exist"; setTimeout(function () {
+                                app.errorMessage = '';
+                            }, 2000);
+                        } else {
+                            app.successMessage = response.data.message;
+                            app.product.psku = '';
+                            app.product.pname = '';
+                            app.product.pdesc = '';
+                            app.product.psid = '';
+                            app.product.psdate = '';
+                            app.product.p_cat = '';
+                            // app.product.tpc_pprice = '';
+                            app.product.p_price = '';
+                            app.product.receiver_id = '';
+                            app.product.store_name = '';
+                        }
+                    });
+            }
+            else app.errorMessage = 'All field must be filled';
+        },
+
+        oldProductLog: function () {
+            app.product.pname = app.product_size + ' ' + app.pro_mpd + ' ' + app.pro_cat;
+            app.product.p_cat = app.pro_cat.toUpperCase();
+            app.product.pdesc = app.product_size.toUpperCase();
+            app.product.p_price = app.purchase.product_price;
+            app.product.psdate = app.purchase.p_date;
+            app.product.psku = app.old_product_sku;
+            app.product.psid = 'NA';
+            app.product.receiver_id = app.purchase.sales_agent;
+            console.log(app.product);
+            if (app.product.psku != '' &&
+                app.product.pname != '' &&
+                app.product.pdesc != '' &&
+                app.product.psid != '' &&
+                app.product.psdate != '' &&
+                app.product.p_cat != '' &&
+                // app.product.tpc_pprice != '' &&
+                app.product.p_price != '' &&
+                app.product.receiver_id != '' &&
+                app.product.store_name != '') {
+
+                app.product.psku = app.product.psku.toUpperCase();
+                app.product.pname = app.product.pname.toUpperCase();
+                console.log(app.product);
+                var formData = app.toFormData(app.product);
+
+                // axios.post("https://altara-api.herokuapp.com/api.php?action=newproduct", formData)
+                    axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=newproduct", formData)
                     .then(function (response) {
                         console.log(response);
                         if (typeof response.data !== 'object') {
@@ -1425,22 +1553,22 @@ var app = new Vue({
             if (orderTp == 'old-formal') {
                 console.log('Old Formal Order repay')
                 nextdate = app.formatDate(app.addDays(date, 28));
-                api_link = "https://altara-api.herokuapp.com/api.php?action=formal_repay"
-                // api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_repay"
+                // api_link = "https://altara-api.herokuapp.com/api.php?action=formal_repay"
+                api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_repay"
             }
            
             else {
                 console.log('InFormal Order repay')
                 nextdate = app.formatDate(app.addDays(date, 14));
-                api_link = "https://altara-api.herokuapp.com/api.php?action=informal_repay"
-                // api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=informal_repay"
+                // api_link = "https://altara-api.herokuapp.com/api.php?action=informal_repay"
+                api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=informal_repay"
 
             }
             console.log(id);
             var pushrepay = {
                 repayid: id,
                 period: periodi,
-                data_payed: app.payDate,
+                date_payed: app.payDate,
                 amount_payed: app.amtPay,
                 nowdate: paydate,
                 nextdate: nextdate,
@@ -1522,8 +1650,8 @@ var app = new Vue({
             }
             var formData = app.toFormData(dat);
             console.log()
-            axios.post("https://altara-api.herokuapp.com/api.php?action=login", formData)
-                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=login", formData)
+            // axios.post("https://altara-api.herokuapp.com/api.php?action=login", formData)
+                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=login", formData)
                 .then(function (response) {
                     app.dataloaded = false;
                     console.log(response);
@@ -1581,8 +1709,8 @@ var app = new Vue({
 
         PurchaseidCheck: function () {
             console.log(app.Customer_id);
-            axios.post("https://altara-api.herokuapp.com/api.php?action=checkId", {
-                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkId", {
+            // axios.post("https://altara-api.herokuapp.com/api.php?action=checkId", {
+                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkId", {
                 Customer_id: app.Customer_id
             })
                 .then(function (response) {
@@ -1611,8 +1739,8 @@ var app = new Vue({
         CheckId: function () {
             app.dataloaded = true;
             console.log(app.Customer_id);
-            axios.post("https://altara-api.herokuapp.com/api.php?action=checkId", {
-                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkId", {
+            // axios.post("https://altara-api.herokuapp.com/api.php?action=checkId", {
+                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkId", {
                 Customer_id: app.Customer_id
             })
                 .then(function (response) {
@@ -1661,8 +1789,8 @@ var app = new Vue({
 
         CheckDoc: function (customer) {
             console.log(customer)
-            axios.post("https://altara-api.herokuapp.com/api.php?action=checkDoc", {
-                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkDoc", {
+            // axios.post("https://altara-api.herokuapp.com/api.php?action=checkDoc", {
+                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkDoc", {
                 Customer_id: customer,
             })
                 .then(function (response) {
@@ -1720,8 +1848,8 @@ var app = new Vue({
 
             console.log(app.empStatus);
 
-            // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=orders", {   
-            axios.post("https://altara-api.herokuapp.com/api.php?action=orders", {
+            axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=orders", {   
+            // axios.post("https://altara-api.herokuapp.com/api.php?action=orders", {
                 // axios.post(api_link, {
                 Customer_id: app.Customer_id
             })
@@ -1753,8 +1881,8 @@ var app = new Vue({
         },
 
         updateStore: function (psku, pdate, seller) {
-            axios.post("https://altara-api.herokuapp.com/api.php?action=upstore", {
-                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=upstore", {
+            // axios.post("https://altara-api.herokuapp.com/api.php?action=upstore", {
+                axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=upstore", {
                 product_sku: psku,
                 purchase_date: pdate,
                 seller_id: seller

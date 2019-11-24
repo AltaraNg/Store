@@ -743,11 +743,14 @@
                             </div>
 
                             <div v-if="access_granted2" class="row" style="padding:30px;width:90%;margin:0 auto; margin-top:20px;background-color:#EEEEEE">
-                                <div style=" padding-right:5px;padding-left:5px;">
+                                <input type="radio" name="sales_record" v-model="sales_record" value="old"> Old<br>
+                                <input type="radio" name="sales_record" v-model="sales_record" value="new">New<br>
+                                
+                                <div v-if="sales_record=='new'" style=" padding-right:5px;padding-left:5px;">
                                         <div class="container-fluid">
-                                                <form >
+                                                <!-- <form >
                                                         <button type="button" @click="payWithPaystack()"> Pay </button> 
-                                                      </form>
+                                                      </form> -->
                                                 <div class="row">
                                                         <div class="form-group">
                                                                 <div class="row">
@@ -876,6 +879,190 @@
                                     <br>
                                 </div>
 
+
+                                <div v-if="sales_record=='old'" style=" padding-right:5px;padding-left:5px;">
+                                    <div class="container-fluid">
+                                            <div class="row">
+                                                    <div class="form-group">
+                                                            <div class="row">
+                                                                <label class="col-md-3 control-label">Date</label>
+                                                                <input class="col-md-9" type="date" v-model="purchase.p_date" required/>
+                                                            </div>
+                                                    </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">InvoiceRef Number</label>
+                                                        <input class="col-md-9" type="text" v-model="purchase.p_reciept" required/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">Customer Id</label>
+                                                        <input class="col-md-9" type="text" :disabled="product_sku != ''" v-model="purchase.custp_id" required/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Showroom </label>
+                                                    <select  class="col-md-9" v-model="product_branch">
+                                                            <option value="">Select showroom</option>
+                                                            <option v-for="(product, $index) in products"
+                                                            :value="product.branchId">{{ product.branchType }}
+                                                    </option>
+                                                        </select>
+
+                                                </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Product Category</label>
+                                                    <select  class="col-md-9" v-model="product_cat">
+                                                            <option value="">Select Category</option>
+                                                            <option v-for="(category, $index) in branchProd"
+                                                            :value="category.id">{{ category.prodType }}
+                                                    </option>
+                                                        </select>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Product Model</label>
+                                                    <select :disabled="product_cat== ''" class="col-md-9" v-model="product_model">
+                                                            <option value="">Select Brand</option>
+                                                            <option v-for="(model, $index) in models"
+                                                            :value="$index">{{ model.name }}
+                                                    </option>
+                                                        </select>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-3 control-label">Feature</label>
+                                                    <select :disabled="product_cat== ''" class="col-md-9" v-model="product_size">
+                                                            <option value="">Select Feature</option>
+                                                            <option v-for="(size, $index) in sizes"
+                                                            :value="size">{{ size}}
+                                                    </option>
+                                                        </select>
+
+                                                </div>
+                                            </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">Sales Agent </label>
+                                                        <select class=" col-md-9 " v-model="purchase.sales_agent">
+                                                                <option value="">Select</option>
+                                                                <option v-for="employee in list_employees" :value="employee.staff_id">{{ employee.staff_id}} &nbsp; {{employee.full_name}}
+                                                                </option>
+                                                            </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">Sales-type(Sales-Discount)</label>
+                                                                <select  class="col-md-9" :disabled="product_sku != ''" v-model="purchase.discount">
+                                                                        <option v-for="(sale_category, $index) in Sale_Category"
+                                                                        :value=" sale_category.id">{{ sale_category.name }}
+                                                                </option>
+                                                                </select>
+                                                        </div>
+                                                 </div>
+
+                                                 <div class="form-group">
+                                                    <div class="row">
+                                                        <label  class="col-md-3 control-label">Category of Sales</label>
+                                                            <select  class="col-md-9" :disabled="product_sku != ''" v-model="purchase.sale_type">
+                                                                <option v-for="(type, $index) in sales_t"
+                                                                :value=" type.id">{{ type.name }}
+                                                        </option>
+                                                        </select>
+                                                    </div>
+                                            </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">Product Sku</label>
+                                                        <input class="col-md-9"  type="text" v-model="old_product_sku" required/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">Product Price  </label>
+                                                        <input class="col-md-9" type="text"  v-model="purchase.product_price" required/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">First Payment </label> 
+                                                        <input class="col-md-9" type="text"  v-model="purchase.down_pay" required/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">Store</label>
+                                                        <select  class="col-md-9" v-model="product.store_name">
+                                                                <option value="">Select Branch</option>
+                                                                <option v-for="(Branchn, $index) in Branchname"
+                                                                :value="Branchn.id">{{ Branchn.name }}
+                                                        </option>
+                                                            </select>
+    
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">Repayment</label>
+                                                        <input class="col-md-9" type="text" v-model="purchase.repaymt" required/>
+                                                    </div>
+                                                </div>
+
+                                                
+                                                
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">Payment Method</label>
+                                                                <select  class="col-md-9"  v-model="purchase.pay_mtd">
+                                                                    <option value="1"> cash</option>
+                                                                    <option value="2"> transfer</option>
+                                                                    <option value="3"> pos</option>
+                                                                </option>
+                                                                </select>
+                                                        </div>
+                                                 </div>
+
+                                                 <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label">Bank </label>
+                                                                <select  class="col-md-9"  v-model="purchase.dep_to">
+                                                                        <option v-for="(bank, $index) in Bank"
+                                                                        :value=" $index + 1 ">{{ bank }}
+                                                                </option>
+                                                                </select>
+                                                        </div>
+                                                 </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-md-3 control-label"> Referred By?</label>
+                                                        <input class="col-md-9" type="text" placeholder="Customer 1D" v-model="purchase.referrer_id"/>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                
+                                <button type="button" @click="oldPurchase()" class="btn btn-success btn-small" style="display:block; font-size:12px;margin:0 auto;">Submit</button>
+                                <br>
+                            </div>
 
                             </div>
                         </div>
