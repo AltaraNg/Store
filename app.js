@@ -661,11 +661,12 @@ var app = new Vue({
                             {
                                 name: "Fan - Stabilzer", sizes: [
                                     "20 INCHES OX FAN + 2000KVA EVERGREEN STABLIZER",
+                                    "20 INCHES POLYSTAR STANDING FAN + 2000KVA EVERGOOD STABLIZER"
                                 ]
                             },
                             {
                                 name: "Phone - Gotv", sizes: [
-                                    "TECNO POUVOIR LA7-3GBRAM +GOTV DECODER",
+                                    "TECNO POUVOIR LA7-3GBRAM +GOTV DECODER"
                                 ]
                             },
                             {
