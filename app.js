@@ -874,7 +874,13 @@ var app = new Vue({
                         models: [
                             {
                                 name: "Mdf", sizes: [
-                                    "--"
+                                    "Brown"
+                                ]
+                            },
+                            {
+                                name: "Glass", sizes: [
+                                    "Black",
+                                    "Transparent"
                                 ]
                             }
                         ]
