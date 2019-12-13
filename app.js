@@ -173,7 +173,8 @@ var app = new Vue({
                                     "165l",
                                     "250l",
                                     "150L",
-                                    "92L"
+                                    "92L",
+                                    "150L"
                                 ]
                             }
                         ]
@@ -311,6 +312,7 @@ var app = new Vue({
                                     "3 GAS BUNNER, 1 ELECTRIC",
                                     "4 GAS BUNNER",
                                     "4 GAS BUNNER, 2 ELECTRIC",
+                                    "5 GAS BUNNER"
                                 ]
                             }
                         ]
@@ -512,7 +514,9 @@ var app = new Vue({
                                     "pouvoir 3 Plus - 3gb",
                                     "Spark 4 2gb",
                                     "Droidpad 7F",
-                                    "Spark 3 1gb"
+                                    "Spark 3 1gb",
+                                    "Spark 4 Air 2gb",
+                                    "Canon 12"
                                 ]
                             },
                             {
