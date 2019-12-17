@@ -486,6 +486,7 @@ var app = new Vue({
                                     "Smart 3 Plus 2gb",
                                     "Hot 8 32gb,2gb",
                                     "Smart 3 Plus 3gb",
+                                    "S5 LITE"
                                 ]
                             },
                             {
@@ -1087,7 +1088,9 @@ var app = new Vue({
             { id: 8, name: "Life-Style Bodija" },
             { id: 9, name: "Apata" },
             { id: 11, name: "Life-Style Iwo-Road" },
-            { id: 12, name: "Taiwo-Road" }
+            { id: 12, name: "Taiwo-Road" },
+            { id: 13, name: "Owode-Oyo" },
+            { id: 14, name: "General-Ogbomosho" }
         ],
         Bank: [
             "Access Bank",
