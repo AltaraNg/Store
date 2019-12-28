@@ -690,6 +690,11 @@ var app = new Vue({
                                     "any Phone, any Stabilizer",
                                 ]
                             },
+                            {
+                                name: "Freezer - Stablizer", sizes: [
+                                    "205l hisense chest freezer + 2000KVA stablizer",
+                                ]
+                            },
                         ]
                     }
                 ]
