@@ -202,7 +202,8 @@ var app = new Vue({
                                 name: "QASA", sizes: [
                                     "8.2kg",
                                     "10.2kg",
-                                    "5kg"
+                                    "5kg",
+                                    "7.8kg"
                                 ]
                             },
                             {
@@ -450,7 +451,8 @@ var app = new Vue({
                             },
                             {
                                 name: "Maxi", sizes: [
-                                    "32 inches"
+                                    "32 inches",
+                                    "24 inches"
                                 ]
                             }
                         ]
@@ -517,7 +519,8 @@ var app = new Vue({
                                     "Droidpad 7F",
                                     "Spark 3 1gb",
                                     "Spark 4 Air 2gb",
-                                    "Canon 12"
+                                    "Canon 12",
+                                    "pouvoir 3 plus 4gb"
                                 ]
                             },
                             {
