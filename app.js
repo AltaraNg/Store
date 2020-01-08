@@ -522,7 +522,9 @@ var app = new Vue({
                                     "Spark 3 1gb",
                                     "Spark 4 Air 2gb",
                                     "Canon 12",
-                                    "pouvoir 3 plus 4gb"
+                                    "pouvoir 3 plus 4gb",
+                                    "pop 2F",
+                                    "pop 2 Power",
                                 ]
                             },
                             {
