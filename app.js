@@ -525,6 +525,7 @@ var app = new Vue({
                                     "pouvoir 3 plus 4gb",
                                     "pop 2F",
                                     "pop 2 Power",
+                                    "Canon 12 Air",
                                 ]
                             },
                             {
