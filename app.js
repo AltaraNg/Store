@@ -1103,7 +1103,9 @@ var app = new Vue({
             { id: 11, name: "Life-Style Iwo-Road" },
             { id: 12, name: "Taiwo-Road" },
             { id: 13, name: "Owode-Oyo" },
-            { id: 14, name: "General-Ogbomosho" }
+            { id: 14, name: "General-Ogbomosho" },
+            { id: 15, name: "Yoruba" },
+            { id: 16, name: "Fulani" }
         ],
         Bank: [
             "Access Bank",
