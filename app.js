@@ -1034,6 +1034,17 @@ var app = new Vue({
                             }
                         ]
                     },
+                    {
+                        id: 23,
+                        prodType: "Barbar's Chair",
+                        models: [
+                            {
+                                name: "Local(Fabricated)", sizes: [
+                                    "Black"
+                                ]
+                            }
+                        ]
+                    },
                 ]
             }
         ],
