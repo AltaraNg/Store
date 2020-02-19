@@ -120,7 +120,8 @@ var app = new Vue({
                                     "310l",
                                     "250l",
                                     "205l",
-                                    "100l"
+                                    "100l",
+                                    "145l"
                                 ]
                             },
                             {
@@ -225,7 +226,8 @@ var app = new Vue({
                                     "3.5kva",
                                     "2.2kva",
                                     "2.5kva",
-                                    "4.5kva"
+                                    "4.5kva",
+                                    "1kva"
                                 ]
                             },
                             {
@@ -382,6 +384,11 @@ var app = new Vue({
                             {
                                 name: "Emel", sizes: [
                                     "Industrial"
+                                ]
+                            },
+                            {
+                                name: "Two lion", sizes: [
+                                    "Black"
                                 ]
                             }
                         ]
@@ -540,11 +547,13 @@ var app = new Vue({
                                 name: "Itel", sizes: [
                                     "S12 8gb, 1gb",
                                     "S13",
+                                    "S15 1gb",
                                     "P32",
                                     "S32",
                                     "S33",
                                     "P33",
-                                    "P33 Plus"
+                                    "P33 Plus",
+                                    "A55"
                                 ]
                             },
                             {
@@ -590,7 +599,8 @@ var app = new Vue({
                         models: [
                             {
                                 name: "Polyster", sizes: [
-                                    "2 TAPS"
+                                    "2 TAPS",
+                                    "3 TAPS"
                                 ]
                             },
                             {
@@ -705,7 +715,18 @@ var app = new Vue({
                                 ]
                             },
                         ]
-                    }
+                    },
+                    {
+                        id: 21,
+                        prodType: "Water Pumping Machine",
+                        models: [
+                            {
+                                name: "Interdab", sizes: [
+                                    "1HP 750W"
+                                ]
+                            }
+                        ]
+                    },
                 ]
             },
             {
