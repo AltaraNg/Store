@@ -498,6 +498,7 @@ var app = new Vue({
                                     "S5 LITE",
                                     "Hot 8 pro-3gb",
                                     "Smart 4 1gb",
+                                    "Hot 8 lite 2gb",
 
                                 ]
                             },
