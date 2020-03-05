@@ -196,7 +196,8 @@ var app = new Vue({
                                 name: "Century", sizes: [
                                     "8kg",
                                     "6kg",
-                                    "7.8kg"
+                                    "7.8kg",
+                                    "10.2kg"
                                 ]
                             },
                             {
