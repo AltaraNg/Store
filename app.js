@@ -536,6 +536,7 @@ var app = new Vue({
                                     "pop 2F",
                                     "pop 2 Power",
                                     "Canon 12 Air",
+                                    "Pop 2 Plus"
                                 ]
                             },
                             {
@@ -714,6 +715,7 @@ var app = new Vue({
                             {
                                 name: "Freezer - Stablizer", sizes: [
                                     "205l hisense chest freezer + 2000KVA stablizer",
+                                    "250l Hisense chest freezer and 2.OKVA EVERGOOD STABILIZER"
                                 ]
                             },
                         ]
