@@ -1140,7 +1140,9 @@ var app = new Vue({
             { id: 13, name: "Owode-Oyo" },
             { id: 14, name: "General-Ogbomosho" },
             { id: 15, name: "Yoruba" },
-            { id: 16, name: "Fulani" }
+            { id: 16, name: "Fulani" },
+            { id: 17, name: "Alakia" },
+            { id: 18, name: "Iyana Church" }
         ],
         Bank: [
             "Access Bank",
