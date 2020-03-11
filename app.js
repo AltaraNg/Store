@@ -613,7 +613,8 @@ var app = new Vue({
                             },
                             {
                                 name: "Maxi", sizes: [
-                                    "2 TAPS"
+                                    "2 TAPS",
+                                    "3 TAPS"
                                 ]
                             }
                         ]
