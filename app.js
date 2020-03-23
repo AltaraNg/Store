@@ -558,7 +558,9 @@ var app = new Vue({
                                     "S33",
                                     "P33",
                                     "P33 Plus",
-                                    "A55"
+                                    "A55",
+                                    "S15 PRO",
+                                    "S15 2gb"
                                 ]
                             },
                             {
