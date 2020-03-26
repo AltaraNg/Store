@@ -112,7 +112,8 @@ var app = new Vue({
                             {
                                 name: "Syinix", sizes: [
                                     "145l",
-                                    "200l"
+                                    "200l",
+                                    "265l"
                                 ]
                             },
                             {
