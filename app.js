@@ -1078,6 +1078,34 @@ var app = new Vue({
                         ]
                     },
                 ]
+            },
+            {
+                branchId: 2,
+                branchType: "Altara Rescue",
+                branchProducts: [{
+                    id: 1,
+                    prodType: "Food Packs",
+                    models: [
+                        {
+                            name: "Single Package", sizes: [
+                                "basket package",
+                                "nylon package",
+                            ]
+                        },
+                        {
+                            name: "Family of 3", sizes: [
+                                "basket package",
+                                "nylon package",
+                            ]
+                        },
+                        {
+                            name: "Family of 5", sizes: [
+                                "basket package",
+                                "nylon package",
+                            ]
+                        },
+                    ]
+                }]
             }
         ],
         pro_cat: '',
