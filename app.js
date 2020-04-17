@@ -270,7 +270,13 @@ var app = new Vue({
                                     "20 inch",
                                     "26 inch"
                                 ]
-                            }
+                            },
+                            {
+                                name: "Century", sizes: [
+                                    "20 inch",
+                                    "26 inch"
+                                ]
+                            },
                         ]
                     },
                     {
