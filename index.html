@@ -795,7 +795,7 @@
 
                                                      <div class="form-group">
                                                         <div class="row">
-                                                            <label  class="col-md-3 control-label">Category of Sales</label>
+                                                            <label  class="col-md-3 control-label">Repayment Month</label>
                                                                 <select  class="col-md-9" :disabled="product_sku != ''" v-model="purchase.sale_type">
                                                                     <option v-for="(type, $index) in sales_t"
                                                                     :value=" type.id">{{ type.name }}
@@ -803,6 +803,18 @@
                                                             </select>
                                                         </div>
                                                 </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label  class="col-md-3 control-label">Category of Plan</label>
+                                                            <select  class="col-md-9" :disabled="product_sku != ''" v-model="purchase.month">
+                                                                <option v-for="(type, $index) in r_months"
+                                                                :value=" type.id">{{ type.month }}
+                                                        </option>
+                                                        </select>
+                                                    </div>
+                                            </div>
+
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <label class="col-md-3 control-label">Product Sku</label>

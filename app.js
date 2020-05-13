@@ -73,12 +73,18 @@ var app = new Vue({
         { id: 9, name: "Opening-sales -10%", percent: 10 }
         ],
 
-        sales_t: [{ id: 1, name: "6 month plan 0%", percent: 0 },
-        { id: 2, name: "6 month plan 20%", percent: 20 },
-        { id: 3, name: "6 month plan 40%", percent: 40 },
-        { id: 4, name: "6 month plan 60%", percent: 60 },
-        { id: 5, name: "6 month plan 80%", percent: 80 },
+        sales_t: [{ id: 1, name: "0%", percent: 0 },
+        { id: 2, name: "20%", percent: 20 },
+        { id: 3, name: "40%", percent: 40 },
+        { id: 4, name: "60%", percent: 60 },
+        { id: 5, name: "80%", percent: 80 },
         ],
+
+        r_months: [{ id: 1, month: "3 months", val: 3 },
+        { id: 2, month: "6 months", val: 6  },
+        { id: 3, month: "12 months", val: 12  }
+        ],
+        r_month:'',
 
         products: [
             {
@@ -213,8 +219,8 @@ var app = new Vue({
                             {
                                 name: "Hisense", sizes: [
                                     " Front loader 6kg",
-                                     "Front loader 7.2kg",
-                                     "Front loader 5kg"
+                                    "Front loader 7.2kg",
+                                    "Front loader 5kg"
                                 ]
                             }
                         ]
@@ -694,7 +700,7 @@ var app = new Vue({
                             }
                         ]
                     },
-                     {
+                    {
                         id: 20,
                         prodType: "Combined",
                         models: [
@@ -1144,6 +1150,7 @@ var app = new Vue({
             dep_to: '',
             return: '',
             referrer_id: '',
+            month:'',
         },
 
         cust_type: '',
@@ -1187,6 +1194,37 @@ var app = new Vue({
             { id: 17, name: "Alakia" },
             { id: 18, name: "Iyana Church" }
         ],
+
+        params : [
+            {
+                month: 12, pim: [
+                    { plan: 20, int: 2.5, marg: 0.35 },
+                    { plan: 40, int: 2.5, marg: 0.35 },
+                    { plan: 60, int: 2.5, marg: 0.35 },
+                    { plan: 80, int: 2.5, marg: 0.35 }
+
+                ]
+            },
+            {
+                month: 6, pim: [
+                    { plan: 20, int: 3, marg: 0.34 },
+                    { plan: 40, int: 3, marg: 0.34 },
+                    { plan: 60, int: 3, marg: 0.36 },
+                    { plan: 80, int: 3, marg: 0.35 }
+
+                ]
+            },
+            {
+                month: 3 , pim: [
+                    { plan: 20, int: 3, marg: 0.35 },
+                    { plan: 40, int: 4, marg: 0.36 },
+                    { plan: 60, int: 4, marg: 0.35 },
+                    { plan: 80, int: 4, marg: 0.34 }
+
+                ]
+            }
+        ],
+
         Bank: [
             "Access Bank",
             "Diamond Bank",
@@ -1207,8 +1245,8 @@ var app = new Vue({
             "Wema Bank",
             "Zenith Bank"
         ],
-        sales_record:'new',
-        old_product_sku:'',
+        sales_record: 'new',
+        old_product_sku: '',
         payDate: '',
         amtPay: '',
         cat_label: '',
@@ -1265,8 +1303,8 @@ var app = new Vue({
             if (this.product_sku.length > 5) {
                 console.log("call change");
                 axios.post("https://altara-api.herokuapp.com/api.php?action=checkprod", { product_sku: this.product_sku })
-                    // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkprod", { product_sku: this.product_sku })
-                    .then(function (response) {
+                // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=checkprod", { product_sku: this.product_sku })
+                 .then(function (response) {
                         app.dataloaded = false;
                         console.log(response);
                         if (response.data.error) {
@@ -1275,21 +1313,27 @@ var app = new Vue({
 
                             app.Customer_id = app.purchase.custp_id;
                             app.PurchaseidCheck();
-                            
+
 
                             app.sales_t.forEach(function (obj) {
                                 if (obj.id == app.purchase.sale_type) {
                                     app.sale_t = obj.percent;
                                 }
                             })
+
+                            app.r_months.forEach(function (obj) {
+                                if (obj.id == app.purchase.month) {
+                                    app.r_month = obj.val;
+                                }
+                            })
+
                             app.Sale_Category.forEach(function (obj) {
                                 if (obj.id == app.purchase.discount) {
                                     app.discount_t = obj.percent;
                                 }
                             })
-
-                            if (response.data.users.length > 0 ) {
-                                app.checkEmpStatus(app.Customer_id,response.data.users[0].pc_pprice);
+                            if (response.data.users.length > 0) {
+                                app.checkEmpStatus(app.Customer_id, response.data.users[0].pc_pprice);
                                 if (app.discount_t != 0) {
                                     app.computed_discount = app.purchase.product_price * (app.discount_t / 100)
                                 }
@@ -1368,8 +1412,7 @@ var app = new Vue({
                 // app.purchase.referrer_id != '' &&
                 // app.purchase.return != '' &&
                 app.purchase.sale_type != ''
-            ) 
-            {
+            ) {
                 console.log(app.purchase);
                 axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
                     // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=purchase", formData)
@@ -1383,11 +1426,11 @@ var app = new Vue({
                         } else {
                             app.firstpurchase = true;
                             console.log(app.purchase.p_date);
-                            if (app.purchase.p_date < '2019-07-07' && app.empStatus=='formal'){
-                             console.log('old formal')
+                            if (app.purchase.p_date < '2019-07-07' && app.empStatus == 'formal') {
+                                console.log('old formal')
                                 app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'old-formal');
                             }
-                            else  {
+                            else {
                                 console.log('new formal')
                                 app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'informal');
                             }
@@ -1414,6 +1457,7 @@ var app = new Vue({
                             app.purchase.referrer_id = '';
                             app.product_name = '';
                             app.product_sku = '';
+                            app.month ='';
                         }
                     });
             }
@@ -1424,7 +1468,7 @@ var app = new Vue({
             }
         },
 
-        oldPurchase:function(){
+        oldPurchase: function () {
             console.log(app.purchase.referrer_id)
             app.purchase.product_sku = app.old_product_sku.toUpperCase();
             app.purchase.product_name = app.product_name;
@@ -1437,8 +1481,7 @@ var app = new Vue({
                 app.purchase.p_reciept != '' &&
                 app.purchase.pay_mtd != '' &&
                 app.purchase.sale_type != ''
-            ) 
-            {
+            ) {
                 app.oldProductLog();
                 console.log(app.purchase);
                 axios.post("https://altara-api.herokuapp.com/api.php?action=purchase", formData)
@@ -1453,11 +1496,11 @@ var app = new Vue({
                         } else {
                             app.firstpurchase = true;
                             console.log(app.purchase.p_date);
-                            if (app.purchase.p_date < '2019-07-07' && app.empStatus=='formal'){
-                             console.log('old formal')
+                            if (app.purchase.p_date < '2019-07-07' && app.empStatus == 'formal') {
+                                console.log('old formal')
                                 app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'old-formal');
                             }
-                            else  {
+                            else {
                                 console.log('new formal')
                                 app.Repay(app.purchase.p_reciept, app.purchase.p_date, 'informal');
                             }
@@ -1526,7 +1569,7 @@ var app = new Vue({
                 });
         },
 
-        checkEmpStatus: function (id,pc_pprice) {
+        checkEmpStatus: function (id, pc_pprice) {
             axios.post("https://altara-api.herokuapp.com/api.php?action=empSta", {
                 // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=empSta",{
                 Customer_id: id
@@ -1537,8 +1580,9 @@ var app = new Vue({
                         app.errorMessage = response.data.message;
                     } else {
                         app.empStatus = response.data.checklist[0].empstatus;
-                        app.priceCal(pc_pprice, app.sale_t, app.bank_draft, app.purchase.p_date)
-                        
+                        // app.priceCal(pc_pprice, app.sale_t, app.bank_draft, app.purchase.p_date, app.r_month)
+                        app.illustratedPrice(pc_pprice, app.sale_t, app.bank_draft, app.purchase.p_date, app.r_month)
+
                     }
                 });
         },
@@ -1666,7 +1710,7 @@ var app = new Vue({
                 api_link = "https://altara-api.herokuapp.com/api.php?action=formal_repay"
                 // api_link =  "http://localhost/AltaraCredit/altara_api/api.php?action=formal_repay"
             }
-           
+
             else {
                 console.log('InFormal Order repay')
                 nextdate = app.formatDate(app.addDays(date, 14));
@@ -2006,8 +2050,8 @@ var app = new Vue({
                 });
         },
 
-        priceCal(mPrice, plan, bank_draft, date) {
-            console.log(app.empStatus + date);
+        priceCal(mPrice, plan, bank_draft, date, month) {
+            console.log(plan, month);
             let dPrice;
             let rPrice;
             let afInt;
@@ -2018,21 +2062,38 @@ var app = new Vue({
             let mRepay;
             let int;
             console.log(mPrice);
+            let margin;
             // let margin = 0.25;
-            let margin = (plan == 0) ? 0.33 : (plan == 20) ? 0.28 : (plan == 40) ? 0.27 : (plan == 60) ? 0.31 : (plan == 80) ? 0.30 : null;
-        
+           
+            // let margin = (plan == 0) ? 0.33 : (plan == 20) ? 0.28 : (plan == 40) ? 0.27 : (plan == 60) ? 0.31 : (plan == 80) ? 0.30 : null;
+
+            this.params.forEach(element => {
+                if (month == element.month) {
+                    console.log(element.month)
+                    element.pim.forEach(element2 => {
+                        if (element2.plan == plan) {
+                            this.int = element2.int;
+                            this.margin = element2.marg;
+                            console.log(element2.int, element2.marg);
+                        }
+                    });
+                }
+            });
+
+console.log(this.int, this.margin);
+
             if (mPrice <= 25000) {
-                mPrice = (mPrice * margin) + Number(mPrice);
+                mPrice = (mPrice * this.margin) + Number(mPrice);
                 Math.ceil(mPrice);
                 console.log(mPrice);
-                int = (plan == 0) ? 3.3 : 3;
+                this.int = (plan == 0) ? 3.3 : this.int;
                 dPrice = (plan == 0) ? 0 : mPrice * (plan / 100);
                 Math.ceil(dPrice / 100) * 100;
                 console.log(dPrice);
                 rPrice = mPrice - dPrice;
                 Math.ceil(rPrice / 100) * 100;
                 console.log(rPrice);
-                afInt = (rPrice * (int / 100)) * 12;
+                afInt = (rPrice * (this.int / 100)) * 12;
                 Math.ceil(afInt / 100) * 100;
                 console.log(afInt);
                 pInt = afInt + dPrice + rPrice;
@@ -2047,36 +2108,36 @@ var app = new Vue({
                 rePay = aTax - upFront;
                 Math.ceil(rePay / 100) * 100;
                 console.log(pInt);
-                mRepay = (bank_draft == true || (date < '2019-07-07' && app.empStatus=='formal')) ? rePay / 6 : rePay / 12;
+                mRepay = (bank_draft == true || (date < '2019-07-07' && app.empStatus == 'formal')) ? rePay / 6 : rePay / 12;
                 Math.ceil(mRepay / 100) * 100;
                 console.log(mRepay);
 
 
                 app.purchase.down_pay = (Math.ceil(upFront / 100) * 100) - 100;
                 app.purchase.repaymt = (Math.ceil(mRepay / 100) * 100) - 100;
-                app.purchase.product_price =  (bank_draft == true || (date < '2019-07-07' && app.empStatus=='formal')) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
+                app.purchase.product_price = (bank_draft == true || (date < '2019-07-07' && app.empStatus == 'formal')) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
 
             }
             else {
-                mPrice = (mPrice * margin) + Number(mPrice);
+                mPrice = (mPrice * this.margin) + Number(mPrice);
                 console.log(mPrice)
-                int = (plan == 0) ? 3.3 : 3;
+                this.int = (plan == 0) ? 3.3 : this.int;
                 dPrice = (plan == 0) ? 0 : mPrice * (plan / 100);
                 console.log(dPrice)
                 rPrice = mPrice - dPrice;
                 console.log(rPrice)
-                afInt = (rPrice * (int / 100)) * 12;
+                afInt = (rPrice * (this.int / 100)) * 12;
                 console.log(afInt);
                 pInt = afInt + dPrice + rPrice;
                 console.log(pInt);
                 aTax = ((0.05 * pInt) + pInt);
                 upFront = (plan == 0) ? 0 : aTax * (plan / 100);
                 rePay = aTax - upFront;
-                mRepay =  (bank_draft == true || (date < '2019-07-07' && app.empStatus=='formal')) ? rePay / 6 : rePay / 12;
+                mRepay = (bank_draft == true || (date < '2019-07-07' && app.empStatus == 'formal')) ? rePay / 6 : rePay / 12;
 
                 app.purchase.down_pay = Math.floor(upFront / 100) * 100
                 app.purchase.repaymt = Math.floor(mRepay / 100) * 100
-                app.purchase.product_price =  (bank_draft == true || (date < '2019-07-07' && app.empStatus=='formal'))? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
+                app.purchase.product_price = (bank_draft == true || (date < '2019-07-07' && app.empStatus == 'formal')) ? (app.purchase.repaymt * 6 + app.purchase.down_pay) : (app.purchase.repaymt * 12 + app.purchase.down_pay)
 
             }
 
@@ -2093,6 +2154,160 @@ var app = new Vue({
 
         },
 
+
+      
+        checkP(wPrice, val){
+            if (wPrice > 25000){
+              return val;
+            }
+            else {
+              return Math.ceil(val/100)*100;
+            }
+          },
+    
+          
+          rawCal ( wPrice, plan, bank_draft, date, month) {
+    
+        params = [
+                {
+                    month: 12, pim: [
+                        { plan: 20, int: 2.5, marg: 0.35 },
+                        { plan: 40, int: 2.5, marg: 0.35 },
+                        { plan: 60, int: 2.5, marg: 0.35 },
+                        { plan: 80, int: 2.5, marg: 0.35 }
+    
+                    ]
+                },
+                {
+                    month: 6, pim: [
+                        { plan: 20, int: 3, marg: 0.34 },
+                        { plan: 40, int: 3, marg: 0.34 },
+                        { plan: 60, int: 3, marg: 0.36 },
+                        { plan: 80, int: 3, marg: 0.35 }
+    
+                    ]
+                },
+                {
+                    month: 3 , pim: [
+                        { plan: 20, int: 3, marg: 0.35 },
+                        { plan: 40, int: 3.5, marg: 0.36 },
+                        { plan: 60, int: 3.5, marg: 0.35 },
+                        { plan: 80, int: 3.5, marg: 0.34 }
+    
+                    ]
+                }
+            ],
+    
+                console.log(plan, month);
+                let mPrice;
+                let dpPrice;
+                let rInt;
+                let trInt;
+                let tbTax;
+                let taTax;
+                let rePay;
+                let margin;
+                let int;
+                
+              
+                this.params.forEach(element => {
+                    if (month == element.month) {
+                        console.log(element.month)
+                        element.pim.forEach(element2 => {
+                            if (element2.plan == plan) {
+                                this.int = element2.int;
+                                this.margin = element2.marg;
+                                console.log(element2.int, element2.marg);
+                            }
+                        });
+                    }
+                });
+    
+                var monthParam = (month == 12)? 24 :  (month == 6)? 12 : 6 ;
+                console.log(monthParam);
+    
+                    console.log(this.int, this.margin);
+    
+                    // market price
+                    mPrice =     app.checkP(wPrice, (wPrice * this.margin) + Number(wPrice));
+                    console.log(mPrice)
+                    
+                    // downpayment price
+                    dpPrice = app.checkP(wPrice, mPrice * (plan / 100)) ;
+                    console.log(dpPrice)
+    
+                    //residual price
+                    rPrice = app.checkP(wPrice, mPrice - dpPrice) ;
+                    console.log(rPrice)
+    
+                    //interest on residual
+                    rInt = app.checkP(wPrice, (rPrice * (this.int / 100))) 
+                    console.log(rInt);
+    
+                    // totalresidual after interest
+                    trInt = app.checkP(wPrice,  ((rPrice/monthParam)+rInt) * monthParam) 
+                    console.log(rInt);
+    
+                    
+    
+                    // total before tax
+                    tbTax = app.checkP(wPrice, trInt + dpPrice)  
+                    console.log(tbTax);
+       
+                    // total after tax
+                    taTax = app.checkP(wPrice, tbTax + (tbTax * 0.05)) ;
+                    console.log(taTax);
+    
+                    return taTax;
+            },
+    
+             illustratedPrice(wPrice, plan, bank_draft, date, month){
+          let newDp;
+          let newRp;
+          let mRepay;
+          let newTax;
+           // total after tax
+          let taTax  =  app.rawCal (wPrice, plan, bank_draft, date, month);
+    
+          var monthParam = (month == 12)? 24 :  (month == 6)? 12 : 6 ;
+                console.log(monthParam);
+    
+                   // new downpayment price
+                    newDp =  app.checkP(wPrice, taTax * (plan / 100)) ;
+                    console.log(newDp)
+    
+                    //new residual price
+                    newRp = app.checkP(wPrice, taTax - newDp) ;
+                    console.log(newRp)
+    
+                  //Montly repayment price
+                    mRepay = app.checkP(wPrice, newRp / monthParam) ;
+                    console.log(mRepay)
+                   
+                   if (wPrice){
+                   newTax = Math.floor(newDp/100)*100 + (Math.floor(mRepay/100)*100 *(monthParam));
+                console.log('Total Price = ' + newTax);
+                console.log('UpFront = ' + Math.floor(newDp/100)*100);
+                console.log('Montly Repayment = ' + Math.floor(mRepay/100)*100);
+                app.purchase.down_pay = Math.floor(newDp/100)*100;
+                app.purchase.repaymt = Math.floor(mRepay/100)*100;
+                app.purchase.product_price = newTax;
+
+    
+                   }
+                   else {
+                    newTax = newDp + (mRepay * monthParam);
+
+                    app.purchase.down_pay = newD;
+                    app.purchase.repaymt = mRepay;
+                    app.purchase.product_price = newTax;
+                console.log('Total Price = ' + newTax);
+                console.log('UpFront = ' + newDp);
+                console.log('Montly Repayment = ' + mRepay);
+    
+                   }
+          },
+        
         pushToRepay: function (selectedOrder, to) {
             var rep;
             app.repay_date = [];
