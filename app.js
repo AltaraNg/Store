@@ -222,6 +222,11 @@ var app = new Vue({
                                     "Front loader 7.2kg",
                                     "Front loader 5kg"
                                 ]
+                            },
+                            {
+                                name: "Synix", sizes: [
+                                    " 7.0kg"
+                                ]
                             }
                         ]
                     },
