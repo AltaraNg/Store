@@ -1121,6 +1121,12 @@ var app = new Vue({
                                 "nylon package",
                             ]
                         },
+                        {
+                            name: "Flexi", sizes: [
+                                "basket package",
+                                "nylon package",
+                            ]
+                        },
                     ]
                 }]
             }
