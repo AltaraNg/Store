@@ -578,7 +578,8 @@ var app = new Vue({
                                     "P33 Plus",
                                     "A55",
                                     "S15 PRO",
-                                    "S15 2gb"
+                                    "S15 2gb",
+                                    "P15"
                                 ]
                             },
                             {
@@ -1127,6 +1128,22 @@ var app = new Vue({
                                 "nylon package",
                             ]
                         },
+                    ]
+                }]
+            },
+            {
+                branchId: 4,
+                branchType: "Altara Cash Loan",
+                branchProducts: [{
+                    id: 1,
+                    prodType: "Cash Loan",
+                    models: [
+                        {
+                            name: "Loan", sizes: [
+                                "Cash",
+                                "Direct Debit",
+                            ]
+                        }
                     ]
                 }]
             }
