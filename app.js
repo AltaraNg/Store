@@ -2185,12 +2185,12 @@ console.log(this.int, this.margin);
 
       
         checkP(wPrice, val){
-            if (wPrice > 25000){
+            // if (wPrice > 25000){
               return val;
-            }
-            else {
-              return Math.ceil(val/100)*100;
-            }
+            // }
+            // else {
+            //   return Math.ceil(val/100)*100;
+            // }
           },
     
           
