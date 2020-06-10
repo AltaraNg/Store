@@ -288,6 +288,11 @@ var app = new Vue({
                                     "26 inch"
                                 ]
                             },
+                            {
+                                name: "Sonic", sizes: [
+                                    "26 inch"
+                                ]
+                            },
                         ]
                     },
                     {
@@ -556,7 +561,9 @@ var app = new Vue({
                                     "pop 2F",
                                     "pop 2 Power",
                                     "Canon 12 Air",
-                                    "Pop 2 Plus"
+                                    "Pop 2 Plus",
+                                    "Spark 5 Air ",
+                                    "Spark 5"
                                 ]
                             },
                             {
