@@ -263,6 +263,12 @@ var app = new Vue({
                                 name: "Sumec Fireman", sizes: [
                                     "1.0kva"
                                 ]
+                            },
+                            {
+                                name: "Power value", sizes: [
+                                    "2.2kva",
+                                    "2.5kVa"
+                                ]
                             }
                         ]
                     },
@@ -562,7 +568,7 @@ var app = new Vue({
                                     "pop 2 Power",
                                     "Canon 12 Air",
                                     "Pop 2 Plus",
-                                    "Spark 5 Air ",
+                                    "Spark 5 Air 2gb",
                                     "Spark 5"
                                 ]
                             },
@@ -586,7 +592,8 @@ var app = new Vue({
                                     "A55",
                                     "S15 PRO",
                                     "S15 2gb",
-                                    "P15"
+                                    "P15",
+                                    "A56- 1gb"
                                 ]
                             },
                             {
@@ -698,7 +705,18 @@ var app = new Vue({
                                     "5kva",
                                     "2kva"
                                 ]
-                            }
+                            },
+                            {
+                                name: "Qasa", sizes: [
+                                    "2.0 kVa",
+                                ]
+                            },
+                            {
+                                name: "Duravolt", sizes: [
+                                    "2.0 kVa",
+                                    "5.0kVa"
+                                ]
+                            },
                         ]
                     },
                     {
