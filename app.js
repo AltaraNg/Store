@@ -269,6 +269,11 @@ var app = new Vue({
                                     "2.2kva",
                                     "2.5kVa"
                                 ]
+                            },
+                            {
+                                name: "Peak power", sizes: [
+                                    "2.2kva",
+                                ]
                             }
                         ]
                     },
@@ -530,6 +535,9 @@ var app = new Vue({
                                     "Hot 8 pro-3gb",
                                     "Smart 4 1gb",
                                     "Hot 8 lite 2gb",
+                                    "Hot 7 lite 4gb",
+                                    "Hot 9 play 2gb",
+
 
                                 ]
                             },
@@ -593,7 +601,8 @@ var app = new Vue({
                                     "S15 PRO",
                                     "S15 2gb",
                                     "P15",
-                                    "A56- 1gb"
+                                    "A56- 1gb",
+                                    "P36",
                                 ]
                             },
                             {
@@ -608,6 +617,11 @@ var app = new Vue({
                                     "J2 chore",
                                     "J4 chore",
                                     "A20"
+                                ]
+                            },
+                            {
+                                name: "Zinox", sizes: [
+                                    "Zpad X7",
                                 ]
                             }
                         ]
