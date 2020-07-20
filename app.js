@@ -577,7 +577,8 @@ var app = new Vue({
                                     "Canon 12 Air",
                                     "Pop 2 Plus",
                                     "Spark 5 Air 2gb",
-                                    "Spark 5"
+                                    "Spark 5",
+                                    " Camon 15 Air"
                                 ]
                             },
                             {
