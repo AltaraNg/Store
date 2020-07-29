@@ -537,6 +537,8 @@ var app = new Vue({
                                     "Hot 8 lite 2gb",
                                     "Hot 7 lite 4gb",
                                     "Hot 9 play 2gb",
+                                    "Note 7 lite 4gb",
+
 
 
                                 ]
@@ -578,7 +580,7 @@ var app = new Vue({
                                     "Pop 2 Plus",
                                     "Spark 5 Air 2gb",
                                     "Spark 5",
-                                    " Camon 15 Air"
+                                    "Camon 15 Air",
                                 ]
                             },
                             {
