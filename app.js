@@ -301,7 +301,8 @@ var app = new Vue({
                             },
                             {
                                 name: "Sonic", sizes: [
-                                    "26 inch"
+                                    "26 inch",
+                                    "20 inch"
                                 ]
                             },
                         ]
