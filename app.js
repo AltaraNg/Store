@@ -608,6 +608,7 @@ var app = new Vue({
                                     "P15",
                                     "A56- 1gb",
                                     "P36",
+                                    "A56- Pro",
                                 ]
                             },
                             {
