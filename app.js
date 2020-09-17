@@ -627,7 +627,7 @@ var app = new Vue({
                             },
                             {
                                 name: "Zinox", sizes: [
-                                    "Zpad X7",
+                                    "Zpad X7 1gb",
                                 ]
                             }
                         ]
@@ -649,6 +649,11 @@ var app = new Vue({
                             {
                                 name: "Vigitab", sizes: [
                                     "ANDRIOD 1gb"
+                                ]
+                            },
+                            {
+                                name: "Zinox", sizes: [
+                                    "Zpad X7 1gb",
                                 ]
                             }
                         ]
