@@ -584,6 +584,7 @@ var app = new Vue({
                                     "Spark 5 Air 2gb",
                                     "Spark 5",
                                     "Camon 15 Air",
+                                    "pouvoir 4"
                                 ]
                             },
                             {
