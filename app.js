@@ -490,7 +490,8 @@ var app = new Vue({
                             },
                             {
                                 name: "LG", sizes: [
-                                    "32 inches LED"
+                                    "32 inches LED",
+                                    "43 inches LED"
                                 ]
                             },
                             {
