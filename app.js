@@ -781,6 +781,7 @@ var app = new Vue({
                             {
                                 name: "Tv - Stabilzer", sizes: [
                                     "Century Tv, 2KVa Stabilizer",
+                                    "32inch Maxi Tv, 2.0KVa Duravolt Stabilizer",
                                 ]
                             },
                             {
