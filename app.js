@@ -609,7 +609,7 @@ var app = new Vue({
                                     "S15 2gb",
                                     "P15",
                                     "A56- 1gb",
-                                    "P36",
+                                    "P36 2gb",
                                     "A56- Pro",
                                 ]
                             },
