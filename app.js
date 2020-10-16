@@ -1139,7 +1139,7 @@ var app = new Vue({
                     },
                     {
                         id: 23,
-                        prodType: "Barbar's Chair",
+                        prodType: "Barbar Chair",
                         models: [
                             {
                                 name: "Local(Fabricated)", sizes: [
