@@ -766,7 +766,8 @@ var app = new Vue({
                             {
                                 name: "Fan - Stabilzer", sizes: [
                                     "20 INCHES OX FAN + 2000KVA EVERGREEN STABLIZER",
-                                    "20 INCHES POLYSTAR STANDING FAN + 2000KVA EVERGOOD STABLIZER"
+                                    "20 INCHES POLYSTAR STANDING FAN + 2000KVA EVERGOOD STABLIZER",
+                                    "20 INCHES CENTURY FAN + 2.0KVA DURAVOLT STABLIZER"
                                 ]
                             },
                             {
@@ -793,7 +794,8 @@ var app = new Vue({
                             {
                                 name: "Freezer - Stablizer", sizes: [
                                     "205l hisense chest freezer + 2000KVA stablizer",
-                                    "250l Hisense chest freezer and 2.OKVA EVERGOOD STABILIZER"
+                                    "250l Hisense chest freezer and 2.OKVA EVERGOOD STABILIZER",
+                                    "250l Hisense chest freezer + 2.0KVA DURAVOLT STABLIZER",
                                 ]
                             },
                         ]
