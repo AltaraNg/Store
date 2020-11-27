@@ -182,6 +182,7 @@ var app = new Vue({
                                     "165l",
                                     "250l",
                                     "150L",
+                                    "130L",
                                     "92L",
                                     "150L"
                                 ]
@@ -2086,7 +2087,7 @@ var app = new Vue({
 
             console.log(app.empStatus);
 
-            // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=orders", {   
+            // axios.post("http://localhost/AltaraCredit/altara_api/api.php?action=orders", {
             axios.post("https://altara-api.herokuapp.com/api.php?action=orders", {
                 // axios.post(api_link, {
                 Customer_id: app.Customer_id
@@ -2148,7 +2149,7 @@ var app = new Vue({
             console.log(mPrice);
             let margin;
             // let margin = 0.25;
-           
+
             // let margin = (plan == 0) ? 0.33 : (plan == 20) ? 0.28 : (plan == 40) ? 0.27 : (plan == 60) ? 0.31 : (plan == 80) ? 0.30 : null;
 
             this.params.forEach(element => {
@@ -2239,7 +2240,7 @@ console.log(this.int, this.margin);
         },
 
 
-      
+
         checkP(wPrice, val){
             // if (wPrice > 25000){
               return val;
@@ -2248,10 +2249,10 @@ console.log(this.int, this.margin);
             //   return Math.ceil(val/100)*100;
             // }
           },
-    
-          
+
+
           rawCal ( wPrice, plan, bank_draft, date, month) {
-    
+
         params = [
                 {
                     month: 12, pim: [
@@ -2259,7 +2260,7 @@ console.log(this.int, this.margin);
                         { plan: 40, int: 2.5, marg: 0.35 },
                         { plan: 60, int: 2.5, marg: 0.35 },
                         { plan: 80, int: 2.5, marg: 0.35 }
-    
+
                     ]
                 },
                 {
@@ -2268,7 +2269,7 @@ console.log(this.int, this.margin);
                         { plan: 40, int: 3, marg: 0.34 },
                         { plan: 60, int: 3, marg: 0.36 },
                         { plan: 80, int: 3, marg: 0.35 }
-    
+
                     ]
                 },
                 {
@@ -2277,11 +2278,11 @@ console.log(this.int, this.margin);
                         { plan: 40, int: 3.5, marg: 0.36 },
                         { plan: 60, int: 3.5, marg: 0.35 },
                         { plan: 80, int: 3.5, marg: 0.34 }
-    
+
                     ]
                 }
             ],
-    
+
                 console.log(plan, month);
                 let mPrice;
                 let dpPrice;
@@ -2292,8 +2293,8 @@ console.log(this.int, this.margin);
                 let rePay;
                 let margin;
                 let int;
-                
-              
+
+
                 this.params.forEach(element => {
                     if (month == element.month) {
                         console.log(element.month)
@@ -2306,45 +2307,45 @@ console.log(this.int, this.margin);
                         });
                     }
                 });
-    
+
                 var monthParam = (month == 12)? 24 :  (month == 6)? 12 : 6 ;
                 console.log(monthParam);
-    
+
                     console.log(this.int, this.margin);
-    
+
                     // market price
                     mPrice =     app.checkP(wPrice, (wPrice * this.margin) + Number(wPrice));
                     console.log(mPrice)
-                    
+
                     // downpayment price
                     dpPrice = app.checkP(wPrice, mPrice * (plan / 100)) ;
                     console.log(dpPrice)
-    
+
                     //residual price
                     rPrice = app.checkP(wPrice, mPrice - dpPrice) ;
                     console.log(rPrice)
-    
+
                     //interest on residual
-                    rInt = app.checkP(wPrice, (rPrice * (this.int / 100))) 
+                    rInt = app.checkP(wPrice, (rPrice * (this.int / 100)))
                     console.log(rInt);
-    
+
                     // totalresidual after interest
-                    trInt = app.checkP(wPrice,  ((rPrice/monthParam)+rInt) * monthParam) 
+                    trInt = app.checkP(wPrice,  ((rPrice/monthParam)+rInt) * monthParam)
                     console.log(rInt);
-    
-                    
-    
+
+
+
                     // total before tax
-                    tbTax = app.checkP(wPrice, trInt + dpPrice)  
+                    tbTax = app.checkP(wPrice, trInt + dpPrice)
                     console.log(tbTax);
-       
+
                     // total after tax
                     taTax = app.checkP(wPrice, tbTax + (tbTax * 0.05)) ;
                     console.log(taTax);
-    
+
                     return taTax;
             },
-    
+
              illustratedPrice(wPrice, plan, bank_draft, date, month){
           let newDp;
           let newRp;
@@ -2352,22 +2353,22 @@ console.log(this.int, this.margin);
           let newTax;
            // total after tax
           let taTax  =  app.rawCal (wPrice, plan, bank_draft, date, month);
-    
+
           var monthParam = (month == 12)? 24 :  (month == 6)? 12 : 6 ;
                 console.log(monthParam);
-    
+
                    // new downpayment price
                     newDp =  app.checkP(wPrice, taTax * (plan / 100)) ;
                     console.log(newDp)
-    
+
                     //new residual price
                     newRp = app.checkP(wPrice, taTax - newDp) ;
                     console.log(newRp)
-    
+
                   //Montly repayment price
                     mRepay = app.checkP(wPrice, newRp / monthParam) ;
                     console.log(mRepay)
-                   
+
                    if (wPrice){
                    newTax = Math.floor(newDp/100)*100 + (Math.floor(mRepay/100)*100 *(monthParam));
                 console.log('Total Price = ' + newTax);
@@ -2377,7 +2378,7 @@ console.log(this.int, this.margin);
                 app.purchase.repaymt = Math.floor(mRepay/100)*100;
                 app.purchase.product_price = newTax;
 
-    
+
                    }
                    else {
                     newTax = newDp + (mRepay * monthParam);
@@ -2388,10 +2389,10 @@ console.log(this.int, this.margin);
                 console.log('Total Price = ' + newTax);
                 console.log('UpFront = ' + newDp);
                 console.log('Montly Repayment = ' + mRepay);
-    
+
                    }
           },
-        
+
         pushToRepay: function (selectedOrder, to) {
             var rep;
             app.repay_date = [];
@@ -2400,7 +2401,7 @@ console.log(this.int, this.margin);
             var date = new Date(app.orderDate);
             var a;
 
-            // if (app.orderDate >) 
+            // if (app.orderDate >)
 
             // var api_link;
             // if (app.bank_draft == true && app.empStatus == 'formal') {
@@ -2624,8 +2625,8 @@ console.log(this.int, this.margin);
 
 // UPDATE orders
 //         INNER JOIN
-//     customers ON customers.id = orders.customer_id 
-// SET 
+//     customers ON customers.id = orders.customer_id
+// SET
 //     orders.repayment_amount = orders.repayment_amount * 2
 
 //     Where customers.employment_status='formal' AND (((orders.repayment_amount*6) + orders.down_payment) < orders.product_price) AND orders.order_date < '2019-07-08'
@@ -2633,8 +2634,8 @@ console.log(this.int, this.margin);
 
 // UPDATE orders
 //         INNER JOIN
-//     customers ON customers.id = orders.customer_id 
-// SET 
+//     customers ON customers.id = orders.customer_id
+// SET
 //     orders.repayment_amount = orders.repayment_amount / 2
 
 //      Where customers.employment_status='Informal(business)' AND (((orders.repayment_amount*12) + orders.down_payment) > (orders.product_price + 1))
@@ -2645,8 +2646,8 @@ console.log(this.int, this.margin);
 
 // UPDATE orders
 //         INNER JOIN
-//     customers ON customers.id = orders.customer_id 
-// SET 
+//     customers ON customers.id = orders.customer_id
+// SET
 //     orders.repayment_amount = (FLOOR(repayment_amount/200)*100)*2
 
 //     Where customers.employment_status='formal' AND orders.order_date < '2019-07-08'
