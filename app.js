@@ -228,6 +228,11 @@ var app = new Vue({
                                 name: "Synix", sizes: [
                                     " 7.0kg"
                                 ]
+                            },
+                            {
+                                name: "Nexus", sizes: [
+                                    " 7.5kg"
+                                ]
                             }
                         ]
                     },
