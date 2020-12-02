@@ -231,7 +231,8 @@ var app = new Vue({
                             },
                             {
                                 name: "Nexus", sizes: [
-                                    " 7.5kg"
+                                    " 7.5kg",
+                                    " 8.5kg",
                                 ]
                             }
                         ]
