@@ -1279,29 +1279,34 @@ var app = new Vue({
         params : [
             {
                 month: 12, pim: [
-                    { plan: 20, int: 2.5, marg: 0.35 },
-                    { plan: 40, int: 2.5, marg: 0.35 },
-                    { plan: 60, int: 2.5, marg: 0.35 },
-                    { plan: 80, int: 2.5, marg: 0.35 }
+                    { plan: 0, int: 3, marg: 0.35 },
+                    { plan: 10, int: 4, marg: 0.40 },
+                    { plan: 20, int: 2.5, marg: 0.29 },
+                    { plan: 40, int: 2.5, marg: 0.30 },
+                    { plan: 60, int: 2.5, marg: 0.30 },
+                    { plan: 80, int: 2.5, marg: 0.30 }
 
                 ]
             },
             {
                 month: 6, pim: [
-                    { plan: 20, int: 3, marg: 0.34 },
-                    { plan: 40, int: 3, marg: 0.34 },
-                    { plan: 60, int: 3, marg: 0.36 },
-                    { plan: 80, int: 3, marg: 0.35 }
+                    { plan: 0, int: 3.3, marg: 0.33 },
+                    { plan: 10, int: 4, marg: 0.40 },
+                    { plan: 20, int: 3, marg: 0.28 },
+                    { plan: 40, int: 3, marg: 0.27 },
+                    { plan: 60, int: 3, marg: 0.31 },
+                    { plan: 80, int: 3, marg: 0.30 }
 
                 ]
             },
             {
                 month: 3 , pim: [
-                    { plan: 20, int: 3, marg: 0.35 },
-                    { plan: 40, int: 4, marg: 0.36 },
-                    { plan: 60, int: 4, marg: 0.35 },
-                    { plan: 80, int: 4, marg: 0.34 }
-
+                    { plan: 0, int: 3.3, marg: 0.33 },
+                    { plan: 10, int: 4, marg: 0.40 },
+                    { plan: 20, int: 3, marg: 0.30 },
+                    { plan: 40, int: 4, marg: 0.29 },
+                    { plan: 60, int: 4, marg: 0.29 },
+                    { plan: 80, int: 4, marg: 0.28 }
                 ]
             }
         ],
@@ -2250,33 +2255,38 @@ console.log(this.int, this.margin);
           rawCal ( wPrice, plan, bank_draft, date, month) {
     
         params = [
-                {
-                    month: 12, pim: [
-                        { plan: 20, int: 2.5, marg: 0.35 },
-                        { plan: 40, int: 2.5, marg: 0.35 },
-                        { plan: 60, int: 2.5, marg: 0.35 },
-                        { plan: 80, int: 2.5, marg: 0.35 }
-    
-                    ]
-                },
-                {
-                    month: 6, pim: [
-                        { plan: 20, int: 3, marg: 0.34 },
-                        { plan: 40, int: 3, marg: 0.34 },
-                        { plan: 60, int: 3, marg: 0.36 },
-                        { plan: 80, int: 3, marg: 0.35 }
-    
-                    ]
-                },
-                {
-                    month: 3 , pim: [
-                        { plan: 20, int: 3, marg: 0.35 },
-                        { plan: 40, int: 3.5, marg: 0.36 },
-                        { plan: 60, int: 3.5, marg: 0.35 },
-                        { plan: 80, int: 3.5, marg: 0.34 }
-    
-                    ]
-                }
+            {
+                month: 12, pim: [
+                    { plan: 0, int: 3, marg: 0.35 },
+                    { plan: 10, int: 4, marg: 0.40 },
+                    { plan: 20, int: 2.5, marg: 0.29 },
+                    { plan: 40, int: 2.5, marg: 0.30 },
+                    { plan: 60, int: 2.5, marg: 0.30 },
+                    { plan: 80, int: 2.5, marg: 0.30 }
+
+                ]
+            },
+            {
+                month: 6, pim: [
+                    { plan: 0, int: 3.3, marg: 0.33 },
+                    { plan: 10, int: 4, marg: 0.40 },
+                    { plan: 20, int: 3, marg: 0.28 },
+                    { plan: 40, int: 3, marg: 0.27 },
+                    { plan: 60, int: 3, marg: 0.31 },
+                    { plan: 80, int: 3, marg: 0.30 }
+
+                ]
+            },
+            {
+                month: 3 , pim: [
+                    { plan: 0, int: 3.3, marg: 0.33 },
+                    { plan: 10, int: 4, marg: 0.40 },
+                    { plan: 20, int: 3, marg: 0.30 },
+                    { plan: 40, int: 4, marg: 0.29 },
+                    { plan: 60, int: 4, marg: 0.29 },
+                    { plan: 80, int: 4, marg: 0.28 }
+                ]
+            }
             ],
     
                 console.log(plan, month);
