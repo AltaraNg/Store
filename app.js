@@ -118,6 +118,7 @@ var app = new Vue({
                             {
                                 name: "Syinix", sizes: [
                                     "145l",
+                                    "195l",
                                     "200l",
                                     "265l"
                                 ]
@@ -401,6 +402,11 @@ var app = new Vue({
                                 name: "Century", sizes: [
                                     "20l"
                                 ]
+                            },
+                            {
+                                name: "Hisense", sizes: [
+                                    "20l"
+                                ]
                             }
                         ]
                     },
@@ -487,6 +493,7 @@ var app = new Vue({
                                     "43 inches LED",
                                     "49 inches LED",
                                     "40 inches smart",
+                                    "43 inches smart",
                                 ]
                             },
                             {
@@ -546,6 +553,7 @@ var app = new Vue({
                                     "Hot 8 lite 2gb",
                                     "Hot 7 lite 4gb",
                                     "Hot 9 play 2gb",
+                                    "Hot 10 lite 2gb",
                                     "Note 7 lite 4gb",
 
 
@@ -571,6 +579,7 @@ var app = new Vue({
                                     "pouvoir LA7 pro-3gb",
                                     "pouvoir LB6-1gb",
                                     "pop 2",
+                                    "pop 2 plus 1gb",
                                     "pop 3",
                                     "pop 4",
                                     "Spark 3 2gb",
@@ -617,6 +626,7 @@ var app = new Vue({
                                     "S15 2gb",
                                     "P15",
                                     "A56- 1gb",
+                                    "P36 1gb",
                                     "P36 2gb",
                                     "A56- Pro",
                                 ]
@@ -687,6 +697,11 @@ var app = new Vue({
                                 name: "Maxi", sizes: [
                                     "2 TAPS",
                                     "3 TAPS"
+                                ]
+                            },
+                            {
+                                name: "Nexus", sizes: [
+                                    "3 F"
                                 ]
                             }
                         ]
