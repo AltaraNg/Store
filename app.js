@@ -582,6 +582,7 @@ var app = new Vue({
                                     "pop 2 plus 1gb",
                                     "pop 3",
                                     "pop 4",
+                                    "pop 4 pro",
                                     "Spark 3 2gb",
                                     "Spark Youth 1gb ",
                                     "pouvoir 3 Air 1gb",
@@ -1305,7 +1306,7 @@ var app = new Vue({
         params : [
             {
                 month: 12, pim: [
-                    { plan: 0, int: 3, marg: 0.35 },                    
+                    { plan: 0, int: 3, marg: 0.35 },
                     { plan: 20, int: 2.5, marg: 0.29 },
                     { plan: 40, int: 2.5, marg: 0.30 },
                     { plan: 60, int: 2.5, marg: 0.30 },
@@ -1315,7 +1316,7 @@ var app = new Vue({
             },
             {
                 month: 6, pim: [
-                    { plan: 0, int: 3.3, marg: 0.33 },                    
+                    { plan: 0, int: 3.3, marg: 0.33 },
                     { plan: 20, int: 3, marg: 0.28 },
                     { plan: 40, int: 3, marg: 0.27 },
                     { plan: 60, int: 3, marg: 0.31 },
@@ -1325,7 +1326,7 @@ var app = new Vue({
             },
             {
                 month: 3 , pim: [
-                    { plan: 0, int: 3.3, marg: 0.33 },                    
+                    { plan: 0, int: 3.3, marg: 0.33 },
                     { plan: 20, int: 3, marg: 0.30 },
                     { plan: 40, int: 3.5, marg: 0.29 },
                     { plan: 60, int: 3.5, marg: 0.29 },
@@ -2280,7 +2281,7 @@ console.log(this.int, this.margin);
         params = [
                {
                 month: 12, pim: [
-                    { plan: 0, int: 3, marg: 0.35 },                    
+                    { plan: 0, int: 3, marg: 0.35 },
                     { plan: 20, int: 2.5, marg: 0.29 },
                     { plan: 40, int: 2.5, marg: 0.30 },
                     { plan: 60, int: 2.5, marg: 0.30 },
@@ -2290,7 +2291,7 @@ console.log(this.int, this.margin);
             },
             {
                 month: 6, pim: [
-                    { plan: 0, int: 3.3, marg: 0.33 },                    
+                    { plan: 0, int: 3.3, marg: 0.33 },
                     { plan: 20, int: 3, marg: 0.28 },
                     { plan: 40, int: 3, marg: 0.27 },
                     { plan: 60, int: 3, marg: 0.31 },
@@ -2300,7 +2301,7 @@ console.log(this.int, this.margin);
             },
             {
                 month: 3 , pim: [
-                    { plan: 0, int: 3.3, marg: 0.33 },                    
+                    { plan: 0, int: 3.3, marg: 0.33 },
                     { plan: 20, int: 3, marg: 0.30 },
                     { plan: 40, int: 3.5, marg: 0.29 },
                     { plan: 60, int: 3.5, marg: 0.29 },
