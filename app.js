@@ -819,6 +819,7 @@ var app = new Vue({
                                     "205l hisense chest freezer + 2000KVA stablizer",
                                     "250l Hisense chest freezer and 2.OKVA EVERGOOD STABILIZER",
                                     "250l Hisense chest freezer + 2.0KVA DURAVOLT STABLIZER",
+                                    "265l Syinix chest freezer + 2.0KVA Qasa STABLIZER",
                                 ]
                             },
                         ]
