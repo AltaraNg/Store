@@ -108,7 +108,7 @@ var app = new Vue({
     watch: {
         product_sku: function () {
             console.log(this.product_sku.toUpperCase());
-            if (this.product_sku.length > 5 ) {              
+            if (this.product_sku.length > 5 ) {
                   console.log("call change");
                 axios.post("https://altara-api.herokuapp.com/api.php?action=checkprod", { product_sku: this.product_sku })
                     .then(function (response) {
@@ -120,7 +120,7 @@ var app = new Vue({
                             if (response.data.users.length > 0) {
                                 app.twproduct_price= response.data.users[0].pc_pprice20;
                                 app.frproduct_price = response.data.users[0].pc_pprice40;
-                              
+
                             }
                             else
                                 app.errorMessage = 'No records';
@@ -134,7 +134,7 @@ var app = new Vue({
         }
         },
         ppercentage: function () {
-            if (this.product_sku.length != '' && this.ppercentage == 'twenty') {              
+            if (this.product_sku.length != '' && this.ppercentage == 'twenty') {
                   app.product_price = app.twproduct_price;
                   console.log("twenty" + app.product_price);
                   app.repayment = Math.floor(((app.product_price - ((Math.floor((0.2 * app.product_price) / 100)) * 100)) / 12) / 100) * 100;
@@ -151,7 +151,7 @@ var app = new Vue({
     mounted: function () {
         console.log('mounted');
         this.ListEmployees();
-        
+
     },
     computed: {
         filteredList_customers: function () {
@@ -170,7 +170,7 @@ var app = new Vue({
             app.purchase.repaymt = app.repayment;
             app.purchase.referrer_id = app.referrer_id;
             app.purchase.staff_referrer_id = app.staff_referrer_id;
-            
+
             var formData = app.toFormData(app.purchase);
             console.log(app.purchase)
 
@@ -262,7 +262,7 @@ var app = new Vue({
                         app.product.fpc_pprice= '';
                         app.product.receiver_id= '';
                         app.product.store_name= '';
-                        
+
                     }
                 });
 
@@ -302,7 +302,7 @@ var app = new Vue({
                         if (app.firstpurchase == false) {
                             // app.UpdateRepay(id);
                         }
-                       
+
                         app.firstpurchase = false;
                         app.successMessage = response.data.message;
                         setTimeout(function () {
@@ -322,7 +322,7 @@ var app = new Vue({
                     if (response.data.error) {
                         app.errorMessage = response.data.message;
                     } else {
-                      
+
                         console.log(response.data.orders[0])
                         response.data.orders[0].order_date = app.orderDate;
                         response.data.orders[0].repayment = app.repay_amt;
@@ -519,7 +519,7 @@ var app = new Vue({
                             app.p_guar = response.data.checklist[0].personal_gua;
                             app.store_v = response.data.checklist[0].store_visited;
                         }
-                        
+
                         else {
                             // app.errorMessage = "Customer ID Doest Exist!";
                             // // app.sendNotification(name, telnumber)
@@ -693,18 +693,7 @@ var app = new Vue({
         },
 
         sendNotification(name, telnumber) {
-            telnumber = telnumber.substr(1);
-            let message = "Dear " + name + ", Welcome to Altara Credit Limited. You are required to bring the following documents. 1. Proof of ID, 2. Passport Photo (2), 3. Utility bill(Nepa, Not later than 3 months), 4. Six Months Bank Statement till date,  5. Gurantor's cheque.";
-            axios.get("https://api.infobip.com/sms/1/text/query?username=Oluwatoke12&password=Altara99&to=" + 234 + telnumber + "&text=" + message + "")
-                .then(function (response2) {
-
-                    console.log(response2);
-                    if (response2.status == 200) {
-                        updateRemark(Updata)
-                    } else {
-                        app.errorMessage = "Error Sending Message, Contact Support";
-                    }
-                });
+            window.alert('Contact Admin')
         }
     }
 });
