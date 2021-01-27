@@ -510,6 +510,7 @@ var app = new Vue({
                             },
                             {
                                 name: "Maxi", sizes: [
+                                    "43 inches",
                                     "32 inches",
                                     "24 inches"
                                 ]
@@ -553,6 +554,7 @@ var app = new Vue({
                                     "Hot 8 lite 2gb",
                                     "Hot 7 lite 4gb",
                                     "Hot 9 play 2gb",
+                                    "Hot 10 lite",
                                     "Hot 10 lite 2gb",
                                     "Note 7 lite 4gb",
 
@@ -630,6 +632,7 @@ var app = new Vue({
                                     "P36 1gb",
                                     "P36 2gb",
                                     "A56- Pro",
+                                    "S16- 1GB",
                                 ]
                             },
                             {
