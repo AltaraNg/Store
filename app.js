@@ -633,6 +633,7 @@ var app = new Vue({
                                     "P36 2gb",
                                     "A56- Pro",
                                     "S16- 1GB",
+                                    "S16- 2GB",
                                 ]
                             },
                             {
