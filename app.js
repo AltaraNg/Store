@@ -130,6 +130,7 @@ var app = new Vue({
                                     "205l",
                                     "100l",
                                     "190l",
+                                    "189l",
                                     "145l"
                                 ]
                             },
@@ -142,6 +143,11 @@ var app = new Vue({
                                 name: "Bruhm", sizes: [
                                     "100l",
                                     "200l"
+                                ]
+                            },
+                            {
+                                name: "Nexus", sizes: [
+                                    "200l",
                                 ]
                             }
                         ]
@@ -182,6 +188,7 @@ var app = new Vue({
                                     "100l",
                                     "165l",
                                     "250l",
+                                    "205l",
                                     "150L",
                                     "130L",
                                     "92L",
@@ -557,9 +564,8 @@ var app = new Vue({
                                     "Hot 10 lite",
                                     "Hot 10 lite 2gb",
                                     "Note 7 lite 4gb",
-
-
-
+                                    "Note 7 lite 4gb",
+                                    "Smart 5 2gb",
                                 ]
                             },
                             {
@@ -634,6 +640,7 @@ var app = new Vue({
                                     "A56- Pro",
                                     "S16- 1GB",
                                     "S16- 2GB",
+                                    "S16 pro-2GB",
                                 ]
                             },
                             {
